@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
-import { api } from '../../enviroments/enviroment';
 import { Persona } from '../interfaces/persona';
+import { api } from '../../enviroments/enviroment';
+
 
 @Injectable({
   providedIn: 'root'
