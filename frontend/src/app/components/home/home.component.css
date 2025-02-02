@@ -1,0 +1,14 @@
+.logo{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 323px;
+    height: 323px;
+    background-image:url("../../../logoSIGIPRO.png") ;
+    background-repeat: no-repeat;
+    
+}
+.title{
+    margin-top: 50px;
+    text-align: center;
+}
