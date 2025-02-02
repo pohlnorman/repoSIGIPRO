@@ -2,4 +2,16 @@
 # Node
 /node_modules
 
+# TypeScript build info
 .angular/
+
+# Compiled output
+dist/
+build/
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env
