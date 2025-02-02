@@ -2,3 +2,17 @@
 # Node
 /node_modules
 
+# TypeScript build info
+*.tsbuildinfo
+
+# Compiled output
+dist/
+build/
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env
+
