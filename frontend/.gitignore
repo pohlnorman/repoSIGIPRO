@@ -3,7 +3,7 @@
 /node_modules
 
 # TypeScript build info
-*.tsbuildinfo
+.angular/
 
 # Compiled output
 dist/
