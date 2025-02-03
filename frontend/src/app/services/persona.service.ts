@@ -22,4 +22,8 @@ export class PersonaService {
     this.log("GET " + api.host + api.personas);
     return this.http.get<Persona[]>(api.host + api.personas);
   }
+
+  agregarPersona(persona: Persona): Observable<void>{
+    return this.http.post<void>(api.host + '/persona/agregar', persona);
+  }
 }

@@ -10,6 +10,7 @@ import { ListaPersonaComponent } from './components/personas/lista-persona/lista
 import { AgregarPersonaComponent } from './components/personas/agregar-persona/agregar-persona.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ListaPersonaComponent,
     AgregarPersonaComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
