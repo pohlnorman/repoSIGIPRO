@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'ver-lista-personas', component: ListaPersonaComponent},
   { path: 'agregar-persona',component:AgregarPersonaComponent},
+  { path: 'editar/:id', component:AgregarPersonaComponent },
   { path: '**', redirectTo: '',pathMatch:'full' }
 ];
 

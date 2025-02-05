@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from '../../../interfaces/persona';
 import { PersonaService } from '../../../services/persona.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-agregar-persona',
@@ -14,13 +15,27 @@ import Swal from 'sweetalert2';
 })
 export class AgregarPersonaComponent {
   form: FormGroup;
+  id: number;
+  tilulo: string = 'Agregar ';
 
-  constructor(private fb: FormBuilder, private personaService: PersonaService, private router: Router) {
+  constructor(private fb: FormBuilder, private personaService: PersonaService,
+    private router: Router, private aRouter: ActivatedRoute) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       rut: ['', Validators.required]
     })
+    this.id = Number(aRouter.snapshot.paramMap.get('id'));
+    console.log(this.id)
+  }
+
+  ngOnInit(): void{
+    if (this.id != 0) {
+      //es editar
+      this.tilulo = 'Editar ';
+      this.obtenerPersona(this.id);
+    }
+    
   }
 
   agregarPersona(){
@@ -39,6 +54,17 @@ export class AgregarPersonaComponent {
         timer: 1500
       });
       this.router.navigate(['/ver-lista-personas'])
+    })
+  }
+
+  obtenerPersona(id: number){
+    this.personaService.obtenerPersona(id).subscribe((data:Persona)=>{
+      console.log(data);
+      this.form.setValue({
+        nombre: data.nombre,
+        apellido: data.apellido,
+        rut: data.rut
+      })
     })
   }
 }

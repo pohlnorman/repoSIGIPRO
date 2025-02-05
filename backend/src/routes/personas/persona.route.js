@@ -16,7 +16,8 @@ router.post('/persona/agregar',async(req,res)=>{
     const nuevaPersona = await Persona.create({
         nombre,
         apellido,
-        rut
+        rut,
+        //estado: false
     });
     res.status(200).json({ message: 'Persona ingresada exitosamente' });
 });

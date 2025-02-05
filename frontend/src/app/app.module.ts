@@ -11,6 +11,7 @@ import { AgregarPersonaComponent } from './components/personas/agregar-persona/a
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
+import { DataTablesModule } from 'angular-datatables'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
     
   ],
   providers: [
