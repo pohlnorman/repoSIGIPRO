@@ -11,7 +11,12 @@ import { AgregarPersonaComponent } from './components/personas/agregar-persona/a
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
-import { DataTablesModule } from 'angular-datatables'
+import { DataTablesModule } from 'angular-datatables';
+import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
+import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -20,7 +25,9 @@ import { DataTablesModule } from 'angular-datatables'
     AgregarPersonaComponent,
     HomeComponent,
     NavbarComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ListaContratosComponent,
+    CrearContratoComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@ import { sequelize } from '../../../database/connection.js';
 import { Contrato } from '../contratos/contrato.model.js';
 
 export const Persona = sequelize.define('personas',{
-    idPersona:{
+    id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -19,6 +19,10 @@ export const Persona = sequelize.define('personas',{
     rut:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    estado:{
+        type: DataTypes.TINYINT,
+        allowNull: false
     }
 },{
     createdAt: false,
@@ -26,11 +30,11 @@ export const Persona = sequelize.define('personas',{
 });
 
 Persona.hasMany(Contrato,{
-    foreignKey:'personas_idPersona',
-    sourceKey: 'idPersona'
+    foreignKey:'idPersona', //nombre fk
+    sourceKey: 'id'//id de persona
 });
 
 Contrato.belongsTo(Persona,{
-    foreignKey:'personas_idPersona',
-    targetId: 'idContrato'
+    foreignKey:'idPersona', //nombre fk
+    targetId: 'id'// id de contrato
 })

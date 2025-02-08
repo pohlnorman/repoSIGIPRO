@@ -1,6 +1,7 @@
 export interface Persona {
-    idPersona?: number;
+    id?: number;
     nombre: string;
     apellido: string;
     rut: string
+    estado: number
 }

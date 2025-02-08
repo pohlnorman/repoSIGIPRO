@@ -9,7 +9,7 @@ export const Contrato = sequelize.define('Contratos', {
         autoIncrement: true
     },
     fechaInicio:{
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
     }
 },{
     createdAt: false,

@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import { sequelize } from './database/connection.js';
 import personaRoute from './src/routes/personas/persona.route.js';
+import contratoRoute from './src/routes/contratos/contrato.route.js';
 import { Persona } from './src/models/personas/persona.model.js';
 
 // Cargar variables de entorno antes de usarlas
@@ -30,11 +31,12 @@ app.use(express.json());
 
 //---USAR MODULOS Y ORGANIZAR LAS RUTAS DE LA APP---
 app.use(personaRoute)
+app.use(contratoRoute)
 
 //Aqui iniciamos el servidor
 async function main() {
     try {
-        await sequelize.sync();
+        await sequelize.sync({ force: true });
         console.log("---Tablas sincronizadas---");
         app.listen(PORT, () => console.log(`---Servidor corriendo en http://localhost:${PORT}---`));
         

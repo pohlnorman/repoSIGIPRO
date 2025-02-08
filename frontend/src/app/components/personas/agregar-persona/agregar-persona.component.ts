@@ -42,7 +42,8 @@ export class AgregarPersonaComponent {
     const persona: Persona = {
       nombre: this.form.get('nombre')?.value,
       apellido: this.form.get('apellido')?.value,
-      rut: this.form.get('rut')?.value
+      rut: this.form.get('rut')?.value,
+      estado: 0
     }
     
     this.personaService.agregarPersona(persona).subscribe(()=>{

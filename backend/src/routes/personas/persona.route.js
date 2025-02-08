@@ -9,6 +9,16 @@ router.get('/personas',async(req,res)=>{
     res.json(listaPersonas)
 });
 
+// ✅ Obtener todas las personas contratadas
+router.get('/personas/contrato',async(req,res)=>{
+    const listaPersonas = await Persona.findAll({
+        where:{
+            estado: 1
+        }
+    })
+    res.json(listaPersonas)
+});
+
 // ✅ Agregar persona
 router.post('/persona/agregar',async(req,res)=>{
     const {nombre, apellido,rut} = req.body;
@@ -17,7 +27,7 @@ router.post('/persona/agregar',async(req,res)=>{
         nombre,
         apellido,
         rut,
-        //estado: false
+        estado: 0
     });
     res.status(200).json({ message: 'Persona ingresada exitosamente' });
 });
