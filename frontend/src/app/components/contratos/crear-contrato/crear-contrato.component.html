@@ -1,1 +1,33 @@
-<p>crear-contrato works!</p>
+<div class="row mt-3">
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="card bg-light  mb-3" style="max-width: 25rem;">
+            <div class="card-header text-center">Crear contrato de trabajo</div>
+            <div class="card-body">
+                <div *ngIf="persona">
+                    <p><strong>Nombre:</strong> {{ persona.nombre }}</p>
+                    <p><strong>Apellido:</strong> {{ persona.apellido }}</p>
+                    <p><strong>RUT:</strong> {{ persona.rut }}</p>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="registrarContrato()">
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                        <input type="date" id="fechaInicio" class="form-control" formControlName="fechaInicio">
+                    </div>
+                    
+                    <div class="row mt-2 text-center">
+                        <div class="col-lg-6">
+                            <button routerLink="/ver-lista-personas" type="button" class="btn btn-secondary">Volver</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-primary">Crear contrato</button>
+                        </div>
+                    </div>
+                    
+                    
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

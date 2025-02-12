@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AgregarPersonaComponent } from './components/personas/agregar-persona/agregar-persona.component';
 import { ListaPersonaComponent } from './components/personas/lista-persona/lista-persona.component'
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
+import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'contratos',component:ListaContratosComponent},
   { path: 'agregar-persona',component:AgregarPersonaComponent},
   { path: 'editar/:id', component:AgregarPersonaComponent },
+  { path: 'crear-contrato/:rut', component:CrearContratoComponent },
   { path: '**', redirectTo: '',pathMatch:'full' }
 ];
 

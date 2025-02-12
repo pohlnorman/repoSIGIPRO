@@ -31,6 +31,10 @@ export class PersonaService {
     return this.http.get<Persona>(api.host + '/persona/' + id);
   }
 
+  obtenerPersonaRut(rut: string):Observable<Persona>{
+    return this.http.get<Persona>(api.host + '/persona/contratar/' + rut);
+  }
+
   actualizarPersona(id: number, persona: Persona): Observable<void>{
     return this.http.put<void>(api.host + '/persona/' + id,persona)
   }

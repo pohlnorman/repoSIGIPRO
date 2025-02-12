@@ -10,7 +10,7 @@ router.get('/contratos',async(req,res)=>{
     res.json(listaContratos)
 });
 
-// ✅ Obtener datos de una persona por ID
+// ✅ Obtener datos de una persona por rut
 router.get('/persona/contratar/:rut',async(req,res)=>{
     try {
         const {rut} = req.params;

@@ -21,7 +21,7 @@
                 <td>{{ persona.rut }}</td>
                 <td>
                     <button routerLink="/editar/{{persona.id}}" type="button" class="btn btn-success">Editar</button>
-                    <button type="button" class="btn btn-warning ms-2">Contratar</button>
+                    <button routerLink="/crear-contrato/{{persona.rut}}" type="button" class="btn btn-warning ms-2">Contratar</button>
                 </td>
             </tr>
         </tbody>
