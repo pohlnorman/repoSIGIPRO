@@ -29,12 +29,6 @@ export const Persona = sequelize.define('personas',{
     updatedAt: false
 });
 
-Persona.hasMany(Contrato,{
-    foreignKey:'idPersona', //nombre fk
-    sourceKey: 'id'//id de persona
-});
+Persona.hasMany(Contrato);
 
-Contrato.belongsTo(Persona,{
-    foreignKey:'idPersona', //nombre fk
-    targetId: 'id'// id de contrato
-})
+Contrato.belongsTo(Persona)

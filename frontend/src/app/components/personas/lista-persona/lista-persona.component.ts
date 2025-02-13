@@ -36,4 +36,8 @@ export class ListaPersonaComponent {
       this.dtTrigger.next(null);
     })
   }
+  estadoPersona(estado: number): string {
+    return estado === 1 ? 'Con contrato' : 'Sin contrato';
+  }
+  
 }
