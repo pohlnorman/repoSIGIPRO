@@ -38,6 +38,15 @@ async function main() {
     try {
         await sequelize.sync({ force: true });
         console.log("---Tablas sincronizadas---");
+
+        // Insertar datos
+        await Persona.bulkCreate([
+            { nombre: 'Juan', apellido: 'Pérez', rut: '12345678-9', estado: 0 },
+            { nombre: 'María', apellido: 'González', rut: '98765432-1', estado: 0 },
+            { nombre: 'Pedro', apellido: 'López', rut: '11223344-5', estado: 0 }
+        ]);
+        console.log('Datos insertados correctamente');
+
         app.listen(PORT, () => console.log(`---Servidor corriendo en http://localhost:${PORT}---`));
         
     } catch (error) {

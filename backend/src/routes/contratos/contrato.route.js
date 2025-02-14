@@ -8,7 +8,10 @@ const router = express.Router();
 
 // ✅ Obtener todos los contratos
 router.get('/contratos',async(req,res)=>{
-    const listaContratos = await Contrato.findAll({include: Persona})
+    const listaContratos = await Contrato.findAll({
+        where: { estado: 1 },
+        include: Persona
+    });
     res.json(listaContratos)
 });
 

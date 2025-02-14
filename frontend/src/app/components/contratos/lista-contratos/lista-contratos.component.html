@@ -20,7 +20,7 @@
                 <td>{{ contrato.fechaInicio }}</td>
                 <td>
                     <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success">Crear anexo</button>
-                    <button routerLink="/contrato/:id/anexo/" type="button" class="btn btn-warning ms-2">Crear finiquito</button>
+                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button" class="btn btn-warning ms-2">Crear finiquito</button>
                 </td>
             </tr>
         </tbody>

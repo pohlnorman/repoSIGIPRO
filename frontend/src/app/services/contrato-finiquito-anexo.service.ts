@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Contrato } from '../interfaces/contrato';
 import { Persona } from '../interfaces/persona';
 import { Anexo } from '../interfaces/anexo';
+import { Finiquito } from '../interfaces/finiquito';
 
 
 @Injectable({
@@ -35,5 +36,9 @@ export class ContratoFiniquitoAnexoService {
 
   crearAnexo(anexo: Anexo, id: number): Observable<void>{
     return this.http.post<void>(api.host + '/contrato/' + id + '/anexo', anexo);
+  }
+
+  crearFiniquito(finiquito: Finiquito, id: number): Observable<void>{
+    return this.http.post<void>(api.host + '/contrato/finiquito/' + id,finiquito)
   }
 }

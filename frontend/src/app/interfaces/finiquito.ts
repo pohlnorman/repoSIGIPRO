@@ -4,6 +4,6 @@ export interface Finiquito {
     id?: number;
     fechaFiniquito: string;
     estado: number;
-    ContratoId: number;
+    contratoId: number;
     contrato: Contrato
 }

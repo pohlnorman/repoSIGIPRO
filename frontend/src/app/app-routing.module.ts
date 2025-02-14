@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'editar/:id', component:AgregarPersonaComponent },
   { path: 'crear-contrato/:rut', component:CrearContratoComponent },
   { path: 'contrato/:id/anexo', component:CrearAnexoComponent},
-  { path: 'contrato/:id/finiquito', component:CrearFiniquitoComponent},
+  { path: 'contrato/finiquito/:id', component:CrearFiniquitoComponent},
   { path: '**', redirectTo: '',pathMatch:'full' }
 ];
 
