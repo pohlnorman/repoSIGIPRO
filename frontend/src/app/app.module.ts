@@ -14,6 +14,8 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
 import { DataTablesModule } from 'angular-datatables';
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
+import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
+import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
 
 
 
@@ -28,6 +30,8 @@ import { CrearContratoComponent } from './components/contratos/crear-contrato/cr
     ProgressBarComponent,
     ListaContratosComponent,
     CrearContratoComponent,
+    CrearFiniquitoComponent,
+    CrearAnexoComponent,
   ],
   imports: [
     BrowserModule,

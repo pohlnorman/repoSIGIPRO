@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title">
-        <h4>Lista de personas registradas</h4>
+        <h4>Lista de contratos</h4>
         <button type="button" class="btn btn-primary" routerLink="/ver-lista-personas">Volver</button>
     </div>
     
@@ -19,8 +19,8 @@
                 <td>{{ contrato.persona.rut }}</td>
                 <td>{{ contrato.fechaInicio }}</td>
                 <td>
-                    <button routerLink="/editar/" type="button" class="btn btn-success">Crear anexo</button>
-                    <button type="button" class="btn btn-warning ms-2">Crear finiquito</button>
+                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success">Crear anexo</button>
+                    <button routerLink="/contrato/:id/anexo/" type="button" class="btn btn-warning ms-2">Crear finiquito</button>
                 </td>
             </tr>
         </tbody>

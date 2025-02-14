@@ -4,6 +4,7 @@ import { api } from '../../enviroments/enviroment';
 import { Observable } from 'rxjs';
 import { Contrato } from '../interfaces/contrato';
 import { Persona } from '../interfaces/persona';
+import { Anexo } from '../interfaces/anexo';
 
 
 @Injectable({
@@ -26,5 +27,13 @@ export class ContratoFiniquitoAnexoService {
 
   crearContrato(contrato: Contrato,rut: string): Observable<void>{
     return this.http.post<void>(api.host + '/persona/contratar/' + rut, contrato);
+  }
+
+  obtenerContratoId(id: number):Observable<Contrato>{
+    return this.http.get<Contrato>(api.host + '/contrato/finiquito/' + id);
+  }
+
+  crearAnexo(anexo: Anexo, id: number): Observable<void>{
+    return this.http.post<void>(api.host + '/contrato/' + id + '/anexo', anexo);
   }
 }

@@ -28,7 +28,7 @@ export class CrearContratoComponent {
     this.form = this.fb.group({
       
       fechaInicio: ['', Validators.required],
-    })
+    });
     
   }
 
@@ -50,11 +50,11 @@ export class CrearContratoComponent {
     if (this.form.valid && this.persona) {
       const contrato: Contrato = {
         fechaInicio: this.form.value.fechaInicio,
-        idPersona: this.persona.id!,
+        personaId: this.persona.id!,
+        estado:1,
         persona: this.persona,
-        
       };
-      console.log('idpersona:' + contrato.idPersona)
+      console.log('idpersona:' + contrato.personaId)
       console.log(contrato)
       this.contratoService.crearContrato(contrato, this.persona.rut).subscribe(
         () => {

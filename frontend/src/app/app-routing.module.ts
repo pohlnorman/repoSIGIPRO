@@ -5,6 +5,8 @@ import { AgregarPersonaComponent } from './components/personas/agregar-persona/a
 import { ListaPersonaComponent } from './components/personas/lista-persona/lista-persona.component'
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
+import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
+import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'agregar-persona',component:AgregarPersonaComponent},
   { path: 'editar/:id', component:AgregarPersonaComponent },
   { path: 'crear-contrato/:rut', component:CrearContratoComponent },
+  { path: 'contrato/:id/anexo', component:CrearAnexoComponent},
+  { path: 'contrato/:id/finiquito', component:CrearFiniquitoComponent},
   { path: '**', redirectTo: '',pathMatch:'full' }
 ];
 

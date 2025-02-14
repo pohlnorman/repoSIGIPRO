@@ -3,7 +3,8 @@ import { Persona } from "./persona";
 export interface Contrato {
     id?: number;
     fechaInicio: string;
-    idPersona: number;
+    estado: number;
+    personaId: number;
     persona: Persona
 }
 

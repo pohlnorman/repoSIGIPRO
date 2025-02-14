@@ -57,7 +57,9 @@ router.get('/contrato/finiquito/:id',async(req,res)=>{
         }
 
         // Buscar persona por ID
-        const contrato = await Contrato.findByPk(id);
+        const contrato = await Contrato.findByPk(id,{
+            include:[{model:Persona}]
+        });
 
         if (!contrato) {
             return res.status(404).json({ mensaje: "Contrato no encontrado" });
@@ -69,7 +71,7 @@ router.get('/contrato/finiquito/:id',async(req,res)=>{
     }
 });
 
-// ✅ Agregar finiquito por id de contrato
+// ✅ crear finiquito por id de contrato
 router.post('/contrato/finiquito/:id',async(req,res)=>{
     const {id} = req.params;
 
