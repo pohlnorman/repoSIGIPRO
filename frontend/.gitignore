@@ -14,4 +14,4 @@ logs
 *.log
 
 # Environment variables
-/src/enviroments
+#/src/enviroments
