@@ -23,8 +23,8 @@ export class PersonaService {
     return this.http.get<Persona[]>(api.host + api.personas);
   }
 
-  agregarPersona(persona: Persona): Observable<void>{
-    return this.http.post<void>(api.host + '/persona/agregar', persona);
+  agregarPersona(persona: Persona): Observable<Persona>{
+    return this.http.post<Persona>(api.host + '/persona/agregar', persona);
   }
 
   obtenerPersona(id: number):Observable<Persona>{
@@ -35,7 +35,7 @@ export class PersonaService {
     return this.http.get<Persona>(api.host + '/persona/contratar/' + rut);
   }
 
-  actualizarPersona(id: number, persona: Persona): Observable<void>{
-    return this.http.put<void>(api.host + '/persona/' + id,persona)
+  actualizarPersona(id: number, persona: Persona): Observable<Persona>{
+    return this.http.put<Persona>(api.host + '/persona/' + id,persona)
   }
 }

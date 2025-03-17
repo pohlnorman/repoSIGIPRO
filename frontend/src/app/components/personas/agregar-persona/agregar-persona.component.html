@@ -3,7 +3,7 @@
         <div class="card bg-light  mb-3" style="max-width: 25rem;">
             <div class="card-header text-center">{{tilulo}}persona</div>
             <div class="card-body">
-                <form [formGroup]="form" (ngSubmit)="agregarPersona()">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input formControlName="nombre" type="text" class="form-control" placeholder="Ingrese nombre">
@@ -18,13 +18,14 @@
                         <label class="form-label">Rut</label>
                         <input formControlName="rut" type="text" class="form-control" placeholder="Ingrese rut">
                         <span *ngIf="form.get('rut')?.hasError('required') && form.get('rut')?.touched">El campo rut es <strong>requerido</strong></span>
+                        <span *ngIf="form.get('rut')?.hasError('rutInvalido') && form.get('rut')?.touched"> Formato <strong>incorrecto.</strong></span>
                     </div>
                     <div class="row mt-2 text-center">
                         <div class="col-lg-6">
                             <button routerLink="/ver-lista-personas" type="button" class="btn btn-secondary">Volver</button>
                         </div>
                         <div class="col-lg-6">
-                            <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Agregar</button>
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
                     
