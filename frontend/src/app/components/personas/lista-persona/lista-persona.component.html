@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title">
-        <h4>Lista de personas registradas</h4>
+        <h4>Personas registradas</h4>
         <button type="button" class="btn btn-primary" routerLink="/agregar-persona">Agregar persona</button>
     </div>
     
@@ -8,7 +8,6 @@
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
                 <th scope="col">Rut</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Accion</th>
@@ -16,13 +15,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let persona of listaPersonas">
-                <td>{{ persona.nombre }}</td>
-                <td>{{ persona.apellido }}</td>
+                <td>{{ persona.nombre }} {{ persona.apellido }}</td>
                 <td>{{ persona.rut }}</td>
                 <td>{{ estadoPersona(persona.estado) }}</td>
                 <td>
-                    <button routerLink="/editar/{{persona.id}}" type="button" class="btn btn-success">Editar</button>
-                    <button routerLink="/crear-contrato/{{persona.rut}}" type="button" class="btn btn-warning ms-2">Contratar</button>
+                    <button routerLink="/editar/{{persona.id}}" type="button" class="btn btn-success btn-sm">Editar</button>
+                    <button routerLink="/crear-contrato/{{persona.rut}}" type="button" class="btn btn-warning ms-2 btn-sm">Contratar</button>
                 </td>
             </tr>
         </tbody>
