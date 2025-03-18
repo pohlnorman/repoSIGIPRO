@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { data } from 'jquery';
 import { rutValidator } from '../../../utils/rutValidator';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-agregar-persona',
@@ -20,7 +21,7 @@ export class AgregarPersonaComponent {
   tilulo: string = 'Agregar';
 
   constructor(private fb: FormBuilder, private personaService: PersonaService,
-    private router: Router, private aRouter: ActivatedRoute) {
+    private router: Router, private aRouter: ActivatedRoute,private _location: Location) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -104,5 +105,8 @@ export class AgregarPersonaComponent {
     }else{
       this.actualizarPersona()
     }
+  }
+  backClicked() {
+    this._location.back();
   }
 }
