@@ -48,7 +48,7 @@ export class AgregarPersonaComponent {
       estado: 0
     }
     
-    this.personaService.agregarPersona(persona).subscribe(()=>{
+    this.personaService.create(persona).subscribe(()=>{
       Swal.fire({
         position: "bottom-end",
         icon: "success",
@@ -61,7 +61,7 @@ export class AgregarPersonaComponent {
   }
 
   obtenerPersona(id: number){
-    this.personaService.obtenerPersona(id).subscribe((data:Persona)=>{
+    this.personaService.findById(id).subscribe((data:Persona)=>{
       console.log(data);
       this.form.setValue({
         nombre: data.nombre,
@@ -78,7 +78,7 @@ export class AgregarPersonaComponent {
       estado: 0
     }
     
-    this.personaService.actualizarPersona(this.id,persona).subscribe(()=>{
+    this.personaService.update(this.id,persona).subscribe(()=>{
       Swal.fire({
         position: "bottom-end",
         icon: "success",
@@ -91,7 +91,7 @@ export class AgregarPersonaComponent {
   }
   async onSubmit(){
     if(this.id==0){
-      this.personaService.obtenerPersonaRut(this.form.get('rut')?.value).subscribe({
+      this.personaService.findByRut(this.form.get('rut')?.value).subscribe({
         next: (p) => {Swal.fire({
           position: "bottom-end",
           icon: "error",

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contrato } from '../../../interfaces/contrato';
-import { ContratoFiniquitoAnexoService } from '../../../services/contrato-finiquito-anexo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Finiquito } from '../../../interfaces/finiquito';
 import Swal from 'sweetalert2';
+import { ContratoService } from '../../../services/contrato.service';
+import { FiniquitoService } from '../../../services/finiquito.service';
 
 @Component({
   selector: 'app-crear-finiquito',
@@ -19,7 +20,8 @@ export class CrearFiniquitoComponent {
 
   constructor(
     private fb: FormBuilder,
-    private contratoService: ContratoFiniquitoAnexoService,
+    private finiquitoService: FiniquitoService,
+    private contratoService: ContratoService,
     private aRouter: ActivatedRoute,
     private router: Router,
   ) {
@@ -34,7 +36,7 @@ export class CrearFiniquitoComponent {
     console.log(id)
 
     if (id) {
-      this.contratoService.obtenerContratoId(id).subscribe((data: Contrato) => {
+      this.contratoService.findById(id).subscribe((data: Contrato) => {
         console.log(data)
         this.contrato = data;
       });
@@ -49,7 +51,7 @@ export class CrearFiniquitoComponent {
         estado: 1,
         contrato: this.contrato,
       };
-      this.contratoService.crearFiniquito(finiquito, this.contrato.id!).subscribe(
+      this.finiquitoService.create(finiquito, this.contrato.id!).subscribe(
         () => {
           Swal.fire({
             position: "center",

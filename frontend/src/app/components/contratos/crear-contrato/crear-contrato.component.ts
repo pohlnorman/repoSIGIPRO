@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ContratoFiniquitoAnexoService } from '../../../services/contrato-finiquito-anexo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contrato } from '../../../interfaces/contrato';
 import { Persona } from '../../../interfaces/persona';
 import { PersonaService } from '../../../services/persona.service';
 import Swal from 'sweetalert2';
+import { ContratoService } from '../../../services/contrato.service';
 
 @Component({
   selector: 'app-crear-contrato',
@@ -21,7 +21,7 @@ export class CrearContratoComponent {
 
   constructor(
     private fb: FormBuilder,
-    private contratoService: ContratoFiniquitoAnexoService,
+    private contratoService: ContratoService,
     private personaService: PersonaService,
     private router: Router,
     private aRouter: ActivatedRoute
@@ -37,7 +37,7 @@ export class CrearContratoComponent {
     const rut = this.aRouter.snapshot.paramMap.get('rut');
 
     if (rut) {
-      this.personaService.obtenerPersonaRut(rut).subscribe((data: Persona) => {
+      this.personaService.findByRut(rut).subscribe((data: Persona) => {
         console.log(data)
         this.persona = data;
       }
@@ -57,7 +57,7 @@ export class CrearContratoComponent {
       };
       console.log('idpersona:' + contrato.personaId)
       console.log(contrato)
-      this.contratoService.crearContrato(contrato, this.persona.rut).subscribe(
+      this.contratoService.create(contrato, this.persona.rut).subscribe(
         () => {
           Swal.fire({
             position: "center",

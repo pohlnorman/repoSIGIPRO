@@ -10,7 +10,7 @@ router.get('/personas',async(req,res)=>{
 });
 
 // ✅ Obtener todas las personas contratadas
-router.get('/personas/contrato',async(req,res)=>{
+router.get('/personas/hired',async(req,res)=>{
     const listaPersonas = await Persona.findAll({
         where:{
             estado: 1
@@ -20,7 +20,7 @@ router.get('/personas/contrato',async(req,res)=>{
 });
 
 // ✅ Agregar persona
-router.post('/persona/agregar',async(req,res)=>{
+router.post('/persona',async(req,res)=>{
     const {nombre, apellido,rut} = req.body;
 
     // Buscar persona por rut

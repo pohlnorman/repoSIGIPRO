@@ -31,7 +31,7 @@ export class ListaPersonaComponent {
   }
 
   getListaPersonas(){
-    this.personaService.getListaPersonas().subscribe((data) =>{
+    this.personaService.findAll().subscribe((data) =>{
       this.listaPersonas = data;
       this.dtTrigger.next(null);
     })

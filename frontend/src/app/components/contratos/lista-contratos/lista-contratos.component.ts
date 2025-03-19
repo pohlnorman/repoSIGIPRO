@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Contrato } from '../../../interfaces/contrato';
-import { ContratoFiniquitoAnexoService } from '../../../services/contrato-finiquito-anexo.service';
 import { Config } from 'datatables.net';
 import { Subject } from 'rxjs';
+import { ContratoService } from '../../../services/contrato.service';
 
 @Component({
   selector: 'app-lista-contratos',
@@ -15,7 +15,7 @@ export class ListaContratosComponent {
   listaContratos: Contrato[] = []
   
 
-  constructor( private contratoService: ContratoFiniquitoAnexoService) { }
+  constructor( private contratoService: ContratoService) { }
 
   dtOptions: Config = {};
   dtTrigger:Subject<any>=new Subject<any>();
@@ -31,7 +31,7 @@ export class ListaContratosComponent {
   }
 
   getListaContratos(){
-    this.contratoService.getListaContratos().subscribe((data) =>{
+    this.contratoService.findAllActive().subscribe((data) =>{
       this.listaContratos = data
       this.dtTrigger.next(null);
     })

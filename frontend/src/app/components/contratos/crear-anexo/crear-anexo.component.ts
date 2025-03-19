@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contrato } from '../../../interfaces/contrato';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ContratoFiniquitoAnexoService } from '../../../services/contrato-finiquito-anexo.service';
 import { Anexo } from '../../../interfaces/anexo';
 import Swal from 'sweetalert2';
+import { AnexoService } from '../../../services/anexo.service';
+import { ContratoService } from '../../../services/contrato.service';
 
 @Component({
   selector: 'app-crear-anexo',
@@ -19,7 +20,8 @@ export class CrearAnexoComponent {
 
   constructor(
     private fb: FormBuilder,
-    private contratoService: ContratoFiniquitoAnexoService,
+    private anexoService: AnexoService,
+    private contratoService: ContratoService,
     private aRouter: ActivatedRoute,
     private router: Router,
   ) {
@@ -34,7 +36,7 @@ export class CrearAnexoComponent {
     console.log(id)
 
     if (id) {
-      this.contratoService.obtenerContratoId(id).subscribe((data: Contrato) => {
+      this.contratoService.findById(id).subscribe((data: Contrato) => {
         console.log(data)
         this.contrato = data;
       });
@@ -49,7 +51,7 @@ export class CrearAnexoComponent {
         estado: 1,
         contrato: this.contrato,
       };
-      this.contratoService.crearAnexo(anexo, this.contrato.id!).subscribe(
+      this.anexoService.create(anexo, this.contrato.id!).subscribe(
         () => {
           Swal.fire({
             position: "center",

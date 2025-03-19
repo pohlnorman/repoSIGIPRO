@@ -7,7 +7,7 @@ import { Anexo } from '../../models/contratos/anexo.model.js';
 const router = express.Router();
 
 // ✅ Obtener todos los contratos
-router.get('/contratos',async(req,res)=>{
+router.get('/contratos/findAllActive',async(req,res)=>{
     const listaContratos = await Contrato.findAll({
         where: { estado: 1 },
         include: Persona
@@ -16,7 +16,7 @@ router.get('/contratos',async(req,res)=>{
 });
 
 // ✅ Obtener datos de una persona por rut
-router.get('/persona/contratar/:rut',async(req,res)=>{
+router.get('/persona/findByRut/:rut',async(req,res)=>{
     try {
         const {rut} = req.params;
         
@@ -34,7 +34,7 @@ router.get('/persona/contratar/:rut',async(req,res)=>{
 });
 
 // ✅ Agregar contrato
-router.post('/persona/contratar/:rut',async(req,res)=>{
+router.post('/persona/:rut/contrato',async(req,res)=>{
     const {fechaInicio} = req.body;
 
     // Buscar el usuario por rut
@@ -50,7 +50,7 @@ router.post('/persona/contratar/:rut',async(req,res)=>{
 });
 
 // ✅ Obtener contrato por id
-router.get('/contrato/finiquito/:id',async(req,res)=>{
+router.get('/contrato/:id',async(req,res)=>{
     try {
         const {id} = req.params;
 
@@ -75,7 +75,7 @@ router.get('/contrato/finiquito/:id',async(req,res)=>{
 });
 
 // ✅ crear finiquito por id de contrato
-router.post('/contrato/finiquito/:id',async(req,res)=>{
+router.post('/contrato/:id/finiquito',async(req,res)=>{
     const {id} = req.params;
 
     const {fechaFiniquito} = req.body;

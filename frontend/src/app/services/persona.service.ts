@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Persona } from '../interfaces/persona';
 import { api } from '../../enviroments/enviroment';
@@ -12,30 +12,27 @@ export class PersonaService {
 
   constructor(private http: HttpClient) { }
 
-  private log(msg: string) {
-    if (isDevMode()) {
-      console.log(msg);
-    }
-  }
-
-  getListaPersonas(): Observable<Persona[]>{
-    this.log("GET " + api.host + api.personas);
+  findAll(): Observable<Persona[]> {
     return this.http.get<Persona[]>(api.host + api.personas);
   }
 
-  agregarPersona(persona: Persona): Observable<Persona>{
-    return this.http.post<Persona>(api.host + '/persona/agregar', persona);
+  findAllHired(): Observable<Persona[]> {
+    return this.http.get<Persona[]>(api.host + api.personas + "/hired");
   }
 
-  obtenerPersona(id: number):Observable<Persona>{
-    return this.http.get<Persona>(api.host + '/persona/' + id);
+  findById(id: number): Observable<Persona> {
+    return this.http.get<Persona>(api.host + api.persona + '/' + id);
   }
 
-  obtenerPersonaRut(rut: string):Observable<Persona>{
-    return this.http.get<Persona>(api.host + '/persona/contratar/' + rut);
+  findByRut(rut: string): Observable<Persona> {
+    return this.http.get<Persona>(api.host + api.persona + '/findByRut/' + rut);
   }
 
-  actualizarPersona(id: number, persona: Persona): Observable<Persona>{
-    return this.http.put<Persona>(api.host + '/persona/' + id,persona)
+  create(persona: Persona): Observable<Persona> {
+    return this.http.post<Persona>(api.host + api.persona, persona);
+  }
+
+  update(id: number, persona: Persona): Observable<Persona> {
+    return this.http.put<Persona>(api.host + api.persona + '/' + id, persona)
   }
 }
