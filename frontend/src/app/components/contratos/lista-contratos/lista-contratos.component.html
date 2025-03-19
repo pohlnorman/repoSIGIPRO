@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title">
-        <h4>Lista de contratos</h4>
+        <h4>Contratos vigentes</h4>
         <button type="button" class="btn btn-primary" routerLink="/ver-lista-personas">Volver</button>
     </div>
     
@@ -17,10 +17,10 @@
             <tr *ngFor="let contrato of listaContratos">
                 <td>{{ contrato.persona.nombre }} {{ contrato.persona.apellido }}</td>
                 <td>{{ contrato.persona.rut }}</td>
-                <td>{{ contrato.fechaInicio }}</td>
+                <td>{{ contrato.fechaInicio | date:"dd-MM-y"}}</td>
                 <td>
-                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success">Crear anexo</button>
-                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button" class="btn btn-warning ms-2">Crear finiquito</button>
+                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success btn-sm">Crear anexo</button>
+                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button" class="btn btn-warning btn-sm ms-2">Crear finiquito</button>
                 </td>
             </tr>
         </tbody>

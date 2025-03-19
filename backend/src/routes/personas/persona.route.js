@@ -10,7 +10,7 @@ router.get('/personas',async(req,res)=>{
 });
 
 // ✅ Obtener todas las personas contratadas
-router.get('/personas/contrato',async(req,res)=>{
+router.get('/personas/hired',async(req,res)=>{
     const listaPersonas = await Persona.findAll({
         where:{
             estado: 1
@@ -20,16 +20,21 @@ router.get('/personas/contrato',async(req,res)=>{
 });
 
 // ✅ Agregar persona
-router.post('/persona/agregar',async(req,res)=>{
+router.post('/persona',async(req,res)=>{
     const {nombre, apellido,rut} = req.body;
 
+    // Buscar persona por rut
+    const persona = await Persona.findOne({where:{rut}});
+    if(persona){
+        return res.status(400).json({ mensaje: "Rut ya existe" });
+    }
     const nuevaPersona = await Persona.create({
         nombre,
         apellido,
         rut,
         estado: 0
     });
-    res.status(200).json({ message: 'Persona ingresada exitosamente' });
+    res.status(200).json(nuevaPersona);
 });
 
 // ✅ Obtener datos de una persona por ID
@@ -71,11 +76,10 @@ router.put('/persona/:id',async(req,res)=>{
         if (!persona) {
             return res.status(404).json({ mensaje: "Persona no encontrada" });
         }
-
         // Realizar la actualización
-        await persona.update({ nombre, apellido, rut });
+        await persona.update({ nombre, apellido });
 
-    res.json({mensaje: "Persona actualizada correctamente", persona});
+    res.json(persona);
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }

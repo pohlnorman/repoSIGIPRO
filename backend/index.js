@@ -41,9 +41,9 @@ async function main() {
 
         // Insertar datos
         await Persona.bulkCreate([
-            { nombre: 'Juan', apellido: 'Pérez', rut: '12345678-9', estado: 0 },
-            { nombre: 'María', apellido: 'González', rut: '98765432-1', estado: 0 },
-            { nombre: 'Pedro', apellido: 'López', rut: '11223344-5', estado: 0 }
+            { nombre: 'Juan', apellido: 'Pérez', rut: '4927669-9', estado: 0 },
+            { nombre: 'María', apellido: 'González', rut: '14265525-k', estado: 0 },
+            { nombre: 'Pedro', apellido: 'López', rut: '21295958-8', estado: 0 }
         ]);
         console.log('Datos insertados correctamente');
 
