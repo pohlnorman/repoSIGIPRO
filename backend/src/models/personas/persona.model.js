@@ -23,6 +23,9 @@ export const Persona = sequelize.define('personas',{
     estado:{
         type: DataTypes.TINYINT,
         allowNull: false
+    },
+    examenVista:{
+        type: DataTypes.DATEONLY
     }
 },{
     createdAt: false,
