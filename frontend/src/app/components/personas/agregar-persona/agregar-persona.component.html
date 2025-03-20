@@ -5,20 +5,20 @@
             <div class="card-body">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
-                        <label class="form-label">Rut</label>
+                        <label class="form-label">Rut <span class="form-text">(Sin puntos con guion)</span> </label>
                         <input formControlName="rut" type="text" class="form-control" placeholder="Ingrese rut">
-                        <span *ngIf="form.get('rut')?.hasError('required') && form.get('rut')?.touched">El campo rut es <strong>requerido</strong></span>
-                        <span *ngIf="form.get('rut')?.hasError('rutInvalido') && form.get('rut')?.touched"> Formato <strong>incorrecto.</strong></span>
+                        <span *ngIf="form.get('rut')?.hasError('required') && form.get('rut')?.touched" class="text-danger">El campo rut es <strong>requerido.</strong></span>
+                        <span *ngIf="form.get('rut')?.hasError('rutInvalido') && form.get('rut')?.touched" class="text-danger"> Formato <strong>incorrecto.</strong></span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input formControlName="nombre" type="text" class="form-control" placeholder="Ingrese nombre">
-                        <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">El campo nombre es <strong>requerido</strong></span>
+                        <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched" class="text-danger">El campo nombre es <strong>requerido</strong></span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Apellido</label>
                         <input formControlName="apellido" type="text" class="form-control" placeholder="Ingrese apellido">
-                        <span *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched">El campo apellido es <strong>requerido</strong></span>
+                        <span *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched" class="text-danger">El campo apellido es <strong>requerido</strong></span>
                     </div>
 
                     <div class="d-flex justify-content-between mt-3">

@@ -16,6 +16,8 @@ import { ListaContratosComponent } from './components/contratos/lista-contratos/
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
 import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
 import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
+import { VerPersonaComponent } from './components/personas/ver-persona/ver-persona.component';
+import { VerContratoComponent } from './components/contratos/ver-contrato/ver-contrato.component';
 
 
 
@@ -32,6 +34,8 @@ import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-an
     CrearContratoComponent,
     CrearFiniquitoComponent,
     CrearAnexoComponent,
+    VerPersonaComponent,
+    VerContratoComponent,
   ],
   imports: [
     BrowserModule,

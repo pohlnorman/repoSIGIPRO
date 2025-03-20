@@ -15,4 +15,9 @@ export class AnexoService {
     const url: string = api.host + api.contrato + "/" + contratoId + api.anexo
     return this.http.post<void>(url, anexo);
   }
+
+  findAllByContratoId(id: number): Observable<Anexo[]> {
+    const url: string = api.host + api.contratos + '/findAllActive'
+    return this.http.get<Anexo[]>(url)
+  }
 }

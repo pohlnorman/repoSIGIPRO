@@ -1,7 +1,7 @@
 <div class="container">
     <div class="title">
-        <h4>Contratos vigentes</h4>
-        <button type="button" class="btn btn-primary" routerLink="/ver-lista-personas">Volver</button>
+        <h4>Personas contratadas</h4>
+        <!-- <button type="button" class="btn btn-primary" routerLink="/ver-lista-personas">Agregar</button> -->
     </div>
     
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered">
@@ -9,17 +9,18 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Rut</th>
-                <th scope="col">Fecha inicio de contrato</th>
+                <!-- <th scope="col">Fecha inicio de contrato</th> -->
                 <th scope="col">Accion</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let contrato of listaContratos">
-                <td>{{ contrato.persona.nombre }} {{ contrato.persona.apellido }}</td>
+                <td><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</a></td>
                 <td>{{ contrato.persona.rut }}</td>
-                <td>{{ contrato.fechaInicio | date:"dd-MM-y"}}</td>
+                <!-- <td>{{ contrato.fechaInicio | date:"dd-MM-y"}}</td> -->
                 <td>
-                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success btn-sm">Crear anexo</button>
+                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm">Ver contrato</button>
+                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success btn-sm ms-2">Crear anexo</button>
                     <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button" class="btn btn-warning btn-sm ms-2">Crear finiquito</button>
                 </td>
             </tr>

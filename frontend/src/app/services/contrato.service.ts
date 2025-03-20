@@ -21,6 +21,11 @@ export class ContratoService {
     return this.http.get<Contrato[]>(url)
   }
 
+  findAllByRut(rut: string): Observable<Contrato[]> {
+    const url: string = api.host + api.contratos + '/findAllActive'
+    return this.http.get<Contrato[]>(url)
+  }
+
   create(contrato: Contrato, rut: string): Observable<void> {
     const url: string = api.host + api.persona + "/" + rut + api.contrato
     return this.http.post<void>(url, contrato);

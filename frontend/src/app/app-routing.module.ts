@@ -7,13 +7,17 @@ import { ListaContratosComponent } from './components/contratos/lista-contratos/
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
 import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
 import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
+import { VerPersonaComponent } from './components/personas/ver-persona/ver-persona.component';
+import { VerContratoComponent } from './components/contratos/ver-contrato/ver-contrato.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'ver-lista-personas', component: ListaPersonaComponent},
+  { path: 'ver-persona/:id', component: VerPersonaComponent},
   { path: 'contratos',component:ListaContratosComponent},
+  { path: 'ver-contrato/:id',component:VerContratoComponent},
   { path: 'agregar-persona',component:AgregarPersonaComponent},
   { path: 'editar/:id', component:AgregarPersonaComponent },
   { path: 'crear-contrato/:rut', component:CrearContratoComponent },

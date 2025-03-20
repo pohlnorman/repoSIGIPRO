@@ -12,6 +12,7 @@
                     <div class="mb-3">
                         <label for="fechaFiniquito" class="form-label">Fecha del finiquito</label>
                         <input type="date" id="fechaFiniquito" class="form-control" formControlName="fechaFiniquito">
+                        <span *ngIf="form.get('fechaFiniquito')?.hasError('required') && form.get('fechaFiniquito')?.touched" class="text-danger">Requerido</span>
                     </div>
                     
                     <div class="d-flex justify-content-between mt-3">
