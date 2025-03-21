@@ -53,8 +53,8 @@ export class ExamenesComponent implements OnInit {
   actualizarPersona() {
     const persona: Persona = {
       nombre: this.persona.nombre,
-      apellido: this.persona.nombre,
-      rut: this.persona.nombre,
+      apellido: this.persona.apellido,
+      rut: this.persona.rut,
       estado: 0,
       examenVista: this.form.get('examenVista')?.value
     }
