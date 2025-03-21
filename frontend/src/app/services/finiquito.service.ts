@@ -17,7 +17,7 @@ export class FiniquitoService {
   }
 
   findByContratoId(id: number): Observable<Finiquito> {
-      const url: string = api.host + api.contratos + '/findAllActive'
-      return this.http.get<Finiquito>(url)
-    }
+    const url: string = api.host + api.contrato + "/" + id + '/findByContratoId'
+    return this.http.get<Finiquito>(url)
+  }
 }

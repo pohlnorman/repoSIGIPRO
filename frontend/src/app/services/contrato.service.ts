@@ -21,8 +21,8 @@ export class ContratoService {
     return this.http.get<Contrato[]>(url)
   }
 
-  findAllByRut(rut: string): Observable<Contrato[]> {
-    const url: string = api.host + api.contratos + '/findAllActive'
+  findAllByPersonaId(id: number): Observable<Contrato[]> {
+    const url: string = api.host + api.contratos + '/findAllByPersonaId/' + id
     return this.http.get<Contrato[]>(url)
   }
 

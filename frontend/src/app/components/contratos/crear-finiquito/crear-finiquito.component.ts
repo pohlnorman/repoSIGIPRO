@@ -6,6 +6,7 @@ import { Finiquito } from '../../../interfaces/finiquito';
 import Swal from 'sweetalert2';
 import { ContratoService } from '../../../services/contrato.service';
 import { FiniquitoService } from '../../../services/finiquito.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crear-finiquito',
@@ -23,7 +24,7 @@ export class CrearFiniquitoComponent {
     private finiquitoService: FiniquitoService,
     private contratoService: ContratoService,
     private aRouter: ActivatedRoute,
-    private router: Router,
+    private router: Router, private _location: Location
   ) {
     this.form = this.fb.group({
 
@@ -60,12 +61,16 @@ export class CrearFiniquitoComponent {
             showConfirmButton: false,
             timer: 1500
           }).then(()=>{
-            this.router.navigate(['/contratos'])
+            //this.router.navigate(['/contratos'])
+            this._location.back();
           });
           
         },
         (error) => console.error('Error al registrar finiquito', error)
       )
     }
+  }
+  backClicked() {
+    this._location.back();
   }
 }

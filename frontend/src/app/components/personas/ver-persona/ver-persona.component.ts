@@ -20,7 +20,8 @@ export class VerPersonaComponent implements OnInit {
     nombre: '',
     apellido: '',
     rut: '',
-    estado: 0
+    estado: 0,
+    examenVista: undefined
   }
   listaContratos: Contrato[] = []
   dtOptions: Config = {};
@@ -28,7 +29,8 @@ export class VerPersonaComponent implements OnInit {
 
   constructor(private personaService: PersonaService,
     private contratoService: ContratoService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.personaId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class VerPersonaComponent implements OnInit {
       error: (e) => console.error(e),
       complete: () => console.info('complete')
     });
-    this.contratoService.findAllActive().subscribe({
+    this.contratoService.findAllByPersonaId(this.personaId).subscribe({
       next: (conList) => {
         this.listaContratos = conList
         this.dtTrigger.next(null);

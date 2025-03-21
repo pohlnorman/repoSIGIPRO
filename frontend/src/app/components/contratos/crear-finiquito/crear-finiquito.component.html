@@ -17,7 +17,7 @@
                     
                     <div class="d-flex justify-content-between mt-3">
                         <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Guardar</button>
-                        <a class="btn btn-secondary" routerLink="/contratos" role="button" >Cancelar</a>
+                        <a class="btn btn-secondary" (click)="backClicked()" role="button" >Cancelar</a>
                     </div>
                     
                     

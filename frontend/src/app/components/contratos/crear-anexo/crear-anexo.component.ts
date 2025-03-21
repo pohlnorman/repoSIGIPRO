@@ -6,6 +6,7 @@ import { Anexo } from '../../../interfaces/anexo';
 import Swal from 'sweetalert2';
 import { AnexoService } from '../../../services/anexo.service';
 import { ContratoService } from '../../../services/contrato.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crear-anexo',
@@ -23,7 +24,7 @@ export class CrearAnexoComponent {
     private anexoService: AnexoService,
     private contratoService: ContratoService,
     private aRouter: ActivatedRoute,
-    private router: Router,
+    private router: Router, private _location: Location
   ) {
     this.form = this.fb.group({
 
@@ -60,12 +61,15 @@ export class CrearAnexoComponent {
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
-            this.router.navigate(['/contratos'])
+            //this.router.navigate(['/contratos'])
+            this._location.back();
           });
         },
         (error) => console.error('Error al registrar anexo', error)
       )
     }
   }
-
+  backClicked() {
+    this._location.back();
+  }
 }

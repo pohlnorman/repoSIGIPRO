@@ -9,6 +9,8 @@ import { Config } from 'datatables.net';
 import { Subject } from 'rxjs';
 import { AnexoService } from '../../../services/anexo.service';
 import { FiniquitoService } from '../../../services/finiquito.service';
+import { PersonaService } from '../../../services/persona.service';
+
 
 @Component({
   selector: 'app-ver-contrato',
@@ -18,6 +20,7 @@ import { FiniquitoService } from '../../../services/finiquito.service';
   styleUrl: './ver-contrato.component.css'
 })
 export class VerContratoComponent implements OnInit {
+  personaId:number | undefined;
   contratoId: number = 0;
   persona: Persona = {
     nombre: '',
@@ -40,10 +43,12 @@ export class VerContratoComponent implements OnInit {
   anexoList: Anexo[] = []
 
 
-  constructor(private contratoService: ContratoService,
+  constructor(private personaService:PersonaService,
+    private contratoService: ContratoService,
     private anexoService: AnexoService,
     private finiquitoService: FiniquitoService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.contratoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
   }
   dtOptions: Config = {};
@@ -56,7 +61,14 @@ export class VerContratoComponent implements OnInit {
       },
     };
     this.contratoService.findById(this.contratoId).subscribe({
-      next: (c) => this.contrato = c,
+      next: (c) => {
+        this.contrato = c
+        this.personaService.findByRut(c.persona.rut).subscribe({
+          next: (p) => this.personaId=p.id,
+          error: (e) => console.error(e),
+          complete: () => console.info('complete') 
+        })
+      },
       error: (e) => console.error(e),
       complete: () => console.info('complete')
     });
@@ -73,6 +85,7 @@ export class VerContratoComponent implements OnInit {
       error: (e) => console.error(e),
       complete: () => console.info('complete')
     });
+    
   }
 
 }

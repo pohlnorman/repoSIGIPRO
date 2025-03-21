@@ -1,21 +1,29 @@
-<div class="container mt-4">
-    
-
-    <div class="row mt-3">
+<div class="container ">
+    <div class="row mt-4">
         <div class="col-lg-5">
             <h4>Detalles del contrato</h4>
             <div class="card bg-light mt-3">
                 <!-- <div class="card-header">Contrato</div> -->
-                
+
                 <div class="card-body">
-                    <p><span class="fw-bold">Fecha de Inicio:</span><br>
+                    <p class="fw-bold mb-0">Nombre:</p>
+                        <div class="d-flex justify-content-between">
+                            <!-- <div><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</a></div> -->
+                             <div>{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</div>
+                            <div><button routerLink="/ver-persona/{{contrato.persona.id}}" type="button"
+                                class="btn btn-warning btn-sm">Ver persona</button></div>
+                            
+                        </div>
+
+                        
+                    <p><span class="fw-bold">Fecha de inicio del contrato:</span><br>
                         <span>{{contrato.fechaInicio | date:"dd-MM-y"}} </span>
                     </p>
-                    <p><span class="fw-bold">Estado: </span>
+                    <p><span class="fw-bold">Estado del contrato: </span>
                         @if (contrato.estado) {
-                        <td class="text-success fw-bold">Contratado</td>
+                        <td class="text-success fw-bold">Vigente</td>
                         } @else {
-                        <td>No contratado</td>
+                        <td>Terminado</td>
                         }
                     </p>
                 </div>
@@ -25,12 +33,12 @@
             <h4>Detalles del Finiquito</h4>
             <div class="card bg-light mt-3">
                 <!-- <div class="card-header">Finiquito</div> -->
-                
+
                 <div class="card-body">
                     @if (contrato.estado) {
-                        <p class="fw-bold">Finiquito no creado</p>
+                    <p class="fw-bold">Finiquito no creado</p>
                     <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button"
-                        class="btn btn-warning btn-sm">Crear finiquito</button>
+                        class="btn btn-danger btn-sm">Crear finiquito</button>
                     } @else {
                     <p><span class="fw-bold">Fecha de finiquito:</span><br>
                         <span>{{finiquito.fechaFiniquito| date:"dd-MM-y"}} </span>
@@ -41,12 +49,21 @@
         </div>
     </div>
 
-    <h4 class="my-4">Anexos del contrato</h4>
+    <div class="d-flex justify-content-between mt-4 mb-3">
+        <h4>Anexos del contrato</h4>
+        <div>
+            @if (contrato.estado) {
+            <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-info">Crear anexo</button>
+            }
+        </div>
+    </div>
+
+    
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Fecha anexo</th>
+                <th scope="col">Fecha del anexo</th>
             </tr>
         </thead>
         <tbody>

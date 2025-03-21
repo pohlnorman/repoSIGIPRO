@@ -1,7 +1,7 @@
 <div class="container">
     <div class="title">
         <h4>Todas las personas</h4>
-        <button type="button" class="btn btn-info" routerLink="/agregar-persona">Agregar persona</button>
+        <button type="button" class="btn btn-primary" routerLink="/agregar-persona">Agregar persona</button>
     </div>
 
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
@@ -16,8 +16,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let persona of listaPersonas">
-                <td><a routerLink="/ver-persona/{{persona.id}}">{{ persona.nombre +" "+ persona.apellido }}</a></td>
-                <!-- <td>{{ persona.nombre +" "+ persona.apellido }}</td> -->
+                <!-- <td><a routerLink="/ver-persona/{{persona.id}}">{{ persona.nombre +" "+ persona.apellido }}</a></td> -->
+                <td>{{ persona.nombre +" "+ persona.apellido }}</td>
                 <td>{{ persona.rut }}</td>
                 @if (persona.estado) {
                 <td class="text-success fw-bold">Con contrato</td>
@@ -26,8 +26,8 @@
                 }
 
                 <td>
-                    <!-- <button routerLink="/ver-persona/{{persona.id}}" type="button"
-                        class="btn btn-primary btn-sm">Detalles</button> -->
+                    <button routerLink="/ver-persona/{{persona.id}}" type="button"
+                        class="btn btn-warning btn-sm">Ver persona</button>
                     <button routerLink="/crear-contrato/{{persona.rut}}" type="button"
                         class="btn btn-success btn-sm ms-2" *ngIf="!persona.estado">Contratar</button>
                 </td>

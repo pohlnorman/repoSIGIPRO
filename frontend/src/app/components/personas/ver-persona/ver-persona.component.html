@@ -1,7 +1,8 @@
-<div class="container mt-4">
-    <h4>Detalles de la persona</h4>
-    <div class="row mt-3">
+<div class="container">
+    
+    <div class="row mt-4">
         <div class="col-lg-5">
+            <h4>Detalles de la persona</h4>
             <div class="card bg-light">
 
                 <div class="card-body">
@@ -28,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg">
-                            <p><span class="fw-bold">Estado: </span>
+                            <p><span class="fw-bold">Estado contractual: </span>
                                 @if (persona.estado) {
                                 <td class="text-success fw-bold">Contratado</td>
                                 } @else {
@@ -37,12 +38,27 @@
                             </p>
                         </div>
                         <div class="col-lg">
-                            <button routerLink="/crear-contrato/{{persona.rut}}" type="button" class="btn btn-success mt-2"
-                                *ngIf="!persona.estado">Contratar</button>
+                            <button routerLink="/crear-contrato/{{persona.rut}}" type="button"
+                                class="btn btn-success mt-2" *ngIf="!persona.estado">Contratar</button>
                         </div>
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="col-lg-5 offset-2">
+            <h4>Examenes de salud</h4>
+            <div class="card bg-light">
+                <div class="card-body">
+                    <p><span class="fw-bold">Fecha examen visual: </span><br>
+                        @if (persona.examenVista!=null || persona.examenVista!= undefined) {
+                        <span>{{persona.examenVista | date:"dd-MM-y"}}</span>
+                        } @else {
+                        <span class="text-danger">Sin examen</span>
+                        }
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -60,17 +76,21 @@
         <tbody>
             <tr *ngFor="let contrato of listaContratos">
                 <td>{{ contrato.fechaInicio | date:"dd-MM-y"}}</td>
-                @if (persona.estado) {
+                @if (contrato.estado) {
                 <td class="text-success fw-bold">Vigente</td>
                 } @else {
                 <td>Terminado</td>
                 }
                 <td>
-                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm">Ver contrato</button>
+                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm">Ver
+                        contrato</button>
+                    @if (contrato.estado) {
                     <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button"
                         class="btn btn-info btn-sm ms-2">Crear anexo</button>
                     <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button"
-                        class="btn btn-warning btn-sm ms-2">Crear finiquito</button>
+                        class="btn btn-danger btn-sm ms-2">Crear finiquito</button>
+                    }
+
                 </td>
             </tr>
         </tbody>

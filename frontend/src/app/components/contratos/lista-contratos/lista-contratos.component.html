@@ -15,13 +15,16 @@
         </thead>
         <tbody>
             <tr *ngFor="let contrato of listaContratos">
-                <td><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</a></td>
+                <td>{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</td>
+                <!-- <td><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</a></td> -->
                 <td>{{ contrato.persona.rut }}</td>
                 <!-- <td>{{ contrato.fechaInicio | date:"dd-MM-y"}}</td> -->
                 <td>
-                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm">Ver contrato</button>
-                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-success btn-sm ms-2">Crear anexo</button>
-                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button" class="btn btn-warning btn-sm ms-2">Crear finiquito</button>
+                    <button routerLink="/ver-persona/{{contrato.persona.id}}" type="button"
+                        class="btn btn-warning btn-sm">Ver persona</button>
+                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm ms-2">Ver contrato</button>
+                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button" class="btn btn-info btn-sm ms-2">Crear anexo</button>
+                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button" class="btn btn-danger btn-sm ms-2">Crear finiquito</button>
                 </td>
             </tr>
         </tbody>
