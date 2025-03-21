@@ -74,6 +74,20 @@ router.get('/contrato/:id',async(req,res)=>{
     }
 });
 
+// ✅ Obtener todos los contrato de una persona
+router.get('/allContract/:personaId',async(req,res)=>{
+    try {
+        const {personaId} = req.params;
+
+        const listaContratos = await Contrato.findAll({
+            where: { personaId }
+        });
+        res.json({personaId,"lista de contratos":listaContratos})
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
+});
+
 // ✅ crear finiquito por id de contrato
 router.post('/contrato/:id/finiquito',async(req,res)=>{
     const {id} = req.params;
@@ -94,6 +108,18 @@ router.post('/contrato/:id/finiquito',async(req,res)=>{
     res.status(200).json({ message: 'Finiquito creado',nuevofiniquito });
 });
 
+// ✅ Obtener finiquito de una persona por id de contrato
+router.get('/liquidation/:contratoId',async(req,res)=>{
+    try {
+        const {contratoId} = req.params;
+
+        const finiquito = await Finiquito.findOne({where:{contratoId}})
+        res.json({contratoId,finiquito:finiquito})
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
+});
+
 // ✅ crear anexo por id de contrato
 router.post('/contrato/:id/anexo',async(req,res)=>{
     const {id} = req.params;
@@ -110,5 +136,19 @@ router.post('/contrato/:id/anexo',async(req,res)=>{
 
     res.status(200).json({ message: 'Anexo creado',nuevoAnexo });
 
+});
+
+// ✅ Obtener todos los anexos de una persona por id de contrato
+router.get('/allAnnex/:contratoId',async(req,res)=>{
+    try {
+        const {contratoId} = req.params;
+
+        const listaAnexos = await Anexo.findAll({
+            where: { contratoId },
+        });
+        res.json({contratoId,anexos:listaAnexos})
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
 });
 export default router;
