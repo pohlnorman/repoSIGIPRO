@@ -64,7 +64,7 @@ router.get('/persona/:id',async(req,res)=>{
 router.put('/persona/:id',async(req,res)=>{
     try {
         const {id} = req.params;
-        const {nombre, apellido,rut} = req.body;
+        const {nombre, apellido,rut,examenVista} = req.body;
 
         // Validar que el ID es un número
         if (isNaN(id)) {
@@ -77,7 +77,7 @@ router.put('/persona/:id',async(req,res)=>{
             return res.status(404).json({ mensaje: "Persona no encontrada" });
         }
         // Realizar la actualización
-        await persona.update({ nombre, apellido });
+        await persona.update({ nombre, apellido,examenVista });
 
     res.json(persona);
     } catch (error) {

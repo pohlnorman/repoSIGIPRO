@@ -17,7 +17,7 @@ export class AnexoService {
   }
 
   findAllByContratoId(id: number): Observable<Anexo[]> {
-    const url: string = api.host + api.contrato + "/" + id + '/FindAllByContratoId'
+    const url: string = api.host + "/allAnnex/" + id
     return this.http.get<Anexo[]>(url)
   }
 }

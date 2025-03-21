@@ -9,6 +9,7 @@ import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-an
 import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
 import { VerPersonaComponent } from './components/personas/ver-persona/ver-persona.component';
 import { VerContratoComponent } from './components/contratos/ver-contrato/ver-contrato.component';
+import { ExamenesComponent } from './components/examenes/examenes.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'contratos',component:ListaContratosComponent},
   { path: 'ver-contrato/:id',component:VerContratoComponent},
   { path: 'agregar-persona',component:AgregarPersonaComponent},
+  { path: 'agregar-examenes/:id',component:ExamenesComponent},
   { path: 'editar/:id', component:AgregarPersonaComponent },
   { path: 'crear-contrato/:rut', component:CrearContratoComponent },
   { path: 'contrato/:id/anexo', component:CrearAnexoComponent},

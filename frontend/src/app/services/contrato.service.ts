@@ -16,13 +16,18 @@ export class ContratoService {
     return this.http.get<Contrato>(url);
   }
 
+  findByPersonaIdAndActive(personaId: number): Observable<Contrato> {
+    const url: string = api.host + api.persona + '/' + personaId +"/contrato-activo"
+    return this.http.get<Contrato>(url);
+  }
+
   findAllActive(): Observable<Contrato[]> {
     const url: string = api.host + api.contratos + '/findAllActive'
     return this.http.get<Contrato[]>(url)
   }
 
   findAllByPersonaId(id: number): Observable<Contrato[]> {
-    const url: string = api.host + api.contratos + '/findAllByPersonaId/' + id
+    const url: string = api.host + '/allContract/' + id
     return this.http.get<Contrato[]>(url)
   }
 

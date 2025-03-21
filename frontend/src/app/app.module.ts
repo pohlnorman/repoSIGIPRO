@@ -18,6 +18,7 @@ import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/
 import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
 import { VerPersonaComponent } from './components/personas/ver-persona/ver-persona.component';
 import { VerContratoComponent } from './components/contratos/ver-contrato/ver-contrato.component';
+import { ExamenesComponent } from './components/examenes/examenes.component';
 
 
 
@@ -36,6 +37,7 @@ import { VerContratoComponent } from './components/contratos/ver-contrato/ver-co
     CrearAnexoComponent,
     VerPersonaComponent,
     VerContratoComponent,
+    ExamenesComponent,
   ],
   imports: [
     BrowserModule,

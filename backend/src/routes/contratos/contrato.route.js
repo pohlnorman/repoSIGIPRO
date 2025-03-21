@@ -82,7 +82,7 @@ router.get('/allContract/:personaId',async(req,res)=>{
         const listaContratos = await Contrato.findAll({
             where: { personaId }
         });
-        res.json({personaId,"lista de contratos":listaContratos})
+        res.json(listaContratos)
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }
@@ -114,7 +114,7 @@ router.get('/liquidation/:contratoId',async(req,res)=>{
         const {contratoId} = req.params;
 
         const finiquito = await Finiquito.findOne({where:{contratoId}})
-        res.json({contratoId,finiquito:finiquito})
+        res.json(finiquito)
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }
@@ -146,7 +146,20 @@ router.get('/allAnnex/:contratoId',async(req,res)=>{
         const listaAnexos = await Anexo.findAll({
             where: { contratoId },
         });
-        res.json({contratoId,anexos:listaAnexos})
+        res.json(listaAnexos)
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
+});
+// ✅ Obtener contrato activo dado un id de persona
+router.get('/persona/:personaId/contrato-activo',async(req,res)=>{
+    try {
+        const {personaId} = req.params;
+
+        const cont = await Contrato.findOne({
+            where: { personaId,estado:1 },
+        });
+        res.json(cont)
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }

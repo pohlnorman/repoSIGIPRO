@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
   styleUrl: './ver-persona.component.css'
 })
 export class VerPersonaComponent implements OnInit {
+  contratoVigenteId:number|undefined=undefined;
   personaId: number = 0;
   persona: Persona = {
     nombre: '',
@@ -49,6 +50,11 @@ export class VerPersonaComponent implements OnInit {
       next: (conList) => {
         this.listaContratos = conList
         this.dtTrigger.next(null);
+        conList.forEach(c=>{
+          if(c.estado==1){
+            this.contratoVigenteId=c.id;
+          }
+        })
       },
       error: (e) => console.error(e),
       complete: () => console.info('complete')
