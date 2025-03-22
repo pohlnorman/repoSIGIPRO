@@ -51,6 +51,7 @@ export class CrearAnexoComponent {
         contratoId: this.contrato.id!,
         estado: 1,
         contrato: this.contrato,
+        id: 0
       };
       this.anexoService.create(anexo, this.contrato.id!).subscribe(
         () => {

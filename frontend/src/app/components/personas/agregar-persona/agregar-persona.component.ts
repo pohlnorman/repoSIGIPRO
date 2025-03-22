@@ -44,6 +44,7 @@ export class AgregarPersonaComponent {
       nombre: this.form.get('nombre')?.value,
       apellido: this.form.get('apellido')?.value,
       rut: this.form.get('rut')?.value,
+      id: 0,
       estado: 0
     }
 
@@ -77,6 +78,7 @@ export class AgregarPersonaComponent {
       nombre: this.form.get('nombre')?.value,
       apellido: this.form.get('apellido')?.value,
       rut: this.form.get('rut')?.value,
+      id: 0,
       estado: 0
     }
 

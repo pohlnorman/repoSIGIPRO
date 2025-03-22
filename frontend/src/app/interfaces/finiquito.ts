@@ -1,9 +1,9 @@
 import { Contrato } from "./contrato";
 
 export interface Finiquito {
-    id?: number;
+    id: number;
     fechaFiniquito: string;
     estado: number;
     contratoId: number;
-    contrato: Contrato
+    contrato?: Contrato
 }

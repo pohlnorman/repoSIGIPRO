@@ -51,6 +51,7 @@ export class CrearFiniquitoComponent {
         contratoId: this.contrato.id!,
         estado: 1,
         contrato: this.contrato,
+        id: 0
       };
       this.finiquitoService.create(finiquito, this.contrato.id!).subscribe(
         () => {

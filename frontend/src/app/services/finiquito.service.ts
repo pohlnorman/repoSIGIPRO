@@ -11,9 +11,9 @@ export class FiniquitoService {
 
   constructor(private http: HttpClient) { }
 
-  create(finiquito: Finiquito, contratoId: number): Observable<void> {
+  create(finiquito: Finiquito, contratoId: number): Observable<Finiquito> {
     const url: string = api.host + api.contrato + "/" + contratoId + api.finiquito
-    return this.http.post<void>(url, finiquito)
+    return this.http.post<Finiquito>(url, finiquito)
   }
 
   findByContratoId(id: number): Observable<Finiquito> {

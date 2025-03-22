@@ -9,14 +9,14 @@
                     <div class="row">
                         <div class="col-lg">
                             <p class="fw-bold mb-1">Nombre:</p>
-                            <div><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</a></div>
+                            <div><a routerLink="/ver-persona/{{contrato.personaId}}">{{ persona.nombre +" "+ persona.apellido }}</a></div>
                             <!-- <div>{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</div>
                             <button routerLink="/ver-persona/{{contrato.persona.id}}" type="button"
                                 class="btn btn-warning btn-sm mt-2">Ver persona</button> -->
                         </div>
                         <div class="col-lg">
                             <p><span class="fw-bold">Rut:</span><br>
-                                <span>{{contrato.persona.rut}}</span>
+                                <span>{{persona.rut}}</span>
                             </p>
                         </div>
                     </div>

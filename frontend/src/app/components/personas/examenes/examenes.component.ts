@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router }  from '@angular/router';
 import Swal from 'sweetalert2';
-import { Persona } from '../../interfaces/persona';
-import { PersonaService } from '../../services/persona.service';
-import { rutValidator } from '../../utils/rutValidator';
 import { Location } from '@angular/common';
+import { Persona } from '../../../interfaces/persona';
+import { PersonaService } from '../../../services/persona.service';
 
 
 @Component({
@@ -22,7 +21,8 @@ export class ExamenesComponent implements OnInit {
     nombre: '',
     apellido: '',
     rut: '',
-    estado: 0
+    estado: 0,
+    id: 0
   }
 
   constructor(private fb: FormBuilder, private personaService: PersonaService,
@@ -42,9 +42,7 @@ export class ExamenesComponent implements OnInit {
 
   obtenerPersona(id: number) {
     this.personaService.findById(id).subscribe((data: Persona) => {
-      this.persona.nombre=data.nombre
-      this.persona.apellido=data.apellido
-      this.persona.rut=data.rut
+      this.persona=data
       this.form.setValue({
         examenVista: data.examenVista,
       })
@@ -56,7 +54,8 @@ export class ExamenesComponent implements OnInit {
       apellido: this.persona.apellido,
       rut: this.persona.rut,
       estado: 0,
-      examenVista: this.form.get('examenVista')?.value
+      examenVista: this.form.get('examenVista')?.value,
+      id: 0
     }
 
     this.personaService.update(this.id, persona).subscribe(() => {

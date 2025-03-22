@@ -10,7 +10,6 @@ import { ListaPersonaComponent } from './components/personas/lista-persona/lista
 import { AgregarPersonaComponent } from './components/personas/agregar-persona/agregar-persona.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
@@ -18,7 +17,7 @@ import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/
 import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
 import { VerPersonaComponent } from './components/personas/ver-persona/ver-persona.component';
 import { VerContratoComponent } from './components/contratos/ver-contrato/ver-contrato.component';
-import { ExamenesComponent } from './components/examenes/examenes.component';
+import { ExamenesComponent } from './components/personas/examenes/examenes.component';
 
 
 
@@ -30,7 +29,6 @@ import { ExamenesComponent } from './components/examenes/examenes.component';
     AgregarPersonaComponent,
     HomeComponent,
     NavbarComponent,
-    ProgressBarComponent,
     ListaContratosComponent,
     CrearContratoComponent,
     CrearFiniquitoComponent,

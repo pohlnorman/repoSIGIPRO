@@ -26,19 +26,22 @@ export class VerContratoComponent implements OnInit {
     nombre: '',
     apellido: '',
     rut: '',
-    estado: 0
+    estado: 0,
+    id: 0
   }
   contrato: Contrato = {
     fechaInicio: '',
     estado: 0,
     personaId: 0,
-    persona: this.persona
+    persona: this.persona,
+    id: 0
   }
   finiquito: Finiquito = {
     fechaFiniquito: '',
     estado: 0,
     contratoId: 0,
-    contrato: this.contrato
+    contrato: this.contrato,
+    id: 0
   }
   anexoList: Anexo[] = []
 
@@ -63,8 +66,11 @@ export class VerContratoComponent implements OnInit {
     this.contratoService.findById(this.contratoId).subscribe({
       next: (c) => {
         this.contrato = c
-        this.personaService.findByRut(c.persona.rut).subscribe({
-          next: (p) => this.personaId=p.id,
+        this.personaService.findById(c.personaId).subscribe({
+          next: (p) => {
+            this.personaId=p.id
+            this.persona=p
+          },
           error: (e) => console.error(e),
           complete: () => console.info('complete') 
         })

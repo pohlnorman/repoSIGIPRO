@@ -22,7 +22,8 @@ export class VerPersonaComponent implements OnInit {
     apellido: '',
     rut: '',
     estado: 0,
-    examenVista: undefined
+    examenVista: undefined,
+    id: 0
   }
   listaContratos: Contrato[] = []
   dtOptions: Config = {};
@@ -47,7 +48,7 @@ export class VerPersonaComponent implements OnInit {
       complete: () => console.info('complete')
     });
     this.contratoService.findAllByPersonaId(this.personaId).subscribe({
-      next: (conList) => {
+      next: (conList:Contrato[]) => {
         this.listaContratos = conList
         this.dtTrigger.next(null);
         conList.forEach(c=>{

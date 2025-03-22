@@ -9,7 +9,7 @@ import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-an
 import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
 import { VerPersonaComponent } from './components/personas/ver-persona/ver-persona.component';
 import { VerContratoComponent } from './components/contratos/ver-contrato/ver-contrato.component';
-import { ExamenesComponent } from './components/examenes/examenes.component';
+import { ExamenesComponent } from './components/personas/examenes/examenes.component';
 
 
 const routes: Routes = [

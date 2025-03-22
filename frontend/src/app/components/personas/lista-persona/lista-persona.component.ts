@@ -31,13 +31,10 @@ export class ListaPersonaComponent {
   }
 
   getListaPersonas(){
-    this.personaService.findAll().subscribe((data) =>{
+    this.personaService.findAll().subscribe((data:Persona[]) =>{
       this.listaPersonas = data;
       this.dtTrigger.next(null);
     })
-  }
-  estadoPersona(estado: number): string {
-    return estado === 1 ? 'Con contrato' : 'Sin contrato';
   }
   
 }

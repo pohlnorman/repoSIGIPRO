@@ -11,9 +11,9 @@ export class AnexoService {
 
   constructor(private http: HttpClient) { }
 
-  create(anexo: Anexo, contratoId: number): Observable<void> {
+  create(anexo: Anexo, contratoId: number): Observable<Anexo> {
     const url: string = api.host + api.contrato + "/" + contratoId + api.anexo
-    return this.http.post<void>(url, anexo);
+    return this.http.post<Anexo>(url, anexo);
   }
 
   findAllByContratoId(id: number): Observable<Anexo[]> {

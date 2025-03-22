@@ -46,7 +46,7 @@ router.post('/persona/:rut/contrato',async(req,res)=>{
         personaId: persona.id
     });
     await Persona.update({ estado: 1 },{where: {id: persona.id}});
-    res.status(200).json({ message: 'Contrato creado',nuevoContrato });
+    res.status(200).json(nuevoContrato);
 });
 
 // ✅ Obtener contrato por id
@@ -80,7 +80,7 @@ router.get('/allContract/:personaId',async(req,res)=>{
         const {personaId} = req.params;
 
         const listaContratos = await Contrato.findAll({
-            where: { personaId }
+            where: { personaId },include:[{model:Persona}]
         });
         res.json(listaContratos)
     } catch (error) {
@@ -105,7 +105,7 @@ router.post('/contrato/:id/finiquito',async(req,res)=>{
 
     await Contrato.update({ estado: 0 },{where: {id: contrato.id}});
     await Persona.update({ estado: 0 }, { where: { id: contrato.personaId } });
-    res.status(200).json({ message: 'Finiquito creado',nuevofiniquito });
+    res.status(200).json(nuevofiniquito);
 });
 
 // ✅ Obtener finiquito de una persona por id de contrato
@@ -113,7 +113,10 @@ router.get('/liquidation/:contratoId',async(req,res)=>{
     try {
         const {contratoId} = req.params;
 
-        const finiquito = await Finiquito.findOne({where:{contratoId}})
+        const finiquito = await Finiquito.findOne({where:{contratoId},include:[{model:Contrato}]})
+        if (!finiquito) {
+            return res.status(404).json({ mensaje: "No encontrado" });
+        }
         res.json(finiquito)
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
@@ -134,7 +137,7 @@ router.post('/contrato/:id/anexo',async(req,res)=>{
         contratoId: contrato.id
     });
 
-    res.status(200).json({ message: 'Anexo creado',nuevoAnexo });
+    res.status(200).json(nuevoAnexo);
 
 });
 
@@ -145,6 +148,7 @@ router.get('/allAnnex/:contratoId',async(req,res)=>{
 
         const listaAnexos = await Anexo.findAll({
             where: { contratoId },
+            include:[{model:Contrato}]
         });
         res.json(listaAnexos)
     } catch (error) {
@@ -157,8 +161,11 @@ router.get('/persona/:personaId/contrato-activo',async(req,res)=>{
         const {personaId} = req.params;
 
         const cont = await Contrato.findOne({
-            where: { personaId,estado:1 },
+            where: { personaId,estado:1 },include:[{model:Persona}]
         });
+        if (!cont) {
+            return res.status(404).json({ mensaje: "No encontrado" });
+        }
         res.json(cont)
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });

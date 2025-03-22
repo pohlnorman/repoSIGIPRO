@@ -55,6 +55,7 @@ export class CrearContratoComponent {
         personaId: this.persona.id!,
         estado: 1,
         persona: this.persona,
+        id: 0
       };
       console.log('idpersona:' + contrato.personaId)
       console.log(contrato)

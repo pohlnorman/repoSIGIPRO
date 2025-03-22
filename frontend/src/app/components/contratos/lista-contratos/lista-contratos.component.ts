@@ -31,7 +31,7 @@ export class ListaContratosComponent {
   }
 
   getListaContratos(){
-    this.contratoService.findAllActive().subscribe((data) =>{
+    this.contratoService.findAllActive().subscribe((data:Contrato[]) =>{
       this.listaContratos = data
       this.dtTrigger.next(null);
     })
