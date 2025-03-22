@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { api } from '../../enviroments/enviroment';
 import { Finiquito } from '../interfaces/finiquito';
+import { api } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

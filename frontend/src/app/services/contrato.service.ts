@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contrato } from '../interfaces/contrato';
 import { Observable } from 'rxjs';
-import { api } from '../../enviroments/enviroment';
+import { api } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
