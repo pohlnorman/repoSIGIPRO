@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-lg-5 offset-2">
+        <div class="col-lg-5 offset-lg-2">
             <h4>Examenes de salud</h4>
             <div class="card bg-light">
                 <div class="card-body">
@@ -114,7 +114,7 @@
                 <td>Terminado</td>
                 }
                 <td>
-                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm">Ver
+                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm ms-2">Ver
                         contrato</button>
                     @if (contrato.estado) {
                     <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button"

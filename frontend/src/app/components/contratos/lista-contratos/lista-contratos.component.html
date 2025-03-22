@@ -16,17 +16,19 @@
         <tbody>
             <tr *ngFor="let contrato of listaContratos">
                 @if (contrato.persona!=undefined) {
-                <td>{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</td>
+                <td><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+
+                        contrato.persona.apellido }}</a></td>
+                <!-- <td>{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</td> -->
                 <td>{{ contrato.persona.rut }}</td>
                 } @else {
                 <td>""</td>
                 <td>""</td>
                 }
-                <!-- <td><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+ contrato.persona.apellido }}</a></td> -->
+
                 <!-- <td>{{ contrato.fechaInicio | date:"dd-MM-y"}}</td> -->
                 <td>
-                    <button routerLink="/ver-persona/{{contrato.personaId}}" type="button"
-                        class="btn btn-warning btn-sm">Ver persona</button>
+                    <!-- <button routerLink="/ver-persona/{{contrato.personaId}}" type="button"
+                        class="btn btn-warning btn-sm ms-2">Ver persona</button> -->
                     <button routerLink="/ver-contrato/{{contrato.id}}" type="button"
                         class="btn btn-primary btn-sm ms-2">Ver contrato</button>
                     <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button"
