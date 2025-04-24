@@ -1,0 +1,18 @@
+ /* 
+body {
+    background: rgb(232, 238, 255);
+    background: linear-gradient(90deg, rgb(240, 244, 255) 0%, rgb(233, 239, 255) 51%, rgb(240, 244, 255) 100%);
+}
+.bg-navbar {
+    background-color: #3e4ab4;
+}
+ a.nav-link {
+    color: #f8f8f8;
+} 
+*/
+
+
+ /* Title border-bottom line */
+ .title-border {
+     border-bottom: 1px solid var(--bs-primary);
+ }
