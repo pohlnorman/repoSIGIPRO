@@ -1,0 +1,38 @@
+<img src="logoSIGIPRO.png" class="rounded mx-auto d-block" height="100px" alt="logoSIGIPRO" style="margin-top: 30px;">
+<div class="container-fluid mt-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-3">
+            <div class="card mb-3">
+                <div class="card-header text-center">Login</div>
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input formControlName="email" type="email" class="form-control">
+                            @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+                            <p class="mb-0 text-danger">Requerido.</p>
+                            }
+                            @if (form.get('email')?.hasError('pattern') && form.get('email')?.touched) {
+                            <p class="mb-0 text-danger">Email invalido.</p>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input formControlName="password" type="password" class="form-control">
+                            @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+                            <p class="mb-0 text-danger">Requerido.</p>
+                            }
+                            @if (form.get('password')?.hasError('passwordInvalido') && form.get('password')?.touched) {
+                                <p class="mb-0 text-danger">Password debe contener minimo 8 caracteres, mayusculas, minusculas, numeros y caracteres especiales.</p>
+                                }
+                        </div>
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Iniciar sesión</button>
+                        @if (error) {
+                        <span class="fw-bold text-danger ms-1">Error</span>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

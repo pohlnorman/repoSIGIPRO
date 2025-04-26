@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-anexo.component';
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
@@ -9,19 +10,23 @@ import { ListaTodasLasPersonasComponent } from './components/personas/lista-toda
 import { DetallesPersonaComponent } from './components/personas/detalles-persona/detalles-persona.component';
 import { DetallesContratoComponent } from './components/contratos/detalles-contrato/detalles-contrato.component';
 import { ListaContratosVigentesComponent } from './components/contratos/lista-contratos-vigentes/lista-contratos-vigentes.component';
+import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent},
-    { path: 'home', component: HomeComponent},
-    { path: 'ver-lista-personas', component: ListaTodasLasPersonasComponent},
-    { path: 'ver-persona/:id', component: DetallesPersonaComponent},
-    { path: 'contratos',component:ListaContratosVigentesComponent},
-    { path: 'ver-contrato/:id',component:DetallesContratoComponent},
-    { path: 'agregar-persona',component:AgregarPersonaComponent},
-    { path: 'agregar-examenes/:id',component:AgregarExamenVistaComponent},
-    { path: 'editar/:id', component:AgregarPersonaComponent },
-    { path: 'crear-contrato/:rut', component:CrearContratoComponent },
-    { path: 'contrato/:id/anexo', component:CrearAnexoComponent},
-    { path: 'contrato/finiquito/:id', component:CrearFiniquitoComponent},
-    { path: '**', redirectTo: '',pathMatch:'full' }
+    { path: '', redirectTo: "/login", pathMatch: "full" },
+    { path: 'login', component: LoginComponent },
+    { path: 'home', component: HomeComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN', 'ROLE_USER'] } },
+    { path: 'personas', component: ListaTodasLasPersonasComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN'] } },
+    { path: 'persona', component: AgregarPersonaComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN'] } },
+    { path: 'persona/:id', component: DetallesPersonaComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN', 'ROLE_USER'] } },
+    { path: 'persona/:id/editar', component: AgregarPersonaComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN', 'ROLE_USER'] } },
+    { path: 'persona/:id/agregar-examen-vista', component: AgregarExamenVistaComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN', 'ROLE_USER'] } },
+    { path: 'persona/:id/crear-contrato', component: CrearContratoComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN'] } },
+    { path: 'contratos', component: ListaContratosVigentesComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN'] } },
+    { path: 'contrato/:id', component: DetallesContratoComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN', 'ROLE_USER'] } },
+    { path: 'contrato/:id/crear-anexo', component: CrearAnexoComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN'] } },
+    { path: 'contrato/:id/crear-finiquito', component: CrearFiniquitoComponent, canActivate: [authGuard], data: { role: ['ROLE_SUPER','ROLE_ADMIN'] } },
+    { path: 'not-found', component: NotFoundComponent },
+    { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];

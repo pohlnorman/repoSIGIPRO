@@ -9,4 +9,5 @@ export const api = {
     anexo: "/anexo",
     anexos: "/anexos",
     finiquito: "/finiquito",
+    login: "/login",
 }

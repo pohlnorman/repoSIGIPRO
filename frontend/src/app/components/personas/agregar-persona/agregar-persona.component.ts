@@ -1,37 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Persona } from '../../../interfaces/persona';
 import { PersonaService } from '../../../services/persona.service';
 import { rutValidator } from '../../../utils/rutValidator';
 import { CommonModule, Location } from '@angular/common';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-agregar-persona',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
   templateUrl: './agregar-persona.component.html',
   styleUrl: './agregar-persona.component.css'
 })
-export class AgregarPersonaComponent implements OnInit{
+export class AgregarPersonaComponent implements OnInit {
   form: FormGroup;
   id: number = 0;
   tilulo: string = 'Agregar';
 
   constructor(private fb: FormBuilder, private personaService: PersonaService,
-    private router: Router, private aRouter: ActivatedRoute, private _location: Location) {
+    private aRouter: ActivatedRoute, private _location: Location) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       rut: ['', [Validators.required, rutValidator()]]
     })
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
-    console.log(this.id)
   }
 
   ngOnInit(): void {
     if (this.id != 0) {
-      //es editar
       this.tilulo = 'Editar';
       this.obtenerPersona(this.id);
     }
@@ -55,7 +54,6 @@ export class AgregarPersonaComponent implements OnInit{
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        //this.router.navigate(['/ver-lista-personas'])
         this._location.back();
       });
 
@@ -64,7 +62,6 @@ export class AgregarPersonaComponent implements OnInit{
 
   obtenerPersona(id: number) {
     this.personaService.findById(id).subscribe((data: Persona) => {
-      console.log(data);
       this.form.setValue({
         nombre: data.nombre,
         apellido: data.apellido,
@@ -89,7 +86,6 @@ export class AgregarPersonaComponent implements OnInit{
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        //this.router.navigate(['/ver-lista-personas'])
         this._location.back();
       });
     })

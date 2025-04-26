@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Contrato } from '../../../interfaces/contrato';
 import { Finiquito } from '../../../interfaces/finiquito';
 import { ContratoService } from '../../../services/contrato.service';
 import { FiniquitoService } from '../../../services/finiquito.service';
 import { CommonModule, Location } from '@angular/common';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-crear-finiquito',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
   templateUrl: './crear-finiquito.component.html',
   styleUrl: './crear-finiquito.component.css'
 })
-export class CrearFiniquitoComponent implements OnInit{
+export class CrearFiniquitoComponent implements OnInit {
   form: FormGroup;
   contrato: Contrato | null = null;
 
@@ -23,7 +24,7 @@ export class CrearFiniquitoComponent implements OnInit{
     private finiquitoService: FiniquitoService,
     private contratoService: ContratoService,
     private aRouter: ActivatedRoute,
-    private router: Router, private _location: Location
+    private _location: Location
   ) {
     this.form = this.fb.group({
 
@@ -33,11 +34,9 @@ export class CrearFiniquitoComponent implements OnInit{
 
   ngOnInit(): void {
     const id = Number(this.aRouter.snapshot.paramMap.get('id'));
-    console.log(id)
 
     if (id) {
       this.contratoService.findById(id).subscribe((data: Contrato) => {
-        console.log(data)
         this.contrato = data;
       });
     }
@@ -52,22 +51,20 @@ export class CrearFiniquitoComponent implements OnInit{
         contrato: this.contrato,
         id: 0
       };
-      this.finiquitoService.create(finiquito, this.contrato.id!).subscribe(
-        () => {
+      this.finiquitoService.create(finiquito, this.contrato.id!).subscribe({
+        next: (r) => {
           Swal.fire({
             position: "center",
             icon: "success",
             title: "Guardado",
             showConfirmButton: false,
             timer: 1500
-          }).then(()=>{
-            //this.router.navigate(['/contratos'])
+          }).then(() => {
             this._location.back();
           });
-          
         },
-        (error) => console.error('Error al registrar finiquito', error)
-      )
+        error: (e) => console.error("Error"),
+      })
     }
   }
   backClicked() {

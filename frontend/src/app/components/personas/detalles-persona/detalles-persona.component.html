@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container">
     <h2 class="mt-3 mb-4 pb-2 title-border">Detalles de la persona</h2>
 
@@ -11,13 +12,15 @@
                             <p class="fw-bold mb-1">Nombre:</p>
                             <div class="d-flex justify-content-between">
                                 <div>{{ persona.nombre +" "+ persona.apellido }}
-                                    <a routerLink="/editar/{{personaId}}">
+                                    @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN','ROLE_USER'])) {
+                                    <a routerLink="/persona/{{personaId}}/editar">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path
                                                 d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
                                         </svg>
                                     </a>
+                                    }
                                 </div>
 
                             </div>
@@ -40,7 +43,7 @@
                     @if (persona.examenVista!=null || persona.examenVista!= undefined) {
                     <p class="mb-1 mt-1">
                         <span>{{persona.examenVista | date:"dd-MM-y"}} </span>
-                        <a routerLink="/agregar-examenes/{{personaId}}">
+                        <a routerLink="/persona/{{personaId}}/agregar-examen-vista">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil" viewBox="0 0 16 16">
                                 <path
@@ -51,7 +54,7 @@
                     } @else {
                     <div class="d-flex justify-content-between">
                         <p class="text-danger mb-0 mt-1">Sin examen</p>
-                        <button routerLink="/agregar-examenes/{{persona.id}}" type="button"
+                        <button routerLink="/persona/{{persona.id}}/agregar-examen-vista" type="button"
                             class="btn btn-primary">Agregar</button>
                     </div>
 
@@ -70,20 +73,24 @@
                     @if (persona.estado) {
                     <div class="d-flex justify-content-between">
                         <span class="mt-1 text-success fw-bold">Contratado</span>
+                        @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN','ROLE_USER'])) {
                         <div>
-                            <button routerLink="/ver-contrato/{{contratoVigenteId}}" type="button"
-                                class="btn btn-primary" *ngIf="contratoVigenteId!=undefined">Ver
+                            <button routerLink="/contrato/{{contratoVigenteId}}" type="button" class="btn btn-primary"
+                                *ngIf="contratoVigenteId!=undefined">Ver
                                 contrato</button>
                         </div>
+                        }
                     </div>
 
                     } @else {
                     <div class="d-flex justify-content-between">
                         <span class="mt-1">No contratado</span>
+                        @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
                         <div>
-                            <button routerLink="/crear-contrato/{{persona.rut}}" type="button" class="btn btn-success"
-                                *ngIf="!persona.estado">Contratar</button>
+                            <button routerLink="/persona/{{persona.id}}/crear-contrato" type="button"
+                                class="btn btn-success" *ngIf="!persona.estado">Contratar</button>
                         </div>
+                        }
                     </div>
                     }
                 </div>
@@ -91,6 +98,7 @@
         </div>
     </div>
 
+    @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN','ROLE_USER'])) {
     <h4 class="my-4">Historial de contratos</h4>
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered">
         <thead>
@@ -111,18 +119,17 @@
                 <td>Terminado</td>
                 }
                 <td>
-                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button"
-                        class="btn btn-primary btn-sm ms-2">Ver
+                    <button routerLink="/contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm ms-2">Ver
                         contrato</button>
-                    @if (contrato.estado) {
-                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button"
+                    @if (contrato.estado&&hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
+                    <button routerLink="/contrato/{{contrato.id}}/crear-anexo/" type="button"
                         class="btn btn-info btn-sm ms-2">Crear anexo</button>
-                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button"
+                    <button routerLink="/contrato/{{contrato.id}}/crear-finiquito" type="button"
                         class="btn btn-danger btn-sm ms-2">Crear finiquito</button>
                     }
                 </td>
             </tr>
         </tbody>
     </table>
-
+    }
 </div>

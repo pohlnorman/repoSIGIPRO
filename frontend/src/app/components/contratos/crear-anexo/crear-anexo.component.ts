@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Anexo } from '../../../interfaces/anexo';
 import { Contrato } from '../../../interfaces/contrato';
 import { AnexoService } from '../../../services/anexo.service';
 import { ContratoService } from '../../../services/contrato.service';
 import { CommonModule, Location } from '@angular/common';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-crear-anexo',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
   templateUrl: './crear-anexo.component.html',
   styleUrl: './crear-anexo.component.css'
 })
-export class CrearAnexoComponent implements OnInit{
+export class CrearAnexoComponent implements OnInit {
   form: FormGroup;
   contrato: Contrato | null = null;
 
@@ -23,7 +24,7 @@ export class CrearAnexoComponent implements OnInit{
     private anexoService: AnexoService,
     private contratoService: ContratoService,
     private aRouter: ActivatedRoute,
-    private router: Router, private _location: Location
+    private _location: Location
   ) {
     this.form = this.fb.group({
 
@@ -33,11 +34,9 @@ export class CrearAnexoComponent implements OnInit{
 
   ngOnInit(): void {
     const id = Number(this.aRouter.snapshot.paramMap.get('id'));
-    console.log(id)
 
     if (id) {
       this.contratoService.findById(id).subscribe((data: Contrato) => {
-        console.log(data)
         this.contrato = data;
       });
     }
@@ -52,8 +51,8 @@ export class CrearAnexoComponent implements OnInit{
         contrato: this.contrato,
         id: 0
       };
-      this.anexoService.create(anexo, this.contrato.id!).subscribe(
-        () => {
+      this.anexoService.create(anexo, this.contrato.id!).subscribe({
+        next: () => {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -61,12 +60,11 @@ export class CrearAnexoComponent implements OnInit{
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
-            //this.router.navigate(['/contratos'])
             this._location.back();
           });
         },
-        (error) => console.error('Error al registrar anexo', error)
-      )
+        error: (e) => console.error("Error"),
+      })
     }
   }
   backClicked() {

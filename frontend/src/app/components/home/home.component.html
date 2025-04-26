@@ -1,2 +1,26 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2 class="mt-3 mb-4 pb-2 title-border">
+        @if (user.role=="ROLE_SUPER") {Super}
+        @if (user.role=="ROLE_ADMIN") {Admin}
+        @if (user.role=="ROLE_USER") {User}
+        Home
+    </h2>
+</div>
+@if(user.role=="ROLE_SUPER"||user.role=="ROLE_ADMIN"){
 <h1 class="mt-5 text-center">Sistema de gestion industrial</h1>
 <img src="logoSIGIPRO.png" class="rounded mx-auto d-block" alt="logoSIGIPRO">
+}@else {
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">Persona</div>
+                <div class="card-body">
+                    <a routerLink="/persona/{{user.personaId}}">Informacion personal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

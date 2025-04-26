@@ -5,35 +5,35 @@ import { PersonaService } from '../../../services/persona.service';
 import { RouterLink } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-lista-todas-las-personas',
-  imports: [RouterLink,DataTablesModule,CommonModule],
+  imports: [RouterLink, DataTablesModule, CommonModule, NavbarComponent],
   templateUrl: './lista-todas-las-personas.component.html',
   styleUrl: './lista-todas-las-personas.component.css'
 })
-export class ListaTodasLasPersonasComponent implements OnInit{
+export class ListaTodasLasPersonasComponent implements OnInit {
   listaPersonas: Persona[] = []
-  
 
-  constructor( private personaService: PersonaService) { }
+  constructor(private personaService: PersonaService) { }
 
   dtOptions: any = {};
-  dtTrigger:Subject<any>=new Subject<any>();
+  dtTrigger: Subject<any> = new Subject<any>();
 
-  ngOnInit(): void{
-    this.dtOptions={
-      pagingType:'full_numbers',
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
       language: {
-        url:'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-CL.json'
-    },
-    responsive: true
+        url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-CL.json'
+      },
+      responsive: true
     };
     this.getListaPersonas();
   }
 
-  getListaPersonas(){
-    this.personaService.findAll().subscribe((data:Persona[]) =>{
+  getListaPersonas() {
+    this.personaService.findAll().subscribe((data: Persona[]) => {
       this.listaPersonas = data;
       this.dtTrigger.next(null);
     })

@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container">
     <h2 class="mt-3 mb-4 pb-2 title-border">Personas contratadas</h2>
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered">
@@ -11,7 +12,7 @@
         <tbody>
             <tr *ngFor="let contrato of listaContratos">
                 @if (contrato.persona!=undefined) {
-                <td><a routerLink="/ver-persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+
+                <td><a routerLink="/persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+
                         contrato.persona.apellido }}</a></td>
                 <td>{{ contrato.persona.rut }}</td>
                 } @else {
@@ -19,11 +20,11 @@
                 <td>""</td>
                 }
                 <td>
-                    <button routerLink="/ver-contrato/{{contrato.id}}" type="button"
+                    <button routerLink="/contrato/{{contrato.id}}" type="button"
                         class="btn btn-primary btn-sm ms-2">Ver contrato</button>
-                    <button routerLink="/contrato/{{contrato.id}}/anexo/" type="button"
+                    <button routerLink="/contrato/{{contrato.id}}/crear-anexo/" type="button"
                         class="btn btn-info btn-sm ms-2">Crear anexo</button>
-                    <button routerLink="/contrato/finiquito/{{contrato.id}}" type="button"
+                    <button routerLink="/contrato/{{contrato.id}}/crear-finiquito" type="button"
                         class="btn btn-danger btn-sm ms-2">Crear finiquito</button>
                 </td>
             </tr>
