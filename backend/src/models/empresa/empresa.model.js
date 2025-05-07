@@ -2,6 +2,7 @@ import {DataTypes} from 'sequelize';
 import { sequelize } from '../../../database/connection.js';
 import { Contrato } from '../contratos/contrato.model.js';
 import { Bodega } from '../inventarios/bodega.model.js';
+import { User } from '../login/users.models.js';
 
 export const Empresa = sequelize.define('empresas',{
     id:{
@@ -24,3 +25,7 @@ export const Empresa = sequelize.define('empresas',{
 
 Empresa.hasMany(Bodega);
 Bodega.belongsTo(Empresa);
+
+Empresa.hasMany(User, { foreignKey: 'empresaId' });
+User.belongsTo(Empresa, { foreignKey: 'empresaId', allowNull: true })
+

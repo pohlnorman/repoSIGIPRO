@@ -19,3 +19,4 @@ export const Anexo = sequelize.define('anexos', {
     createdAt: false,
     updatedAt: false
 });
+

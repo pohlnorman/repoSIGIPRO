@@ -1,6 +1,7 @@
 import {DataTypes} from 'sequelize';
 import { sequelize } from '../../../database/connection.js';
 import { Contrato } from '../contratos/contrato.model.js';
+import { User } from '../login/users.models.js';
 
 export const Persona = sequelize.define('personas',{
     id:{
@@ -33,5 +34,7 @@ export const Persona = sequelize.define('personas',{
 });
 
 Persona.hasMany(Contrato);
-
 Contrato.belongsTo(Persona)
+
+Persona.hasOne(User, { foreignKey: 'personaId' });
+User.belongsTo(Persona, { foreignKey: 'personaId', allowNull: true })

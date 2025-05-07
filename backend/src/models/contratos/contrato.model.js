@@ -2,7 +2,8 @@ import {DataTypes} from 'sequelize';
 import { sequelize } from '../../../database/connection.js';
 import { Finiquito } from './finiquito.model.js';
 import { Anexo } from './anexo.model.js';
-import { Bodega } from '../inventarios/bodega.model.js'
+import { Bodega } from '../inventarios/bodega.model.js';
+import { Empresa } from '../empresa/empresa.model.js';
 
 export const Contrato = sequelize.define('contratos', {
     id:{
@@ -30,7 +31,6 @@ Finiquito.belongsTo(Contrato);
 Contrato.hasMany(Anexo);
 Anexo.belongsTo(Contrato);
 
-//relacion bodega
-Contrato.hasOne(Bodega);
-Bodega.belongsTo(Contrato);
+Empresa.hasMany(Contrato);
+Contrato.belongsTo(Empresa);
 
