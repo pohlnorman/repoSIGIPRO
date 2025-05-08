@@ -24,9 +24,10 @@ export const User = sequelize.define('usuarios',{
 }, {
     timestamps: false, // Desactivar createdAt y updatedAt
 });
-
-User.hasMany(Rol);
-Rol.belongsTo(User);
+// Un Rol tiene muchos Usuarios
+Rol.hasMany(User, { foreignKey: 'rolId' });
+// Un Usuario pertenece a un Rol
+User.belongsTo(Rol, { foreignKey: 'rolId' });
 
 // Antes de crear el usuario, se encripta la contraseña
 User.beforeCreate(async (user) => {

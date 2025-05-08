@@ -9,6 +9,7 @@ import { sequelize } from './database/connection.js';
 import personaRoute from './src/routes/personas/persona.route.js';
 import contratoRoute from './src/routes/contratos/contrato.route.js';
 import authRoute from './src/routes/auth/auth.route.js';
+import empresaRoute from './src/routes/empresas/empresa.route.js';
 
 import { Persona } from './src/models/personas/persona.model.js';
 import { Empresa } from './src/models/empresa/empresa.model.js';
@@ -43,6 +44,7 @@ app.use(express.json());
 app.use(personaRoute);
 app.use(contratoRoute);
 app.use('/auth',authRoute);
+app.use('/empresa',empresaRoute);
 
 // Middleware de manejo de errores global (EJEMPLO BÁSICO - Deberías mejorarlo)
 app.use((err, req, res, next) => {
@@ -86,7 +88,7 @@ async function main() {
 
                 await User.findOrCreate({
                     where: { username: 'super@sigipro.cl' },
-                    defaults: { password: 'Sigipro1!', rolId: roles[0].idRol, empresaid: empresa.id } // Asumiendo ID 1 para SuperAdmin
+                    defaults: { password: 'Sigipro1!', rolId: roles[0].idRol, empresaId: empresa.id } // Asumiendo ID 1 para SuperAdmin
                 });
                 console.log("Rol por defecto asegurado.");
             } catch (error) {

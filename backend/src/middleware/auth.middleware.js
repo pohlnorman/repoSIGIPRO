@@ -29,3 +29,12 @@ export const verifyToken = (req, res, next) => {
         return res.status(500).json({ message: 'Error interno al verificar el token.' });
     }
 };
+
+export const authorizeRoles = (...rolesPermitidos) => {
+    return (req, res, next) => {
+        if (!req.user || !rolesPermitidos.includes(req.user.rol)) {
+            return res.status(403).json({ message: 'No tienes permisos para acceder a esta ruta' });
+        }
+        next();
+    };
+};
