@@ -1,3 +1,7 @@
+import { User } from "./user";
+
 export interface AuthResponse{
-    token:string
+    isAuthenticated?:boolean,
+    message?:string,
+    user?:User
 }

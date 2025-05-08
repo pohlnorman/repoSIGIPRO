@@ -9,5 +9,9 @@ export const api = {
     anexo: "/anexo",
     anexos: "/anexos",
     finiquito: "/finiquito",
+    auth: "/auth",
     login: "/login",
+    register: "/register",
+    logout: "/logout",
+    check_session: "/check-session"
 }

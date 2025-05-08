@@ -8,8 +8,8 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input formControlName="email" type="email" class="form-control">
-                            @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+                            <input formControlName="username" type="email" class="form-control">
+                            @if (form.get('username')?.hasError('required') && form.get('username')?.touched) {
                             <p class="mb-0 text-danger">Requerido.</p>
                             }
                             @if (form.get('email')?.hasError('pattern') && form.get('email')?.touched) {
@@ -27,8 +27,8 @@
                                 }
                         </div>
                         <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Iniciar sesión</button>
-                        @if (error) {
-                        <span class="fw-bold text-danger ms-1">Error</span>
+                        @if (errorMessage) {
+                        <p class="fw-bold text-danger ms-1">{{errorMessage}}</p>
                         }
                     </form>
                 </div>

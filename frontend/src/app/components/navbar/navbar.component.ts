@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../interfaces/user';
@@ -14,16 +14,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  user: User = {
-    id: 0,
-    email: '',
-    role: '',
-    status: false,
-    personaId: 0
-  };
   isMenuCollapsed = true;
+  user: User | undefined;
+  rolId: number = -1;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private router: Router) { }
 
   toggleTheme() {
     const htmlElement = document.documentElement;
@@ -35,16 +30,27 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user = this.authService.getUser();
-    if (user) {
-      this.user = user;
-    }
+    this.authService.checkSession().subscribe({
+      next: (authResponse) => {
+        this.user = authResponse.user;
+        this.rolId = Number(authResponse.user?.rolId);
+      }
+    });
+
   }
   logout() {
-    this.authService.logout();
+    this.authService.logout().subscribe({
+      next:(authResponse)=>{
+        this.router.navigate(['/login']);
+      }
+    });
     this.isMenuCollapsed = true;
   }
-  hasAnyRole(roles:string[]): boolean {
-    return this.authService.hasAnyRole(roles);
+  hasAnyRole(roles: number[]): boolean {
+    if (this.rolId && roles.indexOf(this.rolId) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

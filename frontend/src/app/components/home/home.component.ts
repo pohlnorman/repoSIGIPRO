@@ -11,20 +11,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  user: User = {
-    id: 0,
-    email: '',
-    role: '',
-    status: false,
-    personaId: 0
-  }
-  constructor(private authService: AuthService
+  user: User | undefined;
+  constructor(private authService: AuthService,
   ) { }
   ngOnInit(): void {
-    const user = this.authService.getUser();
-    if (user) {
-      this.user = user;
-    }
+    this.authService.checkSession().subscribe({
+      next: (authResponse) => {
+        this.user = authResponse.user;
+      }
+    });
   }
 
 }

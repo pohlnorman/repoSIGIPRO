@@ -50,7 +50,7 @@
             <h4>Información del Finiquito</h4>
             <div class="card mt-3">
                 <div class="card-body">
-                    @if (contrato.estado && hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
+                    @if (contrato.estado && hasAnyRole([1,2])) {
                     <p class="fw-bold">Finiquito no creado</p>
                     <button routerLink="/contrato/{{contrato.id}}/crear-finiquito" type="button"
                         class="btn btn-danger btn-sm">Crear finiquito</button>
@@ -65,7 +65,7 @@
     </div>
 
     <h4 class="mt-4">Anexos del contrato</h4>
-    @if (contrato.estado&&hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
+    @if (contrato.estado&&hasAnyRole([1,2])) {
     <button routerLink="/contrato/{{contrato.id}}/crear-anexo/" type="button" class="btn btn-info">Crear
         anexo</button>
     }

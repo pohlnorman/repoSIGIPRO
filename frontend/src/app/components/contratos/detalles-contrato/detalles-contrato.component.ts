@@ -21,6 +21,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './detalles-contrato.component.css'
 })
 export class DetallesContratoComponent implements OnInit {
+  rolId: number = -1;
   personaId: number | undefined;
   contratoId: number = 0;
   persona: Persona = {
@@ -59,6 +60,11 @@ export class DetallesContratoComponent implements OnInit {
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
   ngOnInit(): void {
+    this.authService.checkSession().subscribe({
+      next: (authResponse) => {
+        this.rolId = Number(authResponse.user?.rolId);
+      }
+    });
     this.dtOptions = {
       pagingType: 'full_numbers',
       language: {
@@ -91,7 +97,11 @@ export class DetallesContratoComponent implements OnInit {
     });
 
   }
-  hasAnyRole(roles: string[]): boolean {
-    return this.authService.hasAnyRole(roles);
+  hasAnyRole(roles: number[]): boolean {
+    if (this.rolId && roles.indexOf(this.rolId) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

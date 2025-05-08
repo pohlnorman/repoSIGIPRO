@@ -13,11 +13,11 @@ export class AnexoService {
 
   create(anexo: Anexo, contratoId: number): Observable<Anexo> {
     const url: string = api.host + api.contrato + "/" + contratoId + api.anexo
-    return this.http.post<Anexo>(url, anexo);
+    return this.http.post<Anexo>(url, anexo, { withCredentials: true });
   }
 
   findAllByContratoId(id: number): Observable<Anexo[]> {
     const url: string = api.host + "/allAnnex/" + id
-    return this.http.get<Anexo[]>(url)
+    return this.http.get<Anexo[]>(url, { withCredentials: true })
   }
 }

@@ -12,7 +12,7 @@
                             <p class="fw-bold mb-1">Nombre:</p>
                             <div class="d-flex justify-content-between">
                                 <div>{{ persona.nombre +" "+ persona.apellido }}
-                                    @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN','ROLE_USER'])) {
+                                    @if (hasAnyRole([1,2,3])) {
                                     <a routerLink="/persona/{{personaId}}/editar">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -73,7 +73,7 @@
                     @if (persona.estado) {
                     <div class="d-flex justify-content-between">
                         <span class="mt-1 text-success fw-bold">Contratado</span>
-                        @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN','ROLE_USER'])) {
+                        @if (hasAnyRole([1,2,3])) {
                         <div>
                             <button routerLink="/contrato/{{contratoVigenteId}}" type="button" class="btn btn-primary"
                                 *ngIf="contratoVigenteId!=undefined">Ver
@@ -85,7 +85,7 @@
                     } @else {
                     <div class="d-flex justify-content-between">
                         <span class="mt-1">No contratado</span>
-                        @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
+                        @if (hasAnyRole([1,2])) {
                         <div>
                             <button routerLink="/persona/{{persona.id}}/crear-contrato" type="button"
                                 class="btn btn-success" *ngIf="!persona.estado">Contratar</button>
@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    @if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN','ROLE_USER'])) {
+    @if (hasAnyRole([1,2,3])) {
     <h4 class="my-4">Historial de contratos</h4>
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered">
         <thead>
@@ -121,7 +121,7 @@
                 <td>
                     <button routerLink="/contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm ms-2">Ver
                         contrato</button>
-                    @if (contrato.estado&&hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
+                    @if (contrato.estado&&hasAnyRole([1,2])) {
                     <button routerLink="/contrato/{{contrato.id}}/crear-anexo/" type="button"
                         class="btn btn-info btn-sm ms-2">Crear anexo</button>
                     <button routerLink="/contrato/{{contrato.id}}/crear-finiquito" type="button"

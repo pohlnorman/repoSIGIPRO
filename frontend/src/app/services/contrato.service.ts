@@ -13,27 +13,27 @@ export class ContratoService {
 
   findById(id: number): Observable<Contrato> {
     const url: string = api.host + api.contrato + '/' + id
-    return this.http.get<Contrato>(url);
+    return this.http.get<Contrato>(url, { withCredentials: true });
   }
 
   findByPersonaIdAndActive(personaId: number): Observable<Contrato> {
     const url: string = api.host + api.persona + '/' + personaId +"/contrato-activo"
-    return this.http.get<Contrato>(url);
+    return this.http.get<Contrato>(url, { withCredentials: true });
   }
 
   findAllActive(): Observable<Contrato[]> {
     const url: string = api.host + api.contratos + '/findAllActive'
-    return this.http.get<Contrato[]>(url)
+    return this.http.get<Contrato[]>(url, { withCredentials: true })
   }
 
   findAllByPersonaId(id: number): Observable<Contrato[]> {
     const url: string = api.host + '/allContract/' + id
-    return this.http.get<Contrato[]>(url)
+    return this.http.get<Contrato[]>(url, { withCredentials: true })
   }
 
   create(contrato: Contrato, rut: string): Observable<Contrato> {
     const url: string = api.host + api.persona + "/" + rut + api.contrato
-    return this.http.post<Contrato>(url, contrato);
+    return this.http.post<Contrato>(url, contrato, { withCredentials: true });
   }
 
 }

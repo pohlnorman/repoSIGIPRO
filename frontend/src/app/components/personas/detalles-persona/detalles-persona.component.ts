@@ -9,6 +9,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../interfaces/user';
 
 @Component({
   selector: 'app-detalles-persona',
@@ -17,6 +18,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './detalles-persona.component.css'
 })
 export class DetallesPersonaComponent implements OnInit {
+  rolId: number = -1;
   contratoVigenteId: number | undefined = undefined;
   personaId: number = 0;
   persona: Persona = {
@@ -37,16 +39,15 @@ export class DetallesPersonaComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
-    const paramMapid=Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    if (authService.getRoleName() == "ROLE_USER") {
-      const pid = authService.getUser()?.personaId
-      if (pid!=undefined&&pid!=paramMapid) {
-        this.router.navigate(['/home'])
-      }
-    } 
-      this.personaId = paramMapid;
+    const paramMapid = Number(this.activatedRoute.snapshot.paramMap.get('id'))
+    this.personaId = paramMapid;
   }
   ngOnInit(): void {
+    this.authService.checkSession().subscribe({
+      next: (authResponse) => {
+        this.rolId = Number(authResponse.user?.rolId);
+      }
+    });
     this.dtOptions = {
       pagingType: 'full_numbers',
       language: {
@@ -71,7 +72,11 @@ export class DetallesPersonaComponent implements OnInit {
       error: (e) => console.error("Error"),
     })
   }
-  hasAnyRole(roles: string[]): boolean {
-    return this.authService.hasAnyRole(roles);
+  hasAnyRole(roles: number[]): boolean {
+    if (this.rolId && roles.indexOf(this.rolId) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

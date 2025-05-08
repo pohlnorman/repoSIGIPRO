@@ -85,8 +85,8 @@ async function main() {
                 const empresa = await Empresa.findOne({ where: { rut: '77782898-3' } });
 
                 await User.findOrCreate({
-                    where: { username: 'sigipro' },
-                    defaults: { password: 'sigipro', rolId: roles[0].idRol, empresaid: empresa.id } // Asumiendo ID 1 para SuperAdmin
+                    where: { username: 'super@sigipro.cl' },
+                    defaults: { password: 'Sigipro1!', rolId: roles[0].idRol, empresaid: empresa.id } // Asumiendo ID 1 para SuperAdmin
                 });
                 console.log("Rol por defecto asegurado.");
             } catch (error) {

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { passwordValidator } from '../../utils/passwordValidator';
 import { AuthService } from '../../services/auth.service';
+import { AuthResponse } from '../../interfaces/auth.response';
+import { AuthRequest } from '../../interfaces/auth.request';
 
 @Component({
   selector: 'app-login',
@@ -13,29 +15,35 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  error: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  errorMessage: string | null = null;
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       password: ['', [Validators.required, passwordValidator()]],
     })
   }
   ngOnInit(): void {
-    if (this.authService.isLogged()) {
-      this.router.navigate(['/home']);
-    }
+    this.authService.checkSession().subscribe({
+      next: (authResponse) => {
+        if (authResponse.isAuthenticated) {
+          this.router.navigate(['/home']);
+        }
+      },
+      error:(e)=>{}
+    });
   }
 
   onSubmit() {
-    this.authService.login(this.form.value).subscribe({
-      next: (authResponse) => {
-        const token = authResponse.token;
-        sessionStorage.removeItem('token');
-        sessionStorage.setItem('token', JSON.stringify(token));
+    const authRequest: AuthRequest = {
+      username: this.form.get("username")?.value,
+      password: this.form.get("password")?.value
+    }
+    this.authService.login(authRequest).subscribe({
+      next: (authResponse: AuthResponse) => {
         this.router.navigate(['/home']);
       },
       error: (e) => {
-        this.error = true;
+        this.errorMessage = e.error.message;
       }
     })
   }

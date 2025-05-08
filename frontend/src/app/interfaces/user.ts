@@ -1,7 +1,7 @@
 export interface User{
-    id:number,
-    email:string,
-    role:string,
-    status:boolean,
+    idUser:number,
+    username:string,
+    rolId:number,
+    empresaId:boolean,
     personaId:number
 }

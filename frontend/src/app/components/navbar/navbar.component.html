@@ -14,7 +14,7 @@
 					<a class="nav-link" [routerLink]="'/home'" (click)="isMenuCollapsed = true">Home</a>
 				</li>
 
-				@if (hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])) {
+				@if (hasAnyRole([1,2])) {
 				<li class="nav-item" ngbDropdown>
 					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">Personas</a>
 					<div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu bg-navbar">
@@ -25,7 +25,7 @@
 					</div>
 				</li>
 				}
-				@if(hasAnyRole(['ROLE_SUPER','ROLE_ADMIN'])){
+				@if(hasAnyRole([1,2])){
 				<li class="nav-item" ngbDropdown>
 					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown2" role="button">Contratos</a>
 					<div ngbDropdownMenu aria-labelledby="navbarDropdown2" class="dropdown-menu bg-navbar">
@@ -35,10 +35,11 @@
 				</li>
 				}
 				<li class="nav-item" ngbDropdown>
-					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3" role="button">{{user.email}}</a>
+					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3"
+						role="button">{{user?.username}}</a>
 					<div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu bg-navbar">
 						<button ngbDropdownItem (click)="toggleTheme()">Tema: Claro/Oscuro</button>
-						<button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+						<button ngbDropdownItem (click)="logout()">Logout</button>
 					</div>
 				</li>
 
