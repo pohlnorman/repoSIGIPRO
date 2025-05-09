@@ -2,8 +2,10 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { verifyToken } from '../../middleware/auth.middleware.js';
+import { verifyToken, authorizeRoles } from '../../middleware/auth.middleware.js';
 
+import { Persona } from '../../models/personas/persona.model.js';
+import { Empresa } from '../../models/empresa/empresa.model.js';
 import { User } from '../../models/login/users.models.js'; 
 
 const router = express.Router();
@@ -26,23 +28,44 @@ router.post('/register', async (req, res) =>{
         const existingUser = await User.findOne({ where: { username } });
         if (existingUser) {
         return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
-    }
+        }
 
-        // Crear el nuevo usuario (la contraseña se hashea automáticamente por el hook en users.model.js)
-        const newUser = await User.create({ username, password, rolId: userRolId, empresaId, personaId});
+        // Validar que al menos uno de los IDs esté presente
+        if (!personaId && !empresaId) {
+            return res.status(400).json({ message: 'Debe proporcionar un personaId o empresaId' });
+        }
 
-        // Excluir contraseña de la respuesta
-        const userResponse = newUser.toJSON();
-        delete userResponse.password;
 
-        // Redirigir al login tras registrarse con éxito
-        //res.render('auth/login')
+        // verifica si se esta registrando una perosna o una empresa
+        if(personaId){
+            // Buscar la persona por personaId
+            const persona = await Persona.findByPk(personaId);
+            if (!persona) {
+                return res.status(404).json({ message: 'La persona no existe' });
+            }
 
-        res.status(201).json({ message: 'Usuario registrado exitosamente', user: userResponse });
-        
+            // Crear el nuevo usuario para la persona (la contraseña se hashea automáticamente por el hook en users.model.js)
+            const newUser = await User.create({ username, password, rolId: userRolId, empresaId, personaId});
+            await Persona.update({ tieneUsuario: 1 },{where: {id: persona.id}});
+
+            // Excluir contraseña de la respuesta
+            const userResponse = newUser.toJSON();
+            delete userResponse.password;
+
+            res.status(201).json({ message: 'Usuario para persona registrado exitosamente', user: userResponse });
+        }else if(empresaId != null){
+            // Crear el nuevo usuario para la empresa (la contraseña se hashea automáticamente por el hook en users.model.js)
+            const newUser = await User.create({ username, password, rolId: userRolId, empresaId, personaId});
+
+            // Excluir contraseña de la respuesta
+            const userResponse = newUser.toJSON();
+            delete userResponse.password;
+
+            res.status(201).json({ message: 'Usuario para empresa registrado exitosamente', user: userResponse });
+        }
+
     } catch (error) {
         console.error('Error en registerUser:',error);
-        //res.render('auth/register', { error: 'Error al registrar el usuario' });
         res.status(500).json({ message: 'Error interno del servidor al registrar el usuario' });
     }
 });
@@ -154,5 +177,25 @@ router.get('/protected', (req, res) => {
         res.status(401).json({ message: 'Token inválido' });
     }
 });
+
+//
+router.get('/verifyUser',verifyToken,authorizeRoles(1,2), async (req, res) => {
+    const {rut} = req.body;
+
+    try {
+        const persona = await Persona.findOne({where:{rut}});
+        if (persona.tieneUsuario == 1) {
+            console.log('La persona con rut:'+persona.rut +' si tiene usuario creado')
+            return res.status(200).json({ persona });
+        } else {
+            console.log('La persona con rut:'+persona.rut +' no tiene usuario creado')
+            return res.status(401).json({ message: 'La persona con rut:'+persona.rut +' no tiene usuario creado' });
+        }
+    } catch (error) {
+        console.error('Error verificando el usuario:', error);
+        res.status(500).json({ message: 'Error interno del servidor mientras se verifica el usuario' });
+    }
+
+})
 
 export default router;

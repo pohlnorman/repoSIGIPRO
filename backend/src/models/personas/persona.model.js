@@ -25,6 +25,10 @@ export const Persona = sequelize.define('personas',{
         type: DataTypes.TINYINT,
         allowNull: false
     },
+    tieneUsuario:{
+        type: DataTypes.TINYINT,
+        allowNull: true
+    },
     examenVista:{
         type: DataTypes.DATEONLY
     }
