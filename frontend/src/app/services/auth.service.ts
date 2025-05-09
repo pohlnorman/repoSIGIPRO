@@ -19,7 +19,7 @@ export class AuthService {
 
   logout(): Observable<AuthResponse> {
     const url = api.host + api.auth + api.logout;
-    return this.http.post<AuthResponse>(url,{}, { withCredentials: true });
+    return this.http.post<AuthResponse>(url, {}, { withCredentials: true });
   }
 
   checkSession(): Observable<AuthResponse> {
@@ -32,4 +32,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(url, authRequest, { withCredentials: true });
   }
 
+  getUsernameByPersonaRut(rut: string): Observable<string> {
+    const url = api.host + api.auth + "/verifyUser";
+    return this.http.post<string>(url, {rut}, { withCredentials: true });
+  }
 }

@@ -27,8 +27,10 @@ export class DetallesPersonaComponent implements OnInit {
     rut: '',
     estado: 0,
     examenVista: undefined,
-    id: 0
+    id: 0,
+    tieneUsuario: false
   }
+  username: string | undefined;
   listaContratos: Contrato[] = []
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -56,7 +58,14 @@ export class DetallesPersonaComponent implements OnInit {
       responsive: true
     };
     this.personaService.findById(this.personaId).subscribe({
-      next: (p) => this.persona = p,
+      next: (p) => {
+        this.persona = p
+        if (p.tieneUsuario && (this.rolId == 1 || this.rolId == 2)) {
+          this.authService.getUsernameByPersonaRut(p.rut).subscribe({
+            next: (username) => { this.username = username }
+          });
+        }
+      },
       error: (e) => console.error("Error"),
     });
     this.contratoService.findAllByPersonaId(this.personaId).subscribe({

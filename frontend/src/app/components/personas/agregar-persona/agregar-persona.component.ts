@@ -43,7 +43,8 @@ export class AgregarPersonaComponent implements OnInit {
       apellido: this.form.get('apellido')?.value,
       rut: this.form.get('rut')?.value,
       id: 0,
-      estado: 0
+      estado: 0,
+      tieneUsuario: false
     }
 
     this.personaService.create(persona).subscribe(() => {
@@ -75,7 +76,8 @@ export class AgregarPersonaComponent implements OnInit {
       apellido: this.form.get('apellido')?.value,
       rut: this.form.get('rut')?.value,
       id: 0,
-      estado: 0
+      estado: 0,
+      tieneUsuario: false
     }
 
     this.personaService.update(this.id, persona).subscribe(() => {

@@ -8,6 +8,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Rut</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Credenciales acceso</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,11 @@
                 <td class="text-success fw-bold">Con contrato</td>
                 } @else {
                 <td>Sin contrato</td>
+                }
+                @if (persona.tieneUsuario) {
+                <td class="text-success fw-bold">Creadas</td>
+                } @else {
+                <td>Sin credenciales</td>
                 }
             </tr>
         </tbody>

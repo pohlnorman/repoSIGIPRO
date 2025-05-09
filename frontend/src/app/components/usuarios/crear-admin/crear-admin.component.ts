@@ -7,22 +7,26 @@ import { Location } from '@angular/common';
 import { passwordValidator } from '../../../utils/passwordValidator';
 import { AuthRequest } from '../../../interfaces/auth.request';
 import Swal from 'sweetalert2';
+import { EmpresaService } from '../../../services/empresa.service';
+import { Empresa } from '../../../interfaces/empresa';
 
 @Component({
   selector: 'app-crear-admin',
-  imports: [ReactiveFormsModule,NavbarComponent],
+  imports: [ReactiveFormsModule, NavbarComponent],
   templateUrl: './crear-admin.component.html',
   styleUrl: './crear-admin.component.css'
 })
 export class CrearAdminComponent implements OnInit {
   form: FormGroup;
   empresaId: number | undefined;
+  empresa: Empresa | undefined;
   errorMessage: string | null = null;
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private _location: Location,
+    private empresaService: EmpresaService
   ) {
     this.form = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
@@ -33,6 +37,11 @@ export class CrearAdminComponent implements OnInit {
     const id: number = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     if (id) {
       this.empresaId = id;
+      this.empresaService.findById(id).subscribe({
+        next: (empresa) => {
+          this.empresa = empresa;
+        }
+      })
     }
   }
   onSubmit() {

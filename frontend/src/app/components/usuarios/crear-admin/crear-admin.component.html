@@ -5,6 +5,10 @@
         <div class="card mb-3">
             <div class="card-header">Administrador</div>
             <div class="card-body">
+                @if (empresa) {
+                <label class="form-label">Empresa</label>
+                <input class="form-control mb-2" type="text" placeholder="{{ empresa.nombre }}" disabled>
+                }
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label class="form-label">Email</label>

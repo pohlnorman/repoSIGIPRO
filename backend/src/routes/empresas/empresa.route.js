@@ -31,3 +31,25 @@ router.get('/findAll', verifyToken, authorizeRoles(1),async (req, res) => {
         res.status(500).json({ message: 'Error interno del servidor al buscar las empresas' });
     }
 })
+
+router.get('/:id',verifyToken, authorizeRoles(1,2),async(req,res)=>{
+    try {
+        const {id} = req.params;
+
+        // Validar que el ID es un número
+        if (isNaN(id)) {
+            return res.status(400).json({ mensaje: "ID inválido" });
+        }
+
+        // Buscar empresa por ID
+        const empresa = await Empresa.findByPk(id);
+
+        if (!empresa) {
+            return res.status(404).json({ mensaje: "Empresa no encontrada" });
+        }
+
+        res.json(empresa);
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
+});

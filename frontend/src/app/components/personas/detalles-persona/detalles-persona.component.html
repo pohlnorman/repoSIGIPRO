@@ -101,8 +101,13 @@
             <h4>Credenciales de acceso</h4>
             <div class="card">
                 <div class="card-body">
+                    @if(persona.tieneUsuario){
+                        <p class="fw-bold mb-1">Nombre de usuario:</p>
+                        <p class="mb-0">{{username}}</p>
+                    }@else {
                     <button routerLink="/persona/{{persona.id}}/crear-usuario" type="button"
                         class="btn btn-primary">Crear credenciales</button>
+                    }
                 </div>
             </div>
         </div>

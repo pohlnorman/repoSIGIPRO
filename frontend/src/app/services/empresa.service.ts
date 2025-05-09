@@ -19,4 +19,7 @@ export class EmpresaService {
     return this.http.get<Empresa[]>(api.host + api.empresa + "/findAll", { withCredentials: true });
   }
 
+  findById(id: number): Observable<Empresa> {
+    return this.http.get<Empresa>(api.host + api.empresa + "/" + id, { withCredentials: true });
+  }
 }

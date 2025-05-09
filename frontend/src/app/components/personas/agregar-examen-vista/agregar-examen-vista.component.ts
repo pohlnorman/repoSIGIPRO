@@ -21,7 +21,8 @@ export class AgregarExamenVistaComponent implements OnInit {
     apellido: '',
     rut: '',
     estado: 0,
-    id: 0
+    id: 0,
+    tieneUsuario: false
   }
 
   constructor(private fb: FormBuilder, private personaService: PersonaService,
@@ -54,7 +55,8 @@ export class AgregarExamenVistaComponent implements OnInit {
       rut: this.persona.rut,
       estado: 0,
       examenVista: this.form.get('examenVista')?.value,
-      id: 0
+      id: 0,
+      tieneUsuario: false
     }
 
     this.personaService.update(this.id, persona).subscribe(() => {

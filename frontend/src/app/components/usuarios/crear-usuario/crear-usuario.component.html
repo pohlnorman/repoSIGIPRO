@@ -6,8 +6,10 @@
             <div class="card-header">Credenciales</div>
             <div class="card-body">
                 @if (persona) {
-                <p><strong>Nombre:</strong> {{ persona.nombre }} {{ persona.apellido }}</p>
-                <p><strong>RUT:</strong> {{ persona.rut }}</p>
+                <label class="form-label">Nombre</label>
+                <input class="form-control mb-2" type="text" placeholder="{{ persona.nombre }} {{ persona.apellido }}" disabled>
+                <label class="form-label">RUT</label>
+                <input class="form-control mb-2" type="text" placeholder="{{ persona.rut }}" disabled>
                 }
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="mb-3">

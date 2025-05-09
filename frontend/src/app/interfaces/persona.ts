@@ -4,5 +4,6 @@ export interface Persona {
     apellido: string;
     rut: string;
     estado: number;
+    tieneUsuario:boolean,
     examenVista?: Date
 }

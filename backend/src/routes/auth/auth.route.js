@@ -179,14 +179,14 @@ router.get('/protected', (req, res) => {
 });
 
 //
-router.get('/verifyUser',verifyToken,authorizeRoles(1,2), async (req, res) => {
+router.post('/verifyUser',verifyToken,authorizeRoles(1,2), async (req, res) => {
     const {rut} = req.body;
 
     try {
-        const persona = await Persona.findOne({where:{rut}});
+        const persona = await Persona.findOne({where:{rut},include:[{model:User}]});
         if (persona.tieneUsuario == 1) {
             console.log('La persona con rut:'+persona.rut +' si tiene usuario creado')
-            return res.status(200).json({ persona });
+            return res.status(200).json( persona.usuario.username );
         } else {
             console.log('La persona con rut:'+persona.rut +' no tiene usuario creado')
             return res.status(401).json({ message: 'La persona con rut:'+persona.rut +' no tiene usuario creado' });

@@ -29,7 +29,8 @@ export class DetallesContratoComponent implements OnInit {
     apellido: '',
     rut: '',
     estado: 0,
-    id: 0
+    id: 0,
+    tieneUsuario: false
   }
   contrato: Contrato = {
     fechaInicio: '',
