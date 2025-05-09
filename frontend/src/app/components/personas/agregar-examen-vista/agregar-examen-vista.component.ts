@@ -16,14 +16,7 @@ import { NavbarComponent } from "../../navbar/navbar.component";
 export class AgregarExamenVistaComponent implements OnInit {
   form: FormGroup;
   id: number = 0;
-  persona: Persona = {
-    nombre: '',
-    apellido: '',
-    rut: '',
-    estado: 0,
-    id: 0,
-    tieneUsuario: false
-  }
+  persona: Persona | undefined;
 
   constructor(private fb: FormBuilder, private personaService: PersonaService,
     private aRouter: ActivatedRoute, private _location: Location) {
@@ -49,27 +42,29 @@ export class AgregarExamenVistaComponent implements OnInit {
     })
   }
   actualizarPersona() {
-    const persona: Persona = {
-      nombre: this.persona.nombre,
-      apellido: this.persona.apellido,
-      rut: this.persona.rut,
-      estado: 0,
-      examenVista: this.form.get('examenVista')?.value,
-      id: 0,
-      tieneUsuario: false
-    }
+    if (this.persona) {
+      const persona: Persona = {
+        nombre: this.persona.nombre,
+        apellido: this.persona.apellido,
+        rut: this.persona.rut,
+        estado: 0,
+        examenVista: this.form.get('examenVista')?.value,
+        id: 0,
+        tieneUsuario: false
+      }
 
-    this.personaService.update(this.id, persona).subscribe(() => {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Guardado",
-        showConfirmButton: false,
-        timer: 1500
-      }).then(() => {
-        this._location.back();
-      });
-    })
+      this.personaService.update(this.id, persona).subscribe(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Guardado",
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          this._location.back();
+        });
+      })
+    }
   }
   async onSubmit() {
     this.actualizarPersona()

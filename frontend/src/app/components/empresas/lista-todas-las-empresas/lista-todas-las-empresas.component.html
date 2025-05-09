@@ -19,7 +19,10 @@
                 <td>{{ empresa.nombre }}</td>
                 <td>{{ empresa.rut }}</td>
                 <td><button routerLink="/empresa/{{empresa.id}}/crear-admin" type="button"
-                    class="btn btn-primary btn-sm ms-2">Crear Admin</button></td>
+                    class="btn btn-primary btn-sm ms-2">Crear Admin</button>
+                    <button routerLink="/empresa/{{empresa.id}}/lista-administradores" type="button"
+                    class="btn btn-primary btn-sm ms-2">Lista Admins</button>
+                </td>
             </tr>
             }
             @empty {

@@ -24,28 +24,9 @@ export class DetallesContratoComponent implements OnInit {
   rolId: number = -1;
   personaId: number | undefined;
   contratoId: number = 0;
-  persona: Persona = {
-    nombre: '',
-    apellido: '',
-    rut: '',
-    estado: 0,
-    id: 0,
-    tieneUsuario: false
-  }
-  contrato: Contrato = {
-    fechaInicio: '',
-    estado: 0,
-    personaId: 0,
-    persona: this.persona,
-    id: 0
-  }
-  finiquito: Finiquito = {
-    fechaFiniquito: '',
-    estado: 0,
-    contratoId: 0,
-    contrato: this.contrato,
-    id: 0
-  }
+  persona: Persona | undefined;
+  contrato: Contrato | undefined;
+  finiquito: Finiquito | undefined;
   anexoList: Anexo[] = []
 
 

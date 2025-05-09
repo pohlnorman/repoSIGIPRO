@@ -21,15 +21,7 @@ export class DetallesPersonaComponent implements OnInit {
   rolId: number = -1;
   contratoVigenteId: number | undefined = undefined;
   personaId: number = 0;
-  persona: Persona = {
-    nombre: '',
-    apellido: '',
-    rut: '',
-    estado: 0,
-    examenVista: undefined,
-    id: 0,
-    tieneUsuario: false
-  }
+  persona: Persona | undefined;
   username: string | undefined;
   listaContratos: Contrato[] = []
   dtOptions: any = {};

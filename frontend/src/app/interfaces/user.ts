@@ -2,6 +2,6 @@ export interface User{
     idUser:number,
     username:string,
     rolId:number,
-    empresaId:boolean,
+    empresaId:number,
     personaId:number
 }

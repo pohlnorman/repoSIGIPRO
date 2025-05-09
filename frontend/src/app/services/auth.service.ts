@@ -4,6 +4,7 @@ import { AuthResponse } from '../interfaces/auth.response';
 import { AuthRequest } from '../interfaces/auth.request';
 import { api } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,11 @@ export class AuthService {
 
   getUsernameByPersonaRut(rut: string): Observable<string> {
     const url = api.host + api.auth + "/verifyUser";
-    return this.http.post<string>(url, {rut}, { withCredentials: true });
+    return this.http.post<string>(url, { rut }, { withCredentials: true });
+  }
+
+  getAdminsByEmpresaId(empresaId: number): Observable<User[]> {
+    const url = api.host + api.auth + "/getAdminsByEmpresaId/" + empresaId;
+    return this.http.get<User[]>(url, { withCredentials: true });
   }
 }

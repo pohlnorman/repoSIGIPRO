@@ -11,7 +11,7 @@
                         <div class="col-lg">
                             <p class="fw-bold mb-1">Nombre:</p>
                             <div class="d-flex justify-content-between">
-                                <div>{{ persona.nombre +" "+ persona.apellido }}
+                                <div>{{ persona?.nombre +" "+ persona?.apellido }}
                                     @if (hasAnyRole([1,2,3])) {
                                     <a routerLink="/persona/{{personaId}}/editar">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-lg">
                             <p><span class="fw-bold">Rut:</span><br>
-                                <span>{{persona.rut}}</span>
+                                <span>{{persona?.rut}}</span>
                             </p>
                         </div>
                     </div>
@@ -40,9 +40,9 @@
             <div class="card">
                 <div class="card-body">
                     <p class="mb-0"><span class="fw-bold">Fecha examen visual: </span></p>
-                    @if (persona.examenVista!=null || persona.examenVista!= undefined) {
+                    @if (persona?.examenVista!=null || persona?.examenVista!= undefined) {
                     <p class="mb-1 mt-1">
-                        <span>{{persona.examenVista | date:"dd-MM-y"}} </span>
+                        <span>{{persona?.examenVista | date:"dd-MM-y"}} </span>
                         <a routerLink="/persona/{{personaId}}/agregar-examen-vista">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil" viewBox="0 0 16 16">
@@ -54,7 +54,7 @@
                     } @else {
                     <div class="d-flex justify-content-between">
                         <p class="text-danger mb-0 mt-1">Sin examen</p>
-                        <button routerLink="/persona/{{persona.id}}/agregar-examen-vista" type="button"
+                        <button routerLink="/persona/{{persona?.id}}/agregar-examen-vista" type="button"
                             class="btn btn-primary">Agregar</button>
                     </div>
 
@@ -70,7 +70,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="fw-bold mb-1">Estado contractual: </p>
-                    @if (persona.estado) {
+                    @if (persona && persona.estado) {
                     <div class="d-flex justify-content-between">
                         <span class="mt-1 text-success fw-bold">Contratado</span>
                         @if (hasAnyRole([1,2,3])) {
@@ -87,8 +87,8 @@
                         <span class="mt-1">No contratado</span>
                         @if (hasAnyRole([1,2])) {
                         <div>
-                            <button routerLink="/persona/{{persona.id}}/crear-contrato" type="button"
-                                class="btn btn-success" *ngIf="!persona.estado">Contratar</button>
+                            <button routerLink="/persona/{{persona?.id}}/crear-contrato" type="button"
+                                class="btn btn-success" *ngIf="!persona?.estado">Contratar</button>
                         </div>
                         }
                     </div>
@@ -101,11 +101,11 @@
             <h4>Credenciales de acceso</h4>
             <div class="card">
                 <div class="card-body">
-                    @if(persona.tieneUsuario){
+                    @if(persona && persona.tieneUsuario){
                         <p class="fw-bold mb-1">Nombre de usuario:</p>
                         <p class="mb-0">{{username}}</p>
                     }@else {
-                    <button routerLink="/persona/{{persona.id}}/crear-usuario" type="button"
+                    <button routerLink="/persona/{{persona?.id}}/crear-usuario" type="button"
                         class="btn btn-primary">Crear credenciales</button>
                     }
                 </div>

@@ -10,12 +10,12 @@
                     <div class="row">
                         <div class="col-lg">
                             <p class="fw-bold mb-1">Nombre:</p>
-                            <div><a routerLink="/persona/{{contrato.personaId}}">{{ persona.nombre +" "+
-                                    persona.apellido }}</a></div>
+                            <div>@if (persona && contrato) {<a routerLink="/persona/{{contrato.personaId}}">{{ persona.nombre +" "+
+                                    persona.apellido }}</a>}</div>
                         </div>
                         <div class="col-lg">
                             <p><span class="fw-bold">Rut:</span><br>
-                                <span>{{persona.rut}}</span>
+                                <span>@if(persona){ {{persona.rut}} }</span>
                             </p>
                         </div>
                     </div>
@@ -29,6 +29,7 @@
             <h4>Información del contrato</h4>
             <div class="card mt-3">
                 <div class="card-body">
+                    @if (contrato) {
                     <p class="mb-1"><span class="fw-bold">ID: </span>
                         <span>{{contrato.id}} </span>
                     </p>
@@ -42,6 +43,7 @@
                         <td>Terminado</td>
                         }
                     </p>
+                }
                 </div>
             </div>
         </div>
@@ -50,13 +52,13 @@
             <h4>Información del Finiquito</h4>
             <div class="card mt-3">
                 <div class="card-body">
-                    @if (contrato.estado && hasAnyRole([1,2])) {
+                    @if (contrato && contrato.estado && hasAnyRole([1,2])) {
                     <p class="fw-bold">Finiquito no creado</p>
                     <button routerLink="/contrato/{{contrato.id}}/crear-finiquito" type="button"
                         class="btn btn-danger btn-sm">Crear finiquito</button>
                     } @else {
                     <p><span class="fw-bold">Fecha de finiquito:</span><br>
-                        <span>{{finiquito.fechaFiniquito| date:"dd-MM-y"}} </span>
+                        <span>@if(finiquito){ {{finiquito.fechaFiniquito| date:"dd-MM-y"}} }</span>
                     </p>
                     }
                 </div>
@@ -65,7 +67,7 @@
     </div>
 
     <h4 class="mt-4">Anexos del contrato</h4>
-    @if (contrato.estado&&hasAnyRole([1,2])) {
+    @if (contrato && contrato.estado&&hasAnyRole([1,2])) {
     <button routerLink="/contrato/{{contrato.id}}/crear-anexo/" type="button" class="btn btn-info">Crear
         anexo</button>
     }
