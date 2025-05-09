@@ -12,6 +12,10 @@ import { DetallesContratoComponent } from './components/contratos/detalles-contr
 import { ListaContratosVigentesComponent } from './components/contratos/lista-contratos-vigentes/lista-contratos-vigentes.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CrearUsuarioComponent } from './components/usuarios/crear-usuario/crear-usuario.component';
+import { ListaTodasLasEmpresasComponent } from './components/empresas/lista-todas-las-empresas/lista-todas-las-empresas.component';
+import { CrearEmpresaComponent } from './components/empresas/crear-empresa/crear-empresa.component';
+import { CrearAdminComponent } from './components/usuarios/crear-admin/crear-admin.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
@@ -23,10 +27,14 @@ export const routes: Routes = [
     { path: 'persona/:id/editar', component: AgregarPersonaComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'persona/:id/agregar-examen-vista', component: AgregarExamenVistaComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'persona/:id/crear-contrato', component: CrearContratoComponent, canActivate: [authGuard], data: { role: [1,2] } },
+    { path: 'persona/:id/crear-usuario', component: CrearUsuarioComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'contratos', component: ListaContratosVigentesComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'contrato/:id', component: DetallesContratoComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'contrato/:id/crear-anexo', component: CrearAnexoComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'contrato/:id/crear-finiquito', component: CrearFiniquitoComponent, canActivate: [authGuard], data: { role: [1,2] } },
+    { path: 'empresas', component: ListaTodasLasEmpresasComponent, canActivate: [authGuard], data: { role: [1] } },
+    { path: 'empresa', component: CrearEmpresaComponent, canActivate: [authGuard], data: { role: [1] } },
+    { path: 'empresa/:id/crear-admin', component: CrearAdminComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];

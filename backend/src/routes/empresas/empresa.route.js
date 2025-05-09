@@ -25,7 +25,7 @@ router.get('/findAll', verifyToken, authorizeRoles(1),async (req, res) => {
     try {
         const empresas = await Empresa.findAll();
 
-        res.status(201).json({ message: 'Lista de empresas registradas', empresas });
+        res.status(201).json( empresas );
     } catch (error) {
         console.error('Error en FindAll:',error);
         res.status(500).json({ message: 'Error interno del servidor al buscar las empresas' });

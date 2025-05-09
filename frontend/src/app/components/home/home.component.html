@@ -7,17 +7,32 @@
         Home
     </h2>
 </div>
-@if(user && (user.rolId==1||user.rolId==2)){
-<h1 class="mt-5 text-center">Sistema de gestion industrial</h1>
-<img src="logoSIGIPRO.png" class="rounded mx-auto d-block" alt="logoSIGIPRO">
-}@else {
+@if (user && (user.rolId==1)) {
 <div class="container">
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">Empresas</div>
+                <div class="card-body">
+                    <a routerLink="/empresas">Lista de empresas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@else if(user && (user.rolId==2)){
+<h1 class="mt-5 text-center">Sistema de gestion industrial</h1>
+<img src="logoSIGIPRO.png" class="rounded mx-auto d-block" alt="logoSIGIPRO">
+
+}@else if(user && (user.rolId==3)){
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">Persona</div>
                 <div class="card-body">
-                    <a routerLink="/persona/{{user?.personaId}}">Informacion personal</a>
+                    <a routerLink="/persona/{{user.personaId}}">Informacion personal</a>
                 </div>
             </div>
         </div>

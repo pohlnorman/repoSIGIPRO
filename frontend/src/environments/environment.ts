@@ -13,5 +13,6 @@ export const api = {
     login: "/login",
     register: "/register",
     logout: "/logout",
-    check_session: "/check-session"
+    check_session: "/check-session",
+    empresa: "/empresa"
 }

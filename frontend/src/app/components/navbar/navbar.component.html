@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg mb-3 bg-body-secondary">
 	<div class="container">
-		<a class="navbar-brand" [routerLink]="'/'">
+		<a class="navbar-brand" [routerLink]="'/home'">
 			<img src="logoSIGIPRO-small.png" height="30" class="d-inline-block align-text-top" />
 			SIGIPRO
 		</a>
@@ -34,6 +34,14 @@
 					</div>
 				</li>
 				}
+				@if(hasAnyRole([2])){
+					<li class="nav-item" ngbDropdown>
+						<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown4" role="button">Usuarios</a>
+						<div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu bg-navbar">
+							<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/crear-admin" (click)="isMenuCollapsed = true">Crear Admin</a>
+						</div>
+					</li>
+					}
 				<li class="nav-item" ngbDropdown>
 					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3"
 						role="button">{{user?.username}}</a>

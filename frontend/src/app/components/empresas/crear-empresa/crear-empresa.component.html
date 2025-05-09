@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2 class="mt-3 mb-4 pb-2 title-border">Crear empresa</h2>
+    <div class="col-lg-5">
+        <div class="card mb-3">
+            <div class="card-header">Empresa</div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="rut" class="form-label">Rut</label>
+                        <input type="text" id="rut" class="form-control" formControlName="rut">
+                        <span *ngIf="form.get('rut')?.hasError('required') && form.get('rut')?.touched"
+                            class="text-danger">Requerido</span>
+                        <span *ngIf="form.get('rut')?.hasError('rutInvalido') && form.get('rut')?.touched"
+                            class="text-danger"> Formato <strong>incorrecto.</strong>
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" class="form-control" formControlName="nombre">
+                        <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Guardar</button>
+                        <a class="btn btn-secondary" (click)="backClicked()" role="button">Cancelar</a>
+                    </div>
+                    @if (errorMessage) {
+                    <p class="fw-bold text-danger ms-1">{{errorMessage}}</p>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
