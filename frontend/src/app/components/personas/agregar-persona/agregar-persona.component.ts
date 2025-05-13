@@ -24,7 +24,27 @@ export class AgregarPersonaComponent implements OnInit {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      rut: ['', [Validators.required, rutValidator()]]
+      rut: ['', [Validators.required, rutValidator()]],
+      nacionalidad: [''],
+      fechaNacimiento: [undefined],
+      estadoCivil: [''],
+      prefesion: [''],
+      telefono: [''],
+      email: ['', Validators.email],
+      direccion: [''],
+      region: [''],
+      comuna: [''],
+      afp: [''],
+      salud: [''],
+      tallaCamisa: [''],
+      tallaPantalon: [''],
+      tallaZapato: [''],
+      tallaPoleron: [''],
+      tallaParka: [''],
+      tallaOberol: [''],
+      examenVista: [undefined],
+      examenAltura: [undefined],
+      examenGeneral: [undefined],
     })
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
   }
@@ -34,20 +54,10 @@ export class AgregarPersonaComponent implements OnInit {
       this.tilulo = 'Editar';
       this.obtenerPersona(this.id);
     }
-
   }
 
   agregarPersona() {
-    const persona: Persona = {
-      nombre: this.form.get('nombre')?.value,
-      apellido: this.form.get('apellido')?.value,
-      rut: this.form.get('rut')?.value,
-      id: 0,
-      estado: 0,
-      tieneUsuario: false
-    }
-
-    this.personaService.create(persona).subscribe(() => {
+    this.personaService.create(this.form.value).subscribe(() => {
       Swal.fire({
         position: "center",
         icon: "success",
@@ -57,30 +67,16 @@ export class AgregarPersonaComponent implements OnInit {
       }).then(() => {
         this._location.back();
       });
-
     })
   }
 
   obtenerPersona(id: number) {
-    this.personaService.findById(id).subscribe((data: Persona) => {
-      this.form.setValue({
-        nombre: data.nombre,
-        apellido: data.apellido,
-        rut: data.rut
-      })
+    this.personaService.findById(id).subscribe((persona: Persona) => {
+      this.form.patchValue(persona);
     })
   }
   actualizarPersona() {
-    const persona: Persona = {
-      nombre: this.form.get('nombre')?.value,
-      apellido: this.form.get('apellido')?.value,
-      rut: this.form.get('rut')?.value,
-      id: 0,
-      estado: 0,
-      tieneUsuario: false
-    }
-
-    this.personaService.update(this.id, persona).subscribe(() => {
+    this.personaService.update(this.id, this.form.value).subscribe(() => {
       Swal.fire({
         position: "center",
         icon: "success",
@@ -93,6 +89,7 @@ export class AgregarPersonaComponent implements OnInit {
     })
   }
   async onSubmit() {
+    this.clearDates();
     if (this.id == 0) {
       this.personaService.findByRut(this.form.get('rut')?.value).subscribe({
         next: (p) => {
@@ -113,5 +110,19 @@ export class AgregarPersonaComponent implements OnInit {
   }
   backClicked() {
     this._location.back();
+  }
+  clearDates() {
+    if (this.form.get("fechaNacimiento")?.value == "") {
+      this.form.get("fechaNacimiento")?.setValue(null)
+    }
+    if (this.form.get("examenVista")?.value == "") {
+      this.form.get("examenVista")?.setValue(null)
+    }
+    if (this.form.get("examenAltura")?.value == "") {
+      this.form.get("examenAltura")?.setValue(null)
+    }
+    if (this.form.get("examenGeneral")?.value == "") {
+      this.form.get("examenGeneral")?.setValue(null)
+    }
   }
 }

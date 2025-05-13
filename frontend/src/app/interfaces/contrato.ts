@@ -2,9 +2,15 @@ import { Persona } from "./persona";
 
 export interface Contrato {
     id: number;
-    fechaInicio: string;
+    fechaInicio: Date | null;
     estado: number;
     personaId: number;
-    persona?: Persona
+    persona?: Persona;
+    cargo: string;
+    labor: string;
+    lugarDeTrabajo: string;
+    duracion: string;
+    horario: string;
+    sueldoBase: string;
 }
 

@@ -2,8 +2,10 @@ import { Contrato } from "./contrato";
 
 export interface Anexo {
     id: number;
-    fechaAnexo: string;
+    fechaEmisionAnexo: Date | null;
     estado: number;
     contratoId: number;
-    contrato?: Contrato
+    contrato?: Contrato;
+    fechaVigenciaAnexo: Date | null;
+    motivo: string;
 }

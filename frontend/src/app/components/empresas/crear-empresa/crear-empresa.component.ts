@@ -21,7 +21,15 @@ export class CrearEmpresaComponent {
   ) {
     this.form = this.formBuilder.group({
       nombre: ['', Validators.required],
-      rut: ['', [Validators.required, rutValidator()]]
+      rut: ['', [Validators.required, rutValidator()]],
+      nombreFantasia: [''],
+      telefono: [''],
+      representanteLegal: [''],
+      giro: [''],
+      direccion: [''],
+      email: [''],
+      region: [''],
+      comuna: [''],
     });
   }
 
@@ -38,8 +46,8 @@ export class CrearEmpresaComponent {
           this._location.back();
         });
       },
-      error:(e)=>{
-        this.errorMessage=e.error.message;
+      error: (e) => {
+        this.errorMessage = e.error.message;
       }
     });
   }

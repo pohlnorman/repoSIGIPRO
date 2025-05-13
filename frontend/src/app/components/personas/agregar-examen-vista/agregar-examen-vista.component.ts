@@ -50,9 +50,25 @@ export class AgregarExamenVistaComponent implements OnInit {
         estado: 0,
         examenVista: this.form.get('examenVista')?.value,
         id: 0,
-        tieneUsuario: false
+        tieneUsuario: false,
+        nacionalidad: '',
+        estadoCivil: '',
+        prefesion: '',
+        telefono: '',
+        email: '',
+        direccion: '',
+        region: '',
+        comuna: '',
+        afp: '',
+        salud: '',
+        tallaCamisa: '',
+        tallaPantalon: '',
+        tallaZapato: '',
+        tallaPoleron: '',
+        tallaParka: '',
+        tallaOberol: ''
       }
-
+console.log(persona)
       this.personaService.update(this.id, persona).subscribe(() => {
         Swal.fire({
           position: "center",

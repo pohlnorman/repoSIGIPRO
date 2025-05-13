@@ -36,7 +36,7 @@ export const routes: Routes = [
     { path: 'empresas', component: ListaTodasLasEmpresasComponent, canActivate: [authGuard], data: { role: [1] } },
     { path: 'empresa', component: CrearEmpresaComponent, canActivate: [authGuard], data: { role: [1] } },
     { path: 'empresa/:id/crear-admin', component: CrearAdminComponent, canActivate: [authGuard], data: { role: [1,2] } },
-    { path: 'empresa/:id/lista-administradores', component: ListaAdministradoresComponent, canActivate: [authGuard], data: { role: [1] } },
+    { path: 'empresa/:id/lista-administradores', component: ListaAdministradoresComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];

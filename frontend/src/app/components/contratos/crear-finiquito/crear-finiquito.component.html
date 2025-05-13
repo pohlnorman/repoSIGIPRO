@@ -16,11 +16,47 @@
                     <p><strong>Fecha Inicio del contrato:</strong> {{ contrato.fechaInicio }}</p>
                 </div>
                 <form [formGroup]="form" (ngSubmit)="registrarFiniquito()">
+
                     <div class="mb-3">
                         <label for="fechaFiniquito" class="form-label">Fecha del finiquito</label>
                         <input type="date" id="fechaFiniquito" class="form-control" formControlName="fechaFiniquito">
                         <span
                             *ngIf="form.get('fechaFiniquito')?.hasError('required') && form.get('fechaFiniquito')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="causalTermino" class="form-label">causalTermino</label>
+                        <input type="text" id="causalTermino" class="form-control" formControlName="causalTermino">
+                        <span *ngIf="form.get('causalTermino')?.hasError('required') && form.get('causalTermino')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                     <div class="mb-3">
+                        <label for="indemnizacion" class="form-label">indemnizacion</label>
+                        <input type="text" id="indemnizacion" class="form-control" formControlName="indemnizacion">
+                        <span *ngIf="form.get('indemnizacion')?.hasError('required') && form.get('indemnizacion')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="vacacionesProporcionales" class="form-label">vacacionesProporcionales</label>
+                        <input type="text" id="vacacionesProporcionales" class="form-control" formControlName="vacacionesProporcionales">
+                        <span *ngIf="form.get('vacacionesProporcionales')?.hasError('required') && form.get('vacacionesProporcionales')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sueldoPendiente" class="form-label">sueldoPendiente</label>
+                        <input type="text" id="sueldoPendiente" class="form-control" formControlName="sueldoPendiente">
+                        <span *ngIf="form.get('sueldoPendiente')?.hasError('required') && form.get('sueldoPendiente')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ratificacion" class="form-label">ratificacion</label>
+                        <input type="text" id="ratificacion" class="form-control" formControlName="ratificacion">
+                        <span *ngIf="form.get('ratificacion')?.hasError('required') && form.get('ratificacion')?.touched"
                             class="text-danger">Requerido</span>
                     </div>
 

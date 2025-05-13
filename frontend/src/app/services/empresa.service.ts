@@ -22,4 +22,9 @@ export class EmpresaService {
   findById(id: number): Observable<Empresa> {
     return this.http.get<Empresa>(api.host + api.empresa + "/" + id, { withCredentials: true });
   }
+
+  getAdminsByEmpresaId(empresaId: number): Observable<Empresa> {
+    const url = api.host + api.empresa + "/accountByCompany/" + empresaId;
+    return this.http.get<Empresa>(url, { withCredentials: true });
+  }
 }

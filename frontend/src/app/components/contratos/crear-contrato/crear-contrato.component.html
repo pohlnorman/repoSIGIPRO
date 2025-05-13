@@ -10,10 +10,53 @@
                     <p><strong>RUT:</strong> {{ persona.rut }}</p>
                 </div>
                 <form [formGroup]="form" (ngSubmit)="registrarContrato()">
+
                     <div class="mb-3">
                         <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
                         <input type="date" id="fechaInicio" class="form-control" formControlName="fechaInicio">
                         <span *ngIf="form.get('fechaInicio')?.hasError('required') && form.get('fechaInicio')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cargo" class="form-label">cargo</label>
+                        <input type="text" id="cargo" class="form-control" formControlName="cargo">
+                        <span *ngIf="form.get('cargo')?.hasError('required') && form.get('cargo')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                     <div class="mb-3">
+                        <label for="labor" class="form-label">labor</label>
+                        <input type="text" id="labor" class="form-control" formControlName="labor">
+                        <span *ngIf="form.get('labor')?.hasError('required') && form.get('labor')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                     <div class="mb-3">
+                        <label for="lugarDeTrabajo" class="form-label">lugarDeTrabajo</label>
+                        <input type="text" id="lugarDeTrabajo" class="form-control" formControlName="lugarDeTrabajo">
+                        <span *ngIf="form.get('lugarDeTrabajo')?.hasError('required') && form.get('lugarDeTrabajo')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                     <div class="mb-3">
+                        <label for="duracion" class="form-label">duracion</label>
+                        <input type="text" id="duracion" class="form-control" formControlName="duracion">
+                        <span *ngIf="form.get('duracion')?.hasError('required') && form.get('duracion')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="horario" class="form-label">horario</label>
+                        <input type="text" id="horario" class="form-control" formControlName="horario">
+                        <span *ngIf="form.get('horario')?.hasError('required') && form.get('horario')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sueldoBase" class="form-label">sueldoBase</label>
+                        <input type="text" id="sueldoBase" class="form-control" formControlName="sueldoBase">
+                        <span *ngIf="form.get('sueldoBase')?.hasError('required') && form.get('sueldoBase')?.touched"
                             class="text-danger">Requerido</span>
                     </div>
 

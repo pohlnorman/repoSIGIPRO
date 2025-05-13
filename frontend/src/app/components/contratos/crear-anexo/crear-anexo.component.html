@@ -17,10 +17,25 @@
                 </div>
 
                 <form [formGroup]="form" (ngSubmit)="registrarAnexo()">
+
                     <div class="mb-3">
-                        <label for="fechaAnexo" class="form-label">Fecha del anexo</label>
-                        <input type="date" id="fechaAnexo" class="form-control" formControlName="fechaAnexo">
-                        <span *ngIf="form.get('fechaAnexo')?.hasError('required') && form.get('fechaAnexo')?.touched"
+                        <label for="fechaEmisionAnexo" class="form-label">fechaEmisionAnexo</label>
+                        <input type="date" id="fechaEmisionAnexo" class="form-control" formControlName="fechaEmisionAnexo">
+                        <span *ngIf="form.get('fechaEmisionAnexo')?.hasError('required') && form.get('fechaEmisionAnexo')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fechaVigenciaAnexo" class="form-label">fechaVigenciaAnexo</label>
+                        <input type="date" id="fechaVigenciaAnexo" class="form-control" formControlName="fechaVigenciaAnexo">
+                        <span *ngIf="form.get('fechaVigenciaAnexo')?.hasError('required') && form.get('fechaVigenciaAnexo')?.touched"
+                            class="text-danger">Requerido</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="motivo" class="form-label">motivo</label>
+                        <input type="text" id="motivo" class="form-control" formControlName="motivo">
+                        <span *ngIf="form.get('motivo')?.hasError('required') && form.get('motivo')?.touched"
                             class="text-danger">Requerido</span>
                     </div>
 

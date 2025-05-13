@@ -29,6 +29,11 @@ export class CrearFiniquitoComponent implements OnInit {
     this.form = this.fb.group({
 
       fechaFiniquito: ['', Validators.required],
+      causalTermino: ['', Validators.required],
+      indemnizacion: ['', Validators.required],
+      vacacionesProporcionales: ['', Validators.required],
+      sueldoPendiente: ['', Validators.required],
+      ratificacion: ['', Validators.required],
     });
   }
 
@@ -49,7 +54,12 @@ export class CrearFiniquitoComponent implements OnInit {
         contratoId: this.contrato.id!,
         estado: 1,
         contrato: this.contrato,
-        id: 0
+        id: 0,
+        causalTermino: '',
+        indemnizacion: '',
+        vacacionesProporcionales: '',
+        sueldoPendiente: '',
+        ratificacion: ''
       };
       this.finiquitoService.create(finiquito, this.contrato.id!).subscribe({
         next: (r) => {

@@ -28,7 +28,9 @@ export class CrearAnexoComponent implements OnInit {
   ) {
     this.form = this.fb.group({
 
-      fechaAnexo: ['', Validators.required],
+      fechaEmisionAnexo: ['', Validators.required],
+      fechaVigenciaAnexo: ['', Validators.required],
+      motivo: ['', Validators.required],
     });
   }
 
@@ -45,11 +47,13 @@ export class CrearAnexoComponent implements OnInit {
   registrarAnexo(): void {
     if (this.form.valid && this.contrato) {
       const anexo: Anexo = {
-        fechaAnexo: this.form.value.fechaAnexo,
+        fechaEmisionAnexo: this.form.value.fechaEmisionAnexo,
         contratoId: this.contrato.id!,
         estado: 1,
         contrato: this.contrato,
-        id: 0
+        id: 0,
+        fechaVigenciaAnexo: this.form.value.fechaVigenciaAnexo,
+        motivo: ''
       };
       this.anexoService.create(anexo, this.contrato.id!).subscribe({
         next: () => {

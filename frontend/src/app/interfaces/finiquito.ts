@@ -2,8 +2,13 @@ import { Contrato } from "./contrato";
 
 export interface Finiquito {
     id: number;
-    fechaFiniquito: string;
+    fechaFiniquito: Date | null;
     estado: number;
     contratoId: number;
-    contrato?: Contrato
+    contrato?: Contrato;
+    causalTermino: string;
+    indemnizacion: string;
+    vacacionesProporcionales: string;
+    sueldoPendiente: string;
+    ratificacion: string;
 }

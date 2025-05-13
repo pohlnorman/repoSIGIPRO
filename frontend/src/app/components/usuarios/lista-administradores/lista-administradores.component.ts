@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { User } from '../../../interfaces/user';
-import { AuthService } from '../../../services/auth.service';
 import { EmpresaService } from '../../../services/empresa.service';
 import { Empresa } from '../../../interfaces/empresa';
 import { ActivatedRoute } from '@angular/router';
@@ -15,8 +14,8 @@ import { DataTablesModule } from 'angular-datatables';
   styleUrl: './lista-administradores.component.css'
 })
 export class ListaAdministradoresComponent implements OnInit {
-  admins: User[] = []
   empresa: Empresa | undefined;
+  users: User[] = [];
   dtOptions: any = {
     pagingType: 'full_numbers',
     language: {
@@ -26,22 +25,19 @@ export class ListaAdministradoresComponent implements OnInit {
   };
   dtTrigger: Subject<any> = new Subject<any>();
   constructor(
-    private authService: AuthService,
     private empresaService: EmpresaService,
     private activatedRoute: ActivatedRoute,
   ) { }
   ngOnInit(): void {
-    const id: number = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    const id: number | null = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     if (id) {
-      this.empresaService.findById(id).subscribe({
+      this.empresaService.getAdminsByEmpresaId(id).subscribe({
         next: (empresa) => {
-          this.empresa = empresa;
-        }
-      })
-      this.authService.getAdminsByEmpresaId(id).subscribe({
-        next: (admins) => {
-          this.admins = admins;
-          this.dtTrigger.next(null);
+          this.empresa = empresa
+          if (empresa.usuarios != undefined) {
+            this.users = empresa.usuarios;
+            this.dtTrigger.next(null);
+          }
         }
       });
     }

@@ -39,6 +39,7 @@
 						<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown4" role="button">Usuarios</a>
 						<div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu bg-navbar">
 							<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/crear-admin" (click)="isMenuCollapsed = true">Crear Admin</a>
+							<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/lista-administradores" (click)="isMenuCollapsed = true">Lista Admins</a>
 						</div>
 					</li>
 					}

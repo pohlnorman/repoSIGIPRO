@@ -28,6 +28,12 @@ export class CrearContratoComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       fechaInicio: ['', Validators.required],
+      cargo: ['', Validators.required],
+      labor: ['', Validators.required],
+      lugarDeTrabajo: ['', Validators.required],
+      duracion: ['', Validators.required],
+      horario: ['', Validators.required],
+      sueldoBase: ['', Validators.required],
     });
 
   }
@@ -51,7 +57,13 @@ export class CrearContratoComponent implements OnInit {
         personaId: this.persona.id!,
         estado: 1,
         persona: this.persona,
-        id: 0
+        id: 0,
+        cargo: '',
+        labor: '',
+        lugarDeTrabajo: '',
+        duracion: '',
+        horario: '',
+        sueldoBase: ''
       };
       this.contratoService.create(contrato, this.persona.rut).subscribe({
         next: (r) => {

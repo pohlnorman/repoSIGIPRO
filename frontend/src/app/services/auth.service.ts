@@ -38,8 +38,4 @@ export class AuthService {
     return this.http.post<string>(url, { rut }, { withCredentials: true });
   }
 
-  getAdminsByEmpresaId(empresaId: number): Observable<User[]> {
-    const url = api.host + api.auth + "/getAdminsByEmpresaId/" + empresaId;
-    return this.http.get<User[]>(url, { withCredentials: true });
-  }
 }
