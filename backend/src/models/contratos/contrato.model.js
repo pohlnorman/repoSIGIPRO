@@ -12,11 +12,35 @@ export const Contrato = sequelize.define('contratos', {
         autoIncrement: true
     },
     fechaInicio:{
-        type: DataTypes.STRING,
+        type: DataTypes.DATEONLY,
     },
     estado:{
         type: DataTypes.TINYINT,
         allowNull: false
+    },
+    cargo:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    labor:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    lugarDeTrabajo:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    duracion:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    horario:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    sueldoBase:{
+        type: DataTypes.STRING,
+        allowNull: true
     }
 },{
     createdAt: false,

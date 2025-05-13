@@ -1,6 +1,8 @@
 import express from 'express';
 import { Empresa } from '../../models/empresa/empresa.model.js';
+import { User} from '../../models/login/users.models.js';
 import { verifyToken, authorizeRoles } from '../../middleware/auth.middleware.js';
+
 
 const router = express.Router();
 
@@ -32,6 +34,7 @@ router.get('/findAll', verifyToken, authorizeRoles(1),async (req, res) => {
     }
 })
 
+//buscar empresa por id
 router.get('/:id',verifyToken, authorizeRoles(1,2),async(req,res)=>{
     try {
         const {id} = req.params;
@@ -49,6 +52,33 @@ router.get('/:id',verifyToken, authorizeRoles(1,2),async(req,res)=>{
         }
 
         res.json(empresa);
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
+});
+
+//buscar cuentas usuario de empresa por rut de la empresa
+router.get('/accountByCompany/:rut',verifyToken, authorizeRoles(1),async(req,res) => {
+    try {
+        const {rut} = req.params;
+
+        // Buscar empresa por rut
+        const empresa = await Empresa.findAll({
+            where:{rut},
+            attributes:['id','nombre','rut'],
+            include:[{
+                model:User,
+                attributes: {exclude:['password','personaId']}
+            }]
+        });
+
+        if (!empresa) {
+            return res.status(404).json({ mensaje: "Empresa no encontrada" });
+        }
+        console.log('Empresa encontrada')
+
+        res.json(empresa);
+
     } catch (error) {
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }

@@ -11,10 +11,7 @@ import contratoRoute from './src/routes/contratos/contrato.route.js';
 import authRoute from './src/routes/auth/auth.route.js';
 import empresaRoute from './src/routes/empresas/empresa.route.js';
 
-import { Persona } from './src/models/personas/persona.model.js';
-import { Empresa } from './src/models/empresa/empresa.model.js';
-import { User } from './src/models/login/users.models.js';
-import { Rol } from './src/models/login/roles.models.js';
+import { initializeDatabase } from './database/seed.js';
 
 // Cargar variables de entorno antes de usarlas
 dotenv.config();
@@ -55,56 +52,15 @@ app.use((err, req, res, next) => {
 //Aqui iniciamos el servidor
 async function main() {
     try {
-        // Sincroniza todos los modelos con la base de datos
-        await sequelize.sync({ force: true });
-        console.log("---Tablas sincronizadas---");
+        await initializeDatabase();
 
-        // Insertar datos
-        await Empresa.bulkCreate([
-            { nombre: 'Air Laja S.p.A.', rut: '77782898-3' }
-        ]);
-        console.log('Empresa insertada correctamente');
-
-        // Insertar datos
-        await Persona.bulkCreate([
-            { nombre: 'Juan', apellido: 'Pérez', rut: '4927669-9', estado: 0, tieneUsuario: 0 },
-            { nombre: 'María', apellido: 'González', rut: '14265525-k', estado: 0, tieneUsuario: 0 },
-            { nombre: 'Pedro', apellido: 'López', rut: '21295958-8', estado: 0, tieneUsuario: 0 }
-        ]);
-        console.log('Personas insertadas correctamente.');
-
-        //CREACION USUARIOS PREDETERMINADOS (Solo si las tablas están vacías)
-        const adminRoleExists = await Rol.findOne({ where: { name: 'superAdmin' } });
-        if (!adminRoleExists) {
-            console.log('Creando roles y usuarios por defecto...');
-            try {
-                const roles = await Rol.bulkCreate([
-                    { name: 'SuperAdmin' }, // ID 1 usualmente
-                    { name: 'EmpresaAdmin' }, // ID 2 usualmente
-                    { name: 'Usuario' }       // ID 3 usualmente
-                ]);
-
-                const empresa = await Empresa.findOne({ where: { rut: '77782898-3' } });
-
-                await User.findOrCreate({
-                    where: { username: 'super@sigipro.cl' },
-                    defaults: { password: 'Sigipro1!', rolId: roles[0].idRol, empresaId: empresa.id } // Asumiendo ID 1 para SuperAdmin
-                });
-                console.log("Rol por defecto asegurado.");
-            } catch (error) {
-                console.error('Error al crear rol por defecto:', error);
-            }
-        } else {
-            console.log('Rol ya existe, omitiendo creación por defecto.');
-        }
-
-        
-
-        app.listen(PORT, () => console.log(`---Servidor corriendo en http://localhost:${PORT}---`));
-        
+        app.listen(PORT, () => {
+            console.log(`---Servidor corriendo en http://localhost:${PORT}---`);
+        });
     } catch (error) {
-        console.error('error en la conexion a la base de datos:', error)
+        console.error('error en la conexion a la base de datos:', error);
     }
 }
+
 
 main();

@@ -15,6 +15,27 @@ export const Finiquito = sequelize.define('finiquitos', {
         type: DataTypes.TINYINT,
         allowNull: false
     },
+    causalTermino:{
+        type: DataTypes.STRING,
+        allowNull:true
+    },
+    indemnizacion:{
+        type: DataTypes.STRING,
+        allowNull:true
+    },
+    vacacionesProporcionales:{
+        type: DataTypes.STRING,
+        allowNull:true
+    },
+    sueldoPendiente:{
+        type: DataTypes.STRING,
+        allowNull:true
+    },
+    ratificacion:{
+        type: DataTypes.STRING,
+        allowNull:true
+    },
+    
 },{
     createdAt: false,
     updatedAt: false

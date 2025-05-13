@@ -17,6 +17,30 @@ export const Empresa = sequelize.define('empresas',{
     rut:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    nombreFantasia:{
+        type: DataTypes.STRING
+    },
+    telefono:{
+        type: DataTypes.STRING
+    },
+    representanteLegal:{
+        type: DataTypes.STRING
+    },
+    giro:{
+        type: DataTypes.STRING
+    },
+    direccion:{
+        type: DataTypes.STRING
+    },
+    region:{
+        type: DataTypes.STRING
+    },
+    comuna:{
+        type: DataTypes.STRING
+    },
+    email:{
+        type: DataTypes.STRING
     }
 },{
     createdAt: false,

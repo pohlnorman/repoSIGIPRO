@@ -8,12 +8,19 @@ export const Anexo = sequelize.define('anexos', {
         primaryKey: true,
         autoIncrement: true
     },
-    fechaAnexo:{
+    fechaEmisionAnexo:{
+        type: DataTypes.DATEONLY
+    },
+    fechaVigenciaAnexo:{
         type: DataTypes.DATEONLY
     },
     estado:{
         type: DataTypes.TINYINT,
         allowNull: false
+    },
+    motivo:{
+        type: DataTypes.STRING,
+        allowNull:true
     },
 },{
     createdAt: false,
