@@ -35,18 +35,33 @@ router.get('/persona/findByRut/:rut',async(req,res)=>{
 
 // ✅ Agregar contrato
 router.post('/persona/:rut/contrato',async(req,res)=>{
-    const {fechaInicio} = req.body;
+    try {
+        const { rut } = req.params;
+        //const {fechaInicio} = req.body;
 
-    // Buscar el usuario por rut
-    const persona = await Persona.findOne({ where: { rut: req.params.rut} });
+        // Buscar el usuario por rut
+        const persona = await Persona.findOne({ where: { rut } });
+        //const persona = await Persona.findOne({ where: { rut: req.params.rut} });
 
-    const nuevoContrato = await Contrato.create({
-        fechaInicio,
-        estado:1,
-        personaId: persona.id
-    });
-    await Persona.update({ estado: 1 },{where: {id: persona.id}});
-    res.status(200).json(nuevoContrato);
+        if (!persona) {
+            return res.status(404).json({ mensaje: "Persona no encontrada" });
+        }
+
+        // Crear nuevo contrato, agregando personaId y estado: 1
+        const nuevoContrato = await Contrato.create({
+            ...req.body,
+            estado:1,
+            personaId: persona.id
+        });
+        // Actualizar estado de la persona a 1
+        await persona.update({ estado: 1 });
+        //await Persona.update({ estado: 1 },{where: {id: persona.id}});
+
+        res.status(201).json(nuevoContrato);
+    } catch (error) {
+        console.error("Error al crear contrato:", error);
+        res.status(500).json({ mensaje: "Error del servidor", error: error.message });
+    }
 });
 
 // ✅ Obtener contrato por id
@@ -90,22 +105,35 @@ router.get('/allContract/:personaId',async(req,res)=>{
 
 // ✅ crear finiquito por id de contrato
 router.post('/contrato/:id/finiquito',async(req,res)=>{
-    const {id} = req.params;
+    try {
+        const {id} = req.params;
 
-    const {fechaFiniquito} = req.body;
+        //const {fechaFiniquito} = req.body;
 
-    // Buscar contrato por ID
-    const contrato = await Contrato.findByPk(id);
+        // Buscar contrato por ID
+        const contrato = await Contrato.findByPk(id);
 
-    const nuevofiniquito = await Finiquito.create({
-        fechaFiniquito,
-        estado:1,
-        contratoId: contrato.id
-    });
+        if (!contrato) {
+            return res.status(404).json({ mensaje: "Contrato no encontrado" });
+        }
 
-    await Contrato.update({ estado: 0 },{where: {id: contrato.id}});
-    await Persona.update({ estado: 0 }, { where: { id: contrato.personaId } });
-    res.status(200).json(nuevofiniquito);
+        // Crear el finiquito
+        const nuevofiniquito = await Finiquito.create({
+            ...req.body,
+            estado:1,
+            contratoId: contrato.id
+        });
+
+        // Marcar contrato y persona como inactivos
+        await contrato.update({ estado: 0 });
+        await Persona.update({ estado: 0 }, { where: { id: contrato.personaId } });
+        //await Contrato.update({ estado: 0 },{where: {id: contrato.id}});
+        
+        res.status(201).json(nuevofiniquito);
+    } catch (error) {
+        console.error("Error al crear finiquito:", error);
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
 });
 
 // ✅ Obtener finiquito de una persona por id de contrato
@@ -125,19 +153,29 @@ router.get('/liquidation/:contratoId',async(req,res)=>{
 
 // ✅ crear anexo por id de contrato
 router.post('/contrato/:id/anexo',async(req,res)=>{
-    const {id} = req.params;
-    const {fechaAnexo} = req.body;
+    try {
+        const {id} = req.params;
+        //const {fechaAnexo} = req.body;
 
-    // Buscar contrato por ID
-    const contrato = await Contrato.findByPk(id);
+        // Buscar contrato por ID
+        const contrato = await Contrato.findByPk(id);
 
-    const nuevoAnexo = await Anexo.create({
-        fechaAnexo,
-        estado:1,
-        contratoId: contrato.id
-    });
+        if (!contrato) {
+            return res.status(404).json({ mensaje: "Contrato no encontrado" });
+        }
 
-    res.status(200).json(nuevoAnexo);
+        // Crear el anexo, agregando estado y contratoId
+        const nuevoAnexo = await Anexo.create({
+            ...req.body,
+            estado:1,
+            contratoId: contrato.id
+        });
+
+        res.status(201).json(nuevoAnexo);
+    } catch (error) {
+        console.error("Error al crear anexo:", error);
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
 
 });
 

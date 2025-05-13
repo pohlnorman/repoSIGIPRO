@@ -58,14 +58,12 @@ router.get('/:id',verifyToken, authorizeRoles(1,2),async(req,res)=>{
 });
 
 //buscar cuentas usuario de empresa por rut de la empresa
-router.get('/accountByCompany/:rut',verifyToken, authorizeRoles(1),async(req,res) => {
+router.get('/accountByCompany/:id',verifyToken, authorizeRoles(1),async(req,res) => {
     try {
-        const {rut} = req.params;
+        const {id} = req.params;
 
         // Buscar empresa por rut
-        const empresa = await Empresa.findAll({
-            where:{rut},
-            attributes:['id','nombre','rut'],
+        const empresa = await Empresa.findByPk(id,{
             include:[{
                 model:User,
                 attributes: {exclude:['password','personaId']}

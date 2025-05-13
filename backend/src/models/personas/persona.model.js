@@ -23,7 +23,7 @@ export const Persona = sequelize.define('personas',{
     },
     nacionalidad:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     fechaNacimiento:{
         type: DataTypes.DATEONLY,
