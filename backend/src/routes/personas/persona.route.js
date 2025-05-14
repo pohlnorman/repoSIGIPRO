@@ -20,7 +20,7 @@ router.get('/personas/hired',async(req,res)=>{
 });
 
 // ✅ Agregar persona
-router.post('/persona/agregar',async(req,res)=>{
+router.post('/persona',async(req,res)=>{
     try {
         const {rut} = req.body;
 

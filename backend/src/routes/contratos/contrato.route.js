@@ -57,6 +57,7 @@ router.post('/persona/:rut/contrato',async(req,res)=>{
         await persona.update({ estado: 1 });
         //await Persona.update({ estado: 1 },{where: {id: persona.id}});
 
+        console.log('persona contratada correctamente: ',nuevoContrato)
         res.status(201).json(nuevoContrato);
     } catch (error) {
         console.error("Error al crear contrato:", error);
