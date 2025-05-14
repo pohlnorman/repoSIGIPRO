@@ -14,19 +14,21 @@
                             <p><strong>Contrato ID:</strong> {{contrato?.id}} </p>
                             <p><strong>Fecha Inicio:</strong> {{contrato?.fechaInicio}} </p>
                             <p><strong>Cargo:</strong> {{contrato?.cargo}} </p>
-                            <p><strong>Labor:</strong> {{contrato?.labor}} </p>
-                        </div>
-                        <div class="col-lg">
-                            <p><strong>Lugar de trabajo:</strong> {{contrato?.lugarDeTrabajo}} </p>
-                            <p><strong>Duracion:</strong> {{contrato?.duracion}} </p>
-                            <p><strong>Horario:</strong> {{contrato?.horario}} </p>
-                            <p><strong>Sueldo Base:</strong> {{contrato?.sueldoBase}} </p>
                             <p><strong>Estado:</strong> @if (contrato?.estado) {
                                 <span class="text-success fw-bold"> Vigente</span>
                                 } @else {
                                 <span> Terminado</span>
                                 }
                             </p>
+
+                        </div>
+                        <div class="col-lg">
+                            <p><strong>Lugar de trabajo:</strong> {{contrato?.lugarDeTrabajo}} </p>
+                            <p><strong>Duracion:</strong> {{contrato?.duracion}} </p>
+                            <p><strong>Horario:</strong> {{contrato?.horario}} </p>
+                            <p><strong>Sueldo Base:</strong> {{contrato?.sueldoBase}} </p>
+
+                            <p><strong>Labor:</strong> {{contrato?.labor}} </p>
                         </div>
                     </div>
                 </div>
@@ -50,9 +52,9 @@
                             <p><strong>Finiquito ID:</strong> {{finiquito?.id}} </p>
                             <p><strong>Fecha Finiquito:</strong> {{finiquito?.fechaFiniquito}} </p>
                             <p><strong>Causal Termino:</strong> {{finiquito?.causalTermino}} </p>
-                            <p><strong>Indemnizacion:</strong> {{finiquito?.indemnizacion}} </p>
                         </div>
                         <div class="col-lg">
+                            <p><strong>Indemnizacion:</strong> {{finiquito?.indemnizacion}} </p>
                             <p><strong>Vacaciones Proporcionales:</strong> {{finiquito?.vacacionesProporcionales}} </p>
                             <p><strong>Sueldo Pendiente:</strong> {{finiquito?.sueldoPendiente}} </p>
                             <p><strong>Ratificacion:</strong> {{finiquito?.ratificacion}} </p>
@@ -75,8 +77,8 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">fechaEmisionAnexo</th>
-                <th scope="col">fechaVigenciaAnexo</th>
                 <th scope="col">motivo</th>
+                <th scope="col">fechaVigenciaAnexo</th>
                 <th scope="col">estado</th>
 
             </tr>
@@ -85,8 +87,8 @@
             <tr *ngFor="let anexo of anexoList">
                 <td>{{ anexo.id | number: "1.0" }}</td>
                 <td>{{ anexo.fechaEmisionAnexo| date:"dd-MM-y" }}</td>
-                <td>{{ anexo.fechaVigenciaAnexo| date:"dd-MM-y" }}</td>
                 <td>{{ anexo.motivo }}</td>
+                <td>{{ anexo.fechaVigenciaAnexo| date:"dd-MM-y" }}</td>
                 <td>{{ anexo.estado }}</td>
             </tr>
         </tbody>

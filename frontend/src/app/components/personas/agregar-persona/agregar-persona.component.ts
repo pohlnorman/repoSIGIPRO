@@ -7,10 +7,15 @@ import { PersonaService } from '../../../services/persona.service';
 import { rutValidator } from '../../../utils/rutValidator';
 import { CommonModule, Location } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
+import { TALLALETRAS } from '../../../constants/tallaLetras';
+import { TALLAPANTALON } from '../../../constants/tallaPantalon';
+import { TALLAZAPATO } from '../../../constants/tallaZapato';
+import { TALLACAMISA } from '../../../constants/tallaCamisa';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-agregar-persona',
-  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent,NgbCollapseModule],
   templateUrl: './agregar-persona.component.html',
   styleUrl: './agregar-persona.component.css'
 })
@@ -18,6 +23,11 @@ export class AgregarPersonaComponent implements OnInit {
   form: FormGroup;
   id: number = 0;
   tilulo: string = 'Agregar';
+  tallaPantalones: string[] = TALLAPANTALON
+  tallaZapatos: string[] = TALLAZAPATO;
+  tallaLetras: string[] = TALLALETRAS;
+  tallaCamisas: string[] = TALLACAMISA;
+  isCollapsed = true;
 
   constructor(private fb: FormBuilder, private personaService: PersonaService,
     private aRouter: ActivatedRoute, private _location: Location) {
@@ -29,7 +39,7 @@ export class AgregarPersonaComponent implements OnInit {
       fechaNacimiento: [undefined],
       estadoCivil: [''],
       prefesion: [''],
-      telefono: [''],
+      telefono: ['', Validators.pattern(/^\d{9}$/)],
       email: ['', Validators.email],
       direccion: [''],
       region: [''],

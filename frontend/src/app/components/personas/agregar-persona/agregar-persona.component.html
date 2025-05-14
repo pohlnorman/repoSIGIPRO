@@ -11,7 +11,8 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="mb-3">
-                            <label class="form-label">Rut <span class="form-text">(Sin puntos con guion)</span>
+                            <label class="form-label">Rut<span class="text-danger">*</span><span class="form-text"> (Sin
+                                    puntos con guion)</span>
                             </label>
                             <input formControlName="rut" type="text" class="form-control" placeholder="Ingrese rut">
                             <span *ngIf="form.get('rut')?.hasError('required') && form.get('rut')?.touched"
@@ -24,7 +25,7 @@
                     </div>
                     <div class="col-lg">
                         <div class="mb-3">
-                            <label class="form-label">Nombre</label>
+                            <label class="form-label">Nombre<span class="text-danger">*</span></label>
                             <input formControlName="nombre" type="text" class="form-control"
                                 placeholder="Ingrese nombre">
                             <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched"
@@ -34,7 +35,7 @@
                     </div>
                     <div class="col-lg">
                         <div class="mb-3">
-                            <label class="form-label">Apellido</label>
+                            <label class="form-label">Apellido<span class="text-danger">*</span></label>
                             <input formControlName="apellido" type="text" class="form-control"
                                 placeholder="Ingrese apellido">
                             <span *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched"
@@ -43,150 +44,189 @@
                         </div>
                     </div>
                 </div>
+                <hr class="border-top border-1 border-secondary">
+                <button type="button" class="btn btn-outline-info mb-3" (click)="collapse.toggle()"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    Campos adicionales
+                </button>
+                <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Nacionalidad</label>
+                                <input formControlName="nacionalidad" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Fecha Nacimiento</label>
+                                <input formControlName="fechaNacimiento" type="Date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Estado Civil</label>
+                                <input formControlName="estadoCivil" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">nacionalidad</label>
-                            <input formControlName="nacionalidad" type="text" class="form-control">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Profesion</label>
+                                <input formControlName="prefesion" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Telefono (9 digitos)</label>
+                                <input formControlName="telefono" type="text" class="form-control">
+                                @if (form.get('telefono')?.hasError('pattern') && form.get('telefono')?.touched) {
+                                <p class="mb-0 text-danger"> Formato invalido.</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input formControlName="email" type="email" class="form-control">
+                                @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+                                <p class="mb-0 text-danger">Email invalido.</p>
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">fechaNacimiento</label>
-                            <input formControlName="fechaNacimiento" type="Date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">estadoCivil</label>
-                            <input formControlName="estadoCivil" type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">profesion</label>
-                            <input formControlName="prefesion" type="text" class="form-control">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Direccion</label>
+                                <input formControlName="direccion" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Region</label>
+                                <input formControlName="region" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Comuna</label>
+                                <input formControlName="comuna" type="text" class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">telefono</label>
-                            <input formControlName="telefono" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">email</label>
-                            <input formControlName="email" type="email" class="form-control">
-                            @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
-                            <p class="mb-0 text-danger">Email invalido.</p>
-                            }
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">direccion</label>
-                            <input formControlName="direccion" type="text" class="form-control">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">AFP</label>
+                                <input formControlName="afp" type="text" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">region</label>
-                            <input formControlName="region" type="text" class="form-control">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Salud</label>
+                                <input formControlName="salud" type="text" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">comuna</label>
-                            <input formControlName="comuna" type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
+                        <div class="col-lg">
 
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">afp</label>
-                            <input formControlName="afp" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">salud</label>
-                            <input formControlName="salud" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg">
 
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Talla Camisa</label>
+                                <select class="form-select " formControlName="tallaCamisa">
+                                    <option value=''>-- Opciones --</option>
+                                    @for (tallaCamisa of tallaCamisas; track tallaCamisa){
+                                    <option [value]="tallaCamisa">{{ tallaCamisa }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Talla Pantalon</label>
+                                <select class="form-select " formControlName="tallaPantalon">
+                                    <option value=''>-- Opciones --</option>
+                                    @for (tallaPantalon of tallaPantalones; track tallaPantalon){
+                                    <option [value]="tallaPantalon">{{ tallaPantalon }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Talla Zapato</label>
+                                <select class="form-select " formControlName="tallaZapato">
+                                    <option value=''>-- Opciones --</option>
+                                    @for (tallaZapato of tallaZapatos; track tallaZapato){
+                                    <option [value]="tallaZapato">{{ tallaZapato }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">tallaCamisa</label>
-                            <input formControlName="tallaCamisa" type="text" class="form-control">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Talla Poleron</label>
+                                <select class="form-select " formControlName="tallaPoleron">
+                                    <option value=''>-- Opciones --</option>
+                                    @for (tallaPoleron of tallaLetras; track tallaPoleron){
+                                    <option [value]="tallaPoleron">{{ tallaPoleron }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Talla Parka</label>
+                                <select class="form-select " formControlName="tallaParka">
+                                    <option value=''>-- Opciones --</option>
+                                    @for (tallaParka of tallaLetras; track tallaParka){
+                                    <option [value]="tallaParka">{{ tallaParka }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Talla Oberol</label>
+                                <select class="form-select " formControlName="tallaOberol">
+                                    <option value=''>-- Opciones --</option>
+                                    @for (tallaOberol of tallaLetras; track tallaOberol){
+                                    <option [value]="tallaOberol">{{ tallaOberol }}</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">tallaPantalon</label>
-                            <input formControlName="tallaPantalon" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">tallaZapato</label>
-                            <input formControlName="tallaZapato" type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">tallaPoleron</label>
-                            <input formControlName="tallaPoleron" type="text" class="form-control">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Examen Vista</label>
+                                <input formControlName="examenVista" type="Date" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">tallaParka</label>
-                            <input formControlName="tallaParka" type="text" class="form-control">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Examen Altura</label>
+                                <input formControlName="examenAltura" type="Date" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">tallaOberol</label>
-                            <input formControlName="tallaOberol" type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">examenVista</label>
-                            <input formControlName="examenVista" type="Date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">examenAltura</label>
-                            <input formControlName="examenAltura" type="Date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="mb-3">
-                            <label class="form-label">examenGeneral</label>
-                            <input formControlName="examenGeneral" type="Date" class="form-control">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label class="form-label">Examen General</label>
+                                <input formControlName="examenGeneral" type="Date" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -9,11 +9,11 @@ import { DataTablesModule } from 'angular-datatables';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../interfaces/user';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detalles-persona',
-  imports: [RouterLink, DataTablesModule, CommonModule, NavbarComponent],
+  imports: [RouterLink, DataTablesModule, CommonModule, NavbarComponent,NgbCollapseModule],
   templateUrl: './detalles-persona.component.html',
   styleUrl: './detalles-persona.component.css'
 })
@@ -26,6 +26,7 @@ export class DetallesPersonaComponent implements OnInit {
   listaContratos: Contrato[] = []
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  isCollapsed = true;
 
   constructor(private personaService: PersonaService,
     private contratoService: ContratoService,

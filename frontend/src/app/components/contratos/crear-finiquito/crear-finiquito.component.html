@@ -1,71 +1,120 @@
 <app-navbar></app-navbar>
 <div class="container">
     <h2 class="mt-3 mb-4 pb-2 title-border">Crear finiquito de contrato</h2>
-    <div class="col-lg-5">
-        <div class="card mb-3">
-            <div class="card-header">Finiquito</div>
-            <div class="card-body">
-                <div *ngIf="contrato">
-                    @if (contrato.persona!=undefined) {
-                    <p><strong>Nombre:</strong> {{ contrato.persona.nombre }} {{ contrato.persona.apellido }}</p>
-                    <p><strong>RUT:</strong> {{ contrato.persona.rut }}</p>
-                    } @else {
-                    <p><strong>Nombre:</strong></p>
-                    <p><strong>RUT:</strong></p>
-                    }
-                    <p><strong>Fecha Inicio del contrato:</strong> {{ contrato.fechaInicio }}</p>
+    <div class="card mb-3">
+        <div class="card-header">Finiquito</div>
+        <div class="card-body">
+            @if (contrato) {
+            <div class="row">
+                <div class="col-lg">
+                    <label class="form-label">Rut</label>
+                    <input class="form-control mb-2" type="text" placeholder="{{ contrato.persona?.rut }}" disabled>
                 </div>
-                <form [formGroup]="form" (ngSubmit)="registrarFiniquito()">
-
-                    <div class="mb-3">
-                        <label for="fechaFiniquito" class="form-label">Fecha del finiquito</label>
-                        <input type="date" id="fechaFiniquito" class="form-control" formControlName="fechaFiniquito">
-                        <span
-                            *ngIf="form.get('fechaFiniquito')?.hasError('required') && form.get('fechaFiniquito')?.touched"
-                            class="text-danger">Requerido</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="causalTermino" class="form-label">causalTermino</label>
-                        <input type="text" id="causalTermino" class="form-control" formControlName="causalTermino">
-                        <span *ngIf="form.get('causalTermino')?.hasError('required') && form.get('causalTermino')?.touched"
-                            class="text-danger">Requerido</span>
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="indemnizacion" class="form-label">indemnizacion</label>
-                        <input type="text" id="indemnizacion" class="form-control" formControlName="indemnizacion">
-                        <span *ngIf="form.get('indemnizacion')?.hasError('required') && form.get('indemnizacion')?.touched"
-                            class="text-danger">Requerido</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="vacacionesProporcionales" class="form-label">vacacionesProporcionales</label>
-                        <input type="text" id="vacacionesProporcionales" class="form-control" formControlName="vacacionesProporcionales">
-                        <span *ngIf="form.get('vacacionesProporcionales')?.hasError('required') && form.get('vacacionesProporcionales')?.touched"
-                            class="text-danger">Requerido</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="sueldoPendiente" class="form-label">sueldoPendiente</label>
-                        <input type="text" id="sueldoPendiente" class="form-control" formControlName="sueldoPendiente">
-                        <span *ngIf="form.get('sueldoPendiente')?.hasError('required') && form.get('sueldoPendiente')?.touched"
-                            class="text-danger">Requerido</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="ratificacion" class="form-label">ratificacion</label>
-                        <input type="text" id="ratificacion" class="form-control" formControlName="ratificacion">
-                        <span *ngIf="form.get('ratificacion')?.hasError('required') && form.get('ratificacion')?.touched"
-                            class="text-danger">Requerido</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mt-3">
-                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Guardar</button>
-                        <a class="btn btn-secondary" (click)="backClicked()" role="button">Cancelar</a>
-                    </div>
-                </form>
+                <div class="col-lg">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control mb-2" type="text" placeholder="{{ contrato.persona?.nombre }}" disabled>
+                </div>
+                <div class="col-lg">
+                    <label class="form-label">Apellido</label>
+                    <input class="form-control mb-2" type="text" placeholder="{{ contrato.persona?.apellido }}"
+                        disabled>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-lg">
+                    <label class="form-label">Contrato ID</label>
+                    <input class="form-control mb-2" type="text" placeholder="{{ contrato.id  }}" disabled>
+                </div>
+                <div class="col-lg">
+                    <label class="form-label">Fecha Inicio del contrato</label>
+                    <input class="form-control mb-2" type="text" placeholder="{{ contrato.fechaInicio  }}" disabled>
+                </div>
+                <div class="col-lg">
+                    <label class="form-label">Cargo</label>
+                    <input class="form-control mb-2" type="text" placeholder="{{ contrato.cargo }}" disabled>
+                </div>
+            </div>
+            <hr class="border-top border-1 border-secondary">
+            }
+            <form [formGroup]="form" (ngSubmit)="registrarFiniquito()">
+
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="mb-3">
+                            <label for="fechaFiniquito" class="form-label">Fecha del finiquito<span class="text-danger">*</span></label>
+                            <input type="date" id="fechaFiniquito" class="form-control"
+                                formControlName="fechaFiniquito">
+                            <span
+                                *ngIf="form.get('fechaFiniquito')?.hasError('required') && form.get('fechaFiniquito')?.touched"
+                                class="text-danger">Requerido</span>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="mb-3">
+                            <label for="causalTermino" class="form-label">Causal Termino<span class="text-danger">*</span></label>
+                            <input type="text" id="causalTermino" class="form-control" formControlName="causalTermino">
+                            <span
+                                *ngIf="form.get('causalTermino')?.hasError('required') && form.get('causalTermino')?.touched"
+                                class="text-danger">Requerido</span>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+
+                    </div>
+                </div>
+                <hr class="border-top border-1 border-secondary">
+                <button type="button" class="btn btn-outline-info mb-3" (click)="collapse.toggle()"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    Campos adicionales
+                </button>
+                <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label for="indemnizacion" class="form-label">Indemnizacion</label>
+                                <input type="text" id="indemnizacion" class="form-control"
+                                    formControlName="indemnizacion">
+                            </div>
+
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label for="vacacionesProporcionales" class="form-label">Vacaciones
+                                    Proporcionales</label>
+                                <input type="text" id="vacacionesProporcionales" class="form-control"
+                                    formControlName="vacacionesProporcionales">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label for="sueldoPendiente" class="form-label">Sueldo Pendiente</label>
+                                <input type="text" id="sueldoPendiente" class="form-control"
+                                    formControlName="sueldoPendiente">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label for="ratificacion" class="form-label">Ratificacion</label>
+                                <input type="text" id="ratificacion" class="form-control"
+                                    formControlName="ratificacion">
+                            </div>
+                        </div>
+                        <div class="col-lg">
+
+                        </div>
+                        <div class="col-lg">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Guardar</button>
+                    <a class="btn btn-secondary" (click)="backClicked()" role="button">Cancelar</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

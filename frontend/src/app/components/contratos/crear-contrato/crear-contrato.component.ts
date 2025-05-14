@@ -2,23 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Contrato } from '../../../interfaces/contrato';
 import { Persona } from '../../../interfaces/persona';
 import { ContratoService } from '../../../services/contrato.service';
 import { PersonaService } from '../../../services/persona.service';
 import { CommonModule, Location } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-crear-contrato',
-  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent,NgbCollapseModule],
   templateUrl: './crear-contrato.component.html',
   styleUrl: './crear-contrato.component.css'
 })
 export class CrearContratoComponent implements OnInit {
   form: FormGroup;
   persona: Persona | null = null;
-
+  isCollapsed = true;
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +29,11 @@ export class CrearContratoComponent implements OnInit {
     this.form = this.fb.group({
       fechaInicio: ['', Validators.required],
       cargo: ['', Validators.required],
-      labor: ['', Validators.required],
-      lugarDeTrabajo: ['', Validators.required],
-      duracion: ['', Validators.required],
-      horario: ['', Validators.required],
-      sueldoBase: ['', Validators.required],
+      labor: ['',],
+      lugarDeTrabajo: ['',],
+      duracion: ['',],
+      horario: ['',],
+      sueldoBase: ['',],
     });
 
   }
@@ -52,20 +52,7 @@ export class CrearContratoComponent implements OnInit {
 
   registrarContrato(): void {
     if (this.form.valid && this.persona) {
-      const contrato: Contrato = {
-        fechaInicio: this.form.value.fechaInicio,
-        personaId: this.persona.id!,
-        estado: 1,
-        persona: this.persona,
-        id: 0,
-        cargo: '',
-        labor: '',
-        lugarDeTrabajo: '',
-        duracion: '',
-        horario: '',
-        sueldoBase: ''
-      };
-      this.contratoService.create(contrato, this.persona.rut).subscribe({
+      this.contratoService.create(this.form.value, this.persona.rut).subscribe({
         next: (r) => {
           Swal.fire({
             position: "center",

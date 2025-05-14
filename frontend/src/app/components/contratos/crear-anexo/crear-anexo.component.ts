@@ -2,22 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Anexo } from '../../../interfaces/anexo';
 import { Contrato } from '../../../interfaces/contrato';
 import { AnexoService } from '../../../services/anexo.service';
 import { ContratoService } from '../../../services/contrato.service';
 import { CommonModule, Location } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-crear-anexo',
-  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent, NgbCollapseModule],
   templateUrl: './crear-anexo.component.html',
   styleUrl: './crear-anexo.component.css'
 })
 export class CrearAnexoComponent implements OnInit {
   form: FormGroup;
   contrato: Contrato | null = null;
+  isCollapsed = true;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,7 @@ export class CrearAnexoComponent implements OnInit {
     this.form = this.fb.group({
 
       fechaEmisionAnexo: ['', Validators.required],
-      fechaVigenciaAnexo: ['', Validators.required],
+      fechaVigenciaAnexo: ['',],
       motivo: ['', Validators.required],
     });
   }
@@ -45,17 +46,9 @@ export class CrearAnexoComponent implements OnInit {
   }
 
   registrarAnexo(): void {
+    this.clearDates();
     if (this.form.valid && this.contrato) {
-      const anexo: Anexo = {
-        fechaEmisionAnexo: this.form.value.fechaEmisionAnexo,
-        contratoId: this.contrato.id!,
-        estado: 1,
-        contrato: this.contrato,
-        id: 0,
-        fechaVigenciaAnexo: this.form.value.fechaVigenciaAnexo,
-        motivo: ''
-      };
-      this.anexoService.create(anexo, this.contrato.id!).subscribe({
+      this.anexoService.create(this.form.value, this.contrato.id!).subscribe({
         next: () => {
           Swal.fire({
             position: "center",
@@ -73,5 +66,13 @@ export class CrearAnexoComponent implements OnInit {
   }
   backClicked() {
     this._location.back();
+  }
+  clearDates() {
+    if (this.form.get("fechaEmisionAnexo")?.value == "") {
+      this.form.get("fechaEmisionAnexo")?.setValue(null)
+    }
+    if (this.form.get("fechaVigenciaAnexo")?.value == "") {
+      this.form.get("fechaVigenciaAnexo")?.setValue(null)
+    }
   }
 }

@@ -3,21 +3,22 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Contrato } from '../../../interfaces/contrato';
-import { Finiquito } from '../../../interfaces/finiquito';
 import { ContratoService } from '../../../services/contrato.service';
 import { FiniquitoService } from '../../../services/finiquito.service';
 import { CommonModule, Location } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-crear-finiquito',
-  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent, NgbCollapseModule],
   templateUrl: './crear-finiquito.component.html',
   styleUrl: './crear-finiquito.component.css'
 })
 export class CrearFiniquitoComponent implements OnInit {
   form: FormGroup;
   contrato: Contrato | null = null;
+  isCollapsed = true;
 
   constructor(
     private fb: FormBuilder,
@@ -30,10 +31,10 @@ export class CrearFiniquitoComponent implements OnInit {
 
       fechaFiniquito: ['', Validators.required],
       causalTermino: ['', Validators.required],
-      indemnizacion: ['', Validators.required],
-      vacacionesProporcionales: ['', Validators.required],
-      sueldoPendiente: ['', Validators.required],
-      ratificacion: ['', Validators.required],
+      indemnizacion: ['',],
+      vacacionesProporcionales: ['',],
+      sueldoPendiente: ['',],
+      ratificacion: ['',],
     });
   }
 
@@ -49,19 +50,7 @@ export class CrearFiniquitoComponent implements OnInit {
 
   registrarFiniquito(): void {
     if (this.form.valid && this.contrato) {
-      const finiquito: Finiquito = {
-        fechaFiniquito: this.form.value.fechaFiniquito,
-        contratoId: this.contrato.id!,
-        estado: 1,
-        contrato: this.contrato,
-        id: 0,
-        causalTermino: '',
-        indemnizacion: '',
-        vacacionesProporcionales: '',
-        sueldoPendiente: '',
-        ratificacion: ''
-      };
-      this.finiquitoService.create(finiquito, this.contrato.id!).subscribe({
+      this.finiquitoService.create(this.form.value, this.contrato.id!).subscribe({
         next: (r) => {
           Swal.fire({
             position: "center",
