@@ -16,19 +16,18 @@
                 <td><a routerLink="/persona/{{persona.id}}">{{ persona.nombre +" "+ persona.apellido }}</a></td>
                 <td>{{ persona.rut }}</td>
                 @if (persona.estado) {
-                <td>-</td>
+                    @if (hasAnyRole([1])) {<td><span class="text-success">Contratado</span></td>}@else {<td></td>}
+                
                 } @else {
                 <td>
-                    <button routerLink="/persona/{{persona?.id}}/crear-contrato" type="button"
-                        class="btn btn-sm btn-outline-info" *ngIf="!persona?.estado">Contratar</button>
+                    Sin contrato
                 </td>
                 }
                 @if (persona.tieneUsuario) {
                 <td class="text-success fw-bold">Creadas</td>
                 } @else {
                 <td>
-                    <button routerLink="/persona/{{persona?.id}}/crear-usuario" type="button"
-                        class="btn btn-sm btn-outline-info">Crear credenciales</button>
+                    Sin credenciales
                 </td>
                 }
             </tr>

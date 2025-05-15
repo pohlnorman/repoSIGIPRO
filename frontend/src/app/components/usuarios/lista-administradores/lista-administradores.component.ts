@@ -3,13 +3,13 @@ import { NavbarComponent } from "../../navbar/navbar.component";
 import { User } from '../../../interfaces/user';
 import { EmpresaService } from '../../../services/empresa.service';
 import { Empresa } from '../../../interfaces/empresa';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-lista-administradores',
-  imports: [NavbarComponent, DataTablesModule],
+  imports: [NavbarComponent, DataTablesModule,RouterLink],
   templateUrl: './lista-administradores.component.html',
   styleUrl: './lista-administradores.component.css'
 })

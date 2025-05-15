@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-lista-todas-las-personas',
@@ -15,13 +16,21 @@ import { NavbarComponent } from "../../navbar/navbar.component";
 })
 export class ListaTodasLasPersonasComponent implements OnInit {
   listaPersonas: Persona[] = []
+  rolId: number = -1;
 
-  constructor(private personaService: PersonaService) { }
+  constructor(private personaService: PersonaService,
+    private authService: AuthService,
+  ) { }
 
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
   ngOnInit(): void {
+    this.authService.checkSession().subscribe({
+      next: (authResponse) => {
+        this.rolId = Number(authResponse.user?.rolId);
+      }
+    });
     this.dtOptions = {
       pagingType: 'full_numbers',
       language: {
@@ -37,5 +46,12 @@ export class ListaTodasLasPersonasComponent implements OnInit {
       this.listaPersonas = data;
       this.dtTrigger.next(null);
     })
+  }
+  hasAnyRole(roles: number[]): boolean {
+    if (this.rolId && roles.indexOf(this.rolId) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

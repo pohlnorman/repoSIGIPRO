@@ -4,7 +4,8 @@
         Administradores
         @if (empresa) { {{empresa.nombre}} }
     </h2>
-
+    <button routerLink="/empresa/{{empresa?.id}}/crear-admin" type="button" class="btn btn-primary btn-sm">Crear
+        Admin</button>
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" data-order='[[ 0, "asc" ]]'
         class="table table-striped table-bordered">
         <thead>

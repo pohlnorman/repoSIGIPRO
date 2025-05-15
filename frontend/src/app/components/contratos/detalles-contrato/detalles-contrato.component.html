@@ -20,7 +20,7 @@
                                 <span> Terminado</span>
                                 }
                             </p>
-
+                            <p><strong>Empresa:</strong> {{contrato?.empresa?.nombre}} </p>
                         </div>
                         <div class="col-lg">
                             <p><strong>Lugar de trabajo:</strong> {{contrato?.lugarDeTrabajo}} </p>
@@ -58,7 +58,6 @@
                             <p><strong>Vacaciones Proporcionales:</strong> {{finiquito?.vacacionesProporcionales}} </p>
                             <p><strong>Sueldo Pendiente:</strong> {{finiquito?.sueldoPendiente}} </p>
                             <p><strong>Ratificacion:</strong> {{finiquito?.ratificacion}} </p>
-                            <p><strong>Estado:</strong> {{finiquito?.estado}}</p>
                         </div>
                     </div>
                     }
@@ -79,7 +78,6 @@
                 <th scope="col">fechaEmisionAnexo</th>
                 <th scope="col">motivo</th>
                 <th scope="col">fechaVigenciaAnexo</th>
-                <th scope="col">estado</th>
 
             </tr>
         </thead>
@@ -89,7 +87,6 @@
                 <td>{{ anexo.fechaEmisionAnexo| date:"dd-MM-y" }}</td>
                 <td>{{ anexo.motivo }}</td>
                 <td>{{ anexo.fechaVigenciaAnexo| date:"dd-MM-y" }}</td>
-                <td>{{ anexo.estado }}</td>
             </tr>
         </tbody>
     </table>

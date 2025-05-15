@@ -1,3 +1,4 @@
+import { Empresa } from "./empresa";
 import { Persona } from "./persona";
 
 export interface Contrato {
@@ -13,5 +14,6 @@ export interface Contrato {
     horario: string;
     sueldoBase: string;
     empresaId: number;
+    empresa?:Empresa
 }
 

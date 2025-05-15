@@ -35,8 +35,6 @@
 					<div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu bg-navbar">
 						<button ngbDropdownItem (click)="toggleTheme()">Tema: Claro/Oscuro</button>
 						@if(hasAnyRole([2])){
-						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/crear-admin"
-							(click)="isMenuCollapsed = true">Crear Admin</a>
 						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/lista-administradores"
 							(click)="isMenuCollapsed = true">Lista Admins</a>
 						}

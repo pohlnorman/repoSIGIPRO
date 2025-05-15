@@ -3,6 +3,7 @@ import { Persona } from '../../models/personas/persona.model.js';
 import { Contrato } from '../../models/contratos/contrato.model.js';
 import { Finiquito } from '../../models/contratos/finiquito.model.js';
 import { Anexo } from '../../models/contratos/anexo.model.js';
+import { Empresa } from '../../models/empresa/empresa.model.js';
 
 const router = express.Router();
 
@@ -77,7 +78,7 @@ router.get('/contrato/:id',async(req,res)=>{
 
         // Buscar persona por ID
         const contrato = await Contrato.findByPk(id,{
-            include:[{model:Persona}]
+            include:[{model:Persona},{model:Empresa}]
         });
 
         if (!contrato) {
@@ -96,7 +97,7 @@ router.get('/allContract/:personaId',async(req,res)=>{
         const {personaId} = req.params;
 
         const listaContratos = await Contrato.findAll({
-            where: { personaId },include:[{model:Persona}]
+            where: { personaId },include:[{model:Empresa}]
         });
         res.json(listaContratos)
     } catch (error) {

@@ -31,7 +31,7 @@ export class ContratoService {
     return this.http.get<Contrato[]>(url, { withCredentials: true })
   }
 
-  create(contrato: Contrato, rut: string, empresaId: number): Observable<Contrato> {
+  create(contrato: Contrato, rut: string): Observable<Contrato> {
     const url: string = api.host + api.persona + "/" + rut + api.contrato
     return this.http.post<Contrato>(url, contrato, { withCredentials: true });
   }

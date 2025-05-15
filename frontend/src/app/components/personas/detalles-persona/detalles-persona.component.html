@@ -15,19 +15,23 @@
                             class="mx-1">No diponible</span>}
 
                         }@else {
-                        <span class="mx-1">No contratado</span>
+                        <span class="mx-1">Sin contrato</span>
                         @if (hasAnyRole([1,2])) {
                         <button routerLink="/persona/{{persona?.id}}/crear-contrato" type="button"
-                            class="btn btn-sm btn-outline-info" *ngIf="!persona?.estado">Contratar</button>
+                            class="btn btn-sm btn-success" *ngIf="!persona?.estado">Contratar</button>
                         }
                         }
                     </p>
                     <button routerLink="/persona/{{persona?.id}}/editar" type="button"
-                        class="btn btn-sm btn-primary mb-2">Editar Información personal</button>
+                        class="btn btn-sm btn-primary">Editar Información personal</button>
+                    <button type="button" class="btn btn-sm btn-primary ms-2" (click)="collapse.toggle()"
+                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                        Información personal adicional
+                    </button>
                 </div>
             </div>
         </div>
-        @if(hasAnyRole([2])){
+        @if(hasAnyRole([1,2])){
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">Credenciales de acceso</div>
@@ -44,11 +48,7 @@
         </div>
         }
     </div>
-    <hr class="border-top border-1 border-secondary">
-    <button type="button" class="btn btn-outline-info mb-3" (click)="collapse.toggle()"
-        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-        Información personal adicional
-    </button>
+
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
         <div class="row mb-3">
             <div class="col-lg-6">
@@ -131,6 +131,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Fecha inicio de contrato</th>
                 <th scope="col">Estado</th>
+                @if (hasAnyRole([1,3])) {<th scope="col">Empresa</th>}
                 <th scope="col">Accion</th>
             </tr>
         </thead>
@@ -143,10 +144,11 @@
                 } @else {
                 <td>Terminado</td>
                 }
+                @if (hasAnyRole([1,3])) {<td>{{ contrato.empresa?.nombre}}</td>}
                 <td>
                     <button routerLink="/contrato/{{contrato.id}}" type="button" class="btn btn-primary btn-sm ms-2">Ver
                         contrato</button>
-                    @if (contrato.estado&&hasAnyRole([1,2])) {
+                    @if (contrato.estado&&hasAnyRole([1])) {
                     <button routerLink="/contrato/{{contrato.id}}/crear-anexo/" type="button"
                         class="btn btn-info btn-sm ms-2">Crear anexo</button>
                     <button routerLink="/contrato/{{contrato.id}}/crear-finiquito" type="button"

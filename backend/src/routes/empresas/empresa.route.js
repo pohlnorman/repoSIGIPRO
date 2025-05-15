@@ -58,7 +58,7 @@ router.get('/:id',verifyToken, authorizeRoles(1,2),async(req,res)=>{
 });
 
 //buscar cuentas usuario de empresa por rut de la empresa
-router.get('/accountByCompany/:id',verifyToken, authorizeRoles(1),async(req,res) => {
+router.get('/accountByCompany/:id',verifyToken, authorizeRoles(1,2),async(req,res) => {
     try {
         const {id} = req.params;
 

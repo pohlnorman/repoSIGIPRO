@@ -10,6 +10,8 @@ import { NavbarComponent } from "../../navbar/navbar.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../interfaces/user';
+import { EmpresaService } from '../../../services/empresa.service';
+import { Empresa } from '../../../interfaces/empresa';
 
 @Component({
   selector: 'app-crear-contrato',
@@ -22,6 +24,7 @@ export class CrearContratoComponent implements OnInit {
   persona: Persona | null = null;
   isCollapsed = true;
   user: User | undefined = undefined;
+  empresas:Empresa[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +33,7 @@ export class CrearContratoComponent implements OnInit {
     private aRouter: ActivatedRoute,
     private _location: Location,
     private authService: AuthService,
+    private empresaService:EmpresaService,
   ) {
     this.form = this.fb.group({
       fechaInicio: ['', Validators.required],
@@ -39,6 +43,7 @@ export class CrearContratoComponent implements OnInit {
       duracion: ['',],
       horario: ['',],
       sueldoBase: ['',],
+      empresaId:['',Validators.required]
     });
 
   }
@@ -54,6 +59,20 @@ export class CrearContratoComponent implements OnInit {
       next: (authResponse) => {
         if (authResponse.user) {
           this.user = authResponse.user;
+          if(!authResponse.user.empresaId){
+            this.empresaService.findAll().subscribe({
+              next:(empresas)=>{
+                this.empresas=empresas;
+              }
+            });
+          }else{
+            this.empresaService.findById(authResponse.user.empresaId).subscribe({
+              next:(empresa)=>{
+                this.empresas.push(empresa);
+                this.form.get("empresaId")?.setValue(empresa.id)
+              }
+            });
+          }
         }
       }
     });
@@ -62,7 +81,7 @@ export class CrearContratoComponent implements OnInit {
 
   registrarContrato(): void {
     if (this.form.valid && this.persona && this.user) {
-      this.contratoService.create(this.form.value, this.persona.rut, this.user.empresaId).subscribe({
+      this.contratoService.create(this.form.value, this.persona.rut).subscribe({
         next: (r) => {
           Swal.fire({
             position: "center",

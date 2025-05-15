@@ -58,7 +58,7 @@ export async function initializeDatabase() {
                     password: 'Sigipro1!',
                     rolId: roles[0].idRol,
                     estado: 1,
-                    empresaId: empresa.id
+                    empresaId: null
                 }
             });
 
