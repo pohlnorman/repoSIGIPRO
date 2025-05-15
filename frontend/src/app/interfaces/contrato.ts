@@ -12,5 +12,6 @@ export interface Contrato {
     duracion: string;
     horario: string;
     sueldoBase: string;
+    empresaId: number;
 }
 

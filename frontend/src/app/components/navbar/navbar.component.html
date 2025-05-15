@@ -22,32 +22,24 @@
 							persona</a>
 						<a ngbDropdownItem routerLink="/personas" (click)="isMenuCollapsed = true">Todas las
 							personas</a>
-					</div>
-				</li>
-				}
-				@if(hasAnyRole([1,2])){
-				<li class="nav-item" ngbDropdown>
-					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown2" role="button">Contratos</a>
-					<div ngbDropdownMenu aria-labelledby="navbarDropdown2" class="dropdown-menu bg-navbar">
-						<a ngbDropdownItem routerLink="/contratos" (click)="isMenuCollapsed = true">Personas
+							@if (hasAnyRole([2])) {
+						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/contratos" (click)="isMenuCollapsed = true">Personas
 							contratadas</a>
+						}
 					</div>
 				</li>
 				}
-				@if(hasAnyRole([2])){
-					<li class="nav-item" ngbDropdown>
-						<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown4" role="button">Usuarios</a>
-						<div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu bg-navbar">
-							<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/crear-admin" (click)="isMenuCollapsed = true">Crear Admin</a>
-							<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/lista-administradores" (click)="isMenuCollapsed = true">Lista Admins</a>
-						</div>
-					</li>
-					}
 				<li class="nav-item" ngbDropdown>
 					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3"
 						role="button">{{user?.username}}</a>
 					<div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu bg-navbar">
 						<button ngbDropdownItem (click)="toggleTheme()">Tema: Claro/Oscuro</button>
+						@if(hasAnyRole([2])){
+						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/crear-admin"
+							(click)="isMenuCollapsed = true">Crear Admin</a>
+						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/lista-administradores"
+							(click)="isMenuCollapsed = true">Lista Admins</a>
+						}
 						<button ngbDropdownItem (click)="logout()">Logout</button>
 					</div>
 				</li>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Contrato } from '../../../interfaces/contrato';
 import { ContratoService } from '../../../services/contrato.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
@@ -15,9 +15,13 @@ import { NavbarComponent } from "../../navbar/navbar.component";
 })
 export class ListaContratosVigentesComponent implements OnInit {
   listaContratos: Contrato[] = []
+  empresaId: number | undefined = undefined;
 
-
-  constructor(private contratoService: ContratoService) { }
+  constructor(private contratoService: ContratoService,
+    private activatedRoute: ActivatedRoute,
+  ) {
+    
+  }
 
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -30,11 +34,16 @@ export class ListaContratosVigentesComponent implements OnInit {
       },
       responsive: true
     };
-    this.getListaContratos();
+    const id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
+    if(id){
+      this.empresaId=id;
+      this.getListaContratos(id);
+    }
+    
   }
 
-  getListaContratos() {
-    this.contratoService.findAllActive().subscribe((data: Contrato[]) => {
+  getListaContratos(id:number) {
+    this.contratoService.findAllActiveByEmpresaId(id).subscribe((data: Contrato[]) => {
       this.listaContratos = data
       this.dtTrigger.next(null);
     })

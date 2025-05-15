@@ -10,14 +10,16 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { AuthService } from '../../../services/auth.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { User } from '../../../interfaces/user';
 
 @Component({
   selector: 'app-detalles-persona',
-  imports: [RouterLink, DataTablesModule, CommonModule, NavbarComponent,NgbCollapseModule],
+  imports: [RouterLink, DataTablesModule, CommonModule, NavbarComponent, NgbCollapseModule],
   templateUrl: './detalles-persona.component.html',
   styleUrl: './detalles-persona.component.css'
 })
 export class DetallesPersonaComponent implements OnInit {
+  user: User | undefined = undefined;
   rolId: number = -1;
   contratoVigenteId: number | undefined = undefined;
   personaId: number = 0;
@@ -41,6 +43,35 @@ export class DetallesPersonaComponent implements OnInit {
     this.authService.checkSession().subscribe({
       next: (authResponse) => {
         this.rolId = Number(authResponse.user?.rolId);
+        this.user = authResponse.user;
+        if (this.user && this.rolId == 2) {
+          this.contratoService.findAllByPersonaIdAndEmpresaId(this.personaId, this.user.empresaId).subscribe({
+            next: (conList: Contrato[]) => {
+              this.listaContratos = conList
+              this.dtTrigger.next(null);
+              conList.forEach(c => {
+                if (c.estado == 1) {
+                  this.contratoVigenteId = c.id;
+                }
+              })
+            },
+            error: (e) => console.error("Error"),
+          })
+        }
+        if (this.rolId == 1 || this.rolId == 3) {
+          this.contratoService.findAllByPersonaId(this.personaId).subscribe({
+            next: (conList: Contrato[]) => {
+              this.listaContratos = conList
+              this.dtTrigger.next(null);
+              conList.forEach(c => {
+                if (c.estado == 1) {
+                  this.contratoVigenteId = c.id;
+                }
+              })
+            },
+            error: (e) => console.error("Error"),
+          })
+        }
       }
     });
     this.dtOptions = {
@@ -61,18 +92,7 @@ export class DetallesPersonaComponent implements OnInit {
       },
       error: (e) => console.error("Error"),
     });
-    this.contratoService.findAllByPersonaId(this.personaId).subscribe({
-      next: (conList: Contrato[]) => {
-        this.listaContratos = conList
-        this.dtTrigger.next(null);
-        conList.forEach(c => {
-          if (c.estado == 1) {
-            this.contratoVigenteId = c.id;
-          }
-        })
-      },
-      error: (e) => console.error("Error"),
-    })
+
   }
   hasAnyRole(roles: number[]): boolean {
     if (this.rolId && roles.indexOf(this.rolId) >= 0) {

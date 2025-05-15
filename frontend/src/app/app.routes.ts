@@ -29,7 +29,6 @@ export const routes: Routes = [
     { path: 'persona/:id/agregar-examen-vista', component: AgregarExamenVistaComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'persona/:id/crear-contrato', component: CrearContratoComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'persona/:id/crear-usuario', component: CrearUsuarioComponent, canActivate: [authGuard], data: { role: [1,2] } },
-    { path: 'contratos', component: ListaContratosVigentesComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'contrato/:id', component: DetallesContratoComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'contrato/:id/crear-anexo', component: CrearAnexoComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'contrato/:id/crear-finiquito', component: CrearFiniquitoComponent, canActivate: [authGuard], data: { role: [1,2] } },
@@ -37,6 +36,7 @@ export const routes: Routes = [
     { path: 'empresa', component: CrearEmpresaComponent, canActivate: [authGuard], data: { role: [1] } },
     { path: 'empresa/:id/crear-admin', component: CrearAdminComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'empresa/:id/lista-administradores', component: ListaAdministradoresComponent, canActivate: [authGuard], data: { role: [1,2] } },
+    { path: 'empresa/:id/contratos', component: ListaContratosVigentesComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
