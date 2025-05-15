@@ -8,7 +8,7 @@
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
                     <div class="mb-3">
-                        <label for="rut" class="form-label">Rut</label>
+                        <label for="rut" class="form-label">Rut<span class="text-danger">*</span></label>
                         <input type="text" id="rut" class="form-control" formControlName="rut">
                         <span *ngIf="form.get('rut')?.hasError('required') && form.get('rut')?.touched"
                             class="text-danger">Requerido</span>
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
+                        <label for="nombre" class="form-label">Nombre<span class="text-danger">*</span></label>
                         <input type="text" id="nombre" class="form-control" formControlName="nombre">
                         <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched"
                             class="text-danger">Requerido</span>

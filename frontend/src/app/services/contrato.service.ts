@@ -36,4 +36,13 @@ export class ContratoService {
     return this.http.post<Contrato>(url, contrato, { withCredentials: true });
   }
 
+  findAllByPersonaIdAndEmpresaId(personaId: number,empresaId:number): Observable<Contrato[]> {
+    const url: string = api.host + '/allContract/' + personaId
+    return this.http.get<Contrato[]>(url, { withCredentials: true })
+  }
+
+  findAllActiveByEmpresaId(empresaId: number): Observable<Contrato[]> {
+    const url: string = api.host + api.contratos + '/findAllActive'
+    return this.http.get<Contrato[]>(url, { withCredentials: true })
+  }
 }
