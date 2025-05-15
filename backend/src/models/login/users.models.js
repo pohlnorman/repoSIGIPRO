@@ -20,7 +20,11 @@ export const User = sequelize.define('usuarios',{
     },
     rolId: {
         type: DataTypes.INTEGER
+    },
+    estado: {
+        type: DataTypes.TINYINT
     }
+    
 }, {
     timestamps: false, // Desactivar createdAt y updatedAt
 });

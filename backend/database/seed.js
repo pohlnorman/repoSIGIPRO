@@ -8,7 +8,7 @@ import { Rol } from '../src/models/login/roles.models.js';
 export async function initializeDatabase() {
     try {
         // Sincroniza todos los modelos con la base de datos
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({ force: true });
         console.log("---Tablas sincronizadas---");
 
          // Verificar si existen empresas antes de insertar
@@ -57,6 +57,7 @@ export async function initializeDatabase() {
                 defaults: {
                     password: 'Sigipro1!',
                     rolId: roles[0].idRol,
+                    estado: 1,
                     empresaId: empresa.id
                 }
             });

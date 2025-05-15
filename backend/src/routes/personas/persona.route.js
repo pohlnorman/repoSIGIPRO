@@ -33,7 +33,8 @@ router.post('/persona',async(req,res)=>{
         // Crear nueva persona con estado en 0 (aunque no venga en req.body)
         const nuevaPersona = await Persona.create({
             ...req.body,
-            estado: 0 // Sobrescribe o asegura que siempre se guarde como 0
+            estado: 0, // Sobrescribe o asegura que siempre se guarde como 0
+            tieneUsuario: 0 // Sobrescribe o asegura que siempre se guarde como 0
         });
         res.status(201).json(nuevaPersona);
     } catch (error) {

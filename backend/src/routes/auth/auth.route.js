@@ -45,7 +45,7 @@ router.post('/register', async (req, res) =>{
             }
 
             // Crear el nuevo usuario para la persona (la contraseña se hashea automáticamente por el hook en users.model.js)
-            const newUser = await User.create({ username, password, rolId: userRolId, empresaId, personaId});
+            const newUser = await User.create({ username, password, rolId: userRolId, estado,empresaId, personaId});
             await Persona.update({ tieneUsuario: 1 },{where: {id: persona.id}});
 
             // Excluir contraseña de la respuesta
@@ -55,7 +55,7 @@ router.post('/register', async (req, res) =>{
             res.status(201).json({ message: 'Usuario para persona registrado exitosamente', user: userResponse });
         }else if(empresaId != null){
             // Crear el nuevo usuario para la empresa (la contraseña se hashea automáticamente por el hook en users.model.js)
-            const newUser = await User.create({ username, password, rolId: userRolId, empresaId, personaId});
+            const newUser = await User.create({ username, password, rolId: userRolId, estado,empresaId, personaId});
 
             // Excluir contraseña de la respuesta
             const userResponse = newUser.toJSON();

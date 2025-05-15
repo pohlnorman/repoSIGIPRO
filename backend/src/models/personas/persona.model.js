@@ -21,6 +21,10 @@ export const Persona = sequelize.define('personas',{
         type: DataTypes.STRING,
         allowNull: false
     },
+    ocupacion:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     nacionalidad:{
         type: DataTypes.STRING,
         allowNull: true
