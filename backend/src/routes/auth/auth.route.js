@@ -13,7 +13,7 @@ const router = express.Router();
 // --- Rutas Públicas ---
 // POST /auth/register
 router.post('/register', async (req, res) =>{
-    const { username, password, rolId, empresaId, personaId } = req.body;
+    const { username, password, rolId, estado, empresaId, personaId } = req.body;
 
     // Validación básica (MEJORA: Usar express-validator)
     if (!username || !password) {
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) =>{
             }
 
             // Crear el nuevo usuario para la persona (la contraseña se hashea automáticamente por el hook en users.model.js)
-            const newUser = await User.create({ username, password, rolId: userRolId, estado,empresaId, personaId});
+            const newUser = await User.create({ username, password, rolId: userRolId, estado: 1,empresaId, personaId});
             await Persona.update({ tieneUsuario: 1 },{where: {id: persona.id}});
 
             // Excluir contraseña de la respuesta
@@ -55,7 +55,7 @@ router.post('/register', async (req, res) =>{
             res.status(201).json({ message: 'Usuario para persona registrado exitosamente', user: userResponse });
         }else if(empresaId != null){
             // Crear el nuevo usuario para la empresa (la contraseña se hashea automáticamente por el hook en users.model.js)
-            const newUser = await User.create({ username, password, rolId: userRolId, estado,empresaId, personaId});
+            const newUser = await User.create({ username, password, rolId: userRolId, estado: 1,empresaId, personaId});
 
             // Excluir contraseña de la respuesta
             const userResponse = newUser.toJSON();
