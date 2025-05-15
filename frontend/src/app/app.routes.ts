@@ -5,7 +5,6 @@ import { CrearAnexoComponent } from './components/contratos/crear-anexo/crear-an
 import { CrearContratoComponent } from './components/contratos/crear-contrato/crear-contrato.component';
 import { CrearFiniquitoComponent } from './components/contratos/crear-finiquito/crear-finiquito.component';
 import { AgregarPersonaComponent } from './components/personas/agregar-persona/agregar-persona.component';
-import { AgregarExamenVistaComponent } from './components/personas/agregar-examen-vista/agregar-examen-vista.component';
 import { ListaTodasLasPersonasComponent } from './components/personas/lista-todas-las-personas/lista-todas-las-personas.component';
 import { DetallesPersonaComponent } from './components/personas/detalles-persona/detalles-persona.component';
 import { DetallesContratoComponent } from './components/contratos/detalles-contrato/detalles-contrato.component';
@@ -26,7 +25,6 @@ export const routes: Routes = [
     { path: 'persona', component: AgregarPersonaComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'persona/:id', component: DetallesPersonaComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'persona/:id/editar', component: AgregarPersonaComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
-    { path: 'persona/:id/agregar-examen-vista', component: AgregarExamenVistaComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },
     { path: 'persona/:id/crear-contrato', component: CrearContratoComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'persona/:id/crear-usuario', component: CrearUsuarioComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'contrato/:id', component: DetallesContratoComponent, canActivate: [authGuard], data: { role: [1,2, 3] } },

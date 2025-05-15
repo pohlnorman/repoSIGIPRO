@@ -36,7 +36,7 @@
 						<button ngbDropdownItem (click)="toggleTheme()">Tema: Claro/Oscuro</button>
 						@if(hasAnyRole([2])){
 						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/lista-administradores"
-							(click)="isMenuCollapsed = true">Lista Admins</a>
+							(click)="isMenuCollapsed = true">Administradores</a>
 						}
 						<button ngbDropdownItem (click)="logout()">Logout</button>
 					</div>

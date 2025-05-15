@@ -15,7 +15,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-agregar-persona',
-  imports: [ReactiveFormsModule, CommonModule, NavbarComponent,NgbCollapseModule],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent, NgbCollapseModule],
   templateUrl: './agregar-persona.component.html',
   styleUrl: './agregar-persona.component.css'
 })
@@ -42,6 +42,7 @@ export class AgregarPersonaComponent implements OnInit {
       telefono: ['', Validators.pattern(/^\d{9}$/)],
       email: ['', Validators.email],
       direccion: [''],
+      ocupacion: [''],
       region: [''],
       comuna: [''],
       afp: [''],

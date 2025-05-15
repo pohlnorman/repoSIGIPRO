@@ -37,12 +37,12 @@ export class ContratoService {
   }
 
   findAllByPersonaIdAndEmpresaId(personaId: number, empresaId: number): Observable<Contrato[]> {
-    const url: string = api.host + '/allContract/' + personaId
+    const url: string = api.host + api.contratos+api.empresa+"/"+empresaId+api.persona+"/"+personaId+ '/allContract'
     return this.http.get<Contrato[]>(url, { withCredentials: true })
   }
 
   findAllActiveByEmpresaId(empresaId: number): Observable<Contrato[]> {
-    const url: string = api.host + api.contratos + '/findAllActive'
+    const url: string = api.host + api.contratos + '/findAllActive/' +empresaId
     return this.http.get<Contrato[]>(url, { withCredentials: true })
   }
 }

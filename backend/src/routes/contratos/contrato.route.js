@@ -211,4 +211,22 @@ router.get('/persona/:personaId/contrato-activo',async(req,res)=>{
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }
 });
+
+router.get('/contratos/findAllActive/:empresaId',async(req,res)=>{
+    const {empresaId} = req.params;
+    const listaContratos = await Contrato.findAll({
+        where: { estado: 1,empresaId:empresaId },
+        include: Persona
+    });
+    res.json(listaContratos)
+});
+
+router.get('/contratos/empresa/:empresaId/persona/:personaId/allContract',async(req,res)=>{
+    const {empresaId,personaId} = req.params;
+    const listaContratos = await Contrato.findAll({
+        where: { personaId:personaId ,empresaId:empresaId },
+        include: Persona
+    });
+    res.json(listaContratos)
+});
 export default router;

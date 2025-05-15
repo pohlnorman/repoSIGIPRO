@@ -4,6 +4,7 @@ export interface Persona {
     apellido: string;
     rut: string;
     estado: number;
+    ocupacion:string;
     tieneUsuario: boolean,
     nacionalidad: string;
     estadoCivil: string;
