@@ -6,6 +6,7 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Rut</th>
+                <th scope="col">Cargo</th>
                 <th scope="col">Accion</th>
             </tr>
         </thead>
@@ -15,6 +16,7 @@
                 <td><a routerLink="/persona/{{contrato.persona.id}}">{{ contrato.persona.nombre +" "+
                         contrato.persona.apellido }}</a></td>
                 <td>{{ contrato.persona.rut }}</td>
+                <td>{{ contrato.cargo }}</td>
                 } @else {
                 <td>""</td>
                 <td>""</td>

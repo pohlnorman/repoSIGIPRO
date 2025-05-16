@@ -16,7 +16,7 @@
                 <td><a routerLink="/persona/{{persona.id}}">{{ persona.nombre +" "+ persona.apellido }}</a></td>
                 <td>{{ persona.rut }}</td>
                 @if (persona.estado) {
-                    @if (hasAnyRole([1])) {<td><span class="text-success">Contratado</span></td>}@else {<td></td>}
+                    @if (hasAnyRole([1])) {<td><span class="text-success">Contratado</span></td>}@else {<td>No disponible</td>}
                 
                 } @else {
                 <td>
