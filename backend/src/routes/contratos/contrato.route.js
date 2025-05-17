@@ -9,11 +9,21 @@ const router = express.Router();
 
 // ✅ Obtener todos los contratos
 router.get('/contratos/findAllActive',async(req,res)=>{
-    const listaContratos = await Contrato.findAll({
-        where: { estado: 1 },
-        include: Persona
-    });
-    res.json(listaContratos)
+    try {
+        const listaContratos = await Contrato.findAll({
+            where: { estado: 1 },
+            include: Persona
+        });
+
+        if (!contratosActivos || contratosActivos.length === 0) {
+            return res.status(404).json({ mensaje: 'No hay contratos activos' });
+        }
+        res.status(200).json(listaContratos)
+    } catch (error) {
+        console.error('Error al obtener contratos activos:', error);
+        res.status(500).json({ mensaje: 'Error al obtener los contratos', error: error.message });
+    }
+    
 });
 
 // ✅ Obtener datos de una persona por rut
@@ -48,11 +58,19 @@ router.post('/persona/:rut/contrato',async(req,res)=>{
             return res.status(404).json({ mensaje: "Persona no encontrada" });
         }
 
+        // Obtener empresaId desde el usuario logeado
+        const empresaId = req.user.empresaId;
+
+        if (!empresaId) {
+            return res.status(403).json({ mensaje: "El usuario no tiene una empresa asociada" });
+        }
+
         // Crear nuevo contrato, agregando personaId y estado: 1
         const nuevoContrato = await Contrato.create({
             ...req.body,
             estado:1,
-            personaId: persona.id
+            personaId: persona.id,
+            empresaId: empresaId
         });
         // Actualizar estado de la persona a 1
         await persona.update({ estado: 1 });
@@ -195,6 +213,7 @@ router.get('/allAnnex/:contratoId',async(req,res)=>{
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }
 });
+
 // ✅ Obtener contrato activo dado un id de persona
 router.get('/persona/:personaId/contrato-activo',async(req,res)=>{
     try {
@@ -212,21 +231,61 @@ router.get('/persona/:personaId/contrato-activo',async(req,res)=>{
     }
 });
 
+// ✅ Obtener contrato activo de una empresa por id de empresa
 router.get('/contratos/findAllActive/:empresaId',async(req,res)=>{
-    const {empresaId} = req.params;
-    const listaContratos = await Contrato.findAll({
+    try {
+        const {empresaId} = req.params;
+
+        // Validar que empresaId sea un número válido
+        if (isNaN(empresaId)) {
+            return res.status(400).json({ mensaje: 'ID de empresa inválido' });
+        }
+
+        // Buscar contratos activos de la empresa
+        const listaContratos = await Contrato.findAll({
         where: { estado: 1,empresaId:empresaId },
         include: Persona
-    });
-    res.json(listaContratos)
+        });
+
+        if (!listaContratos || listaContratos.length === 0) {
+            return res.status(404).json({ mensaje: 'No hay contratos activos para esta empresa' });
+        }
+
+        res.status(200).json(listaContratos);
+
+    } catch (error) {
+        console.error('Error al obtener contratos activos por empresa:', error);
+        res.status(500).json({ mensaje: 'Error al obtener contratos', error: error.message });
+    }
+
+    
 });
 
+// ✅ Obtener todos los contratos entre una empresa y una persona
 router.get('/contratos/empresa/:empresaId/persona/:personaId/allContract',async(req,res)=>{
-    const {empresaId,personaId} = req.params;
-    const listaContratos = await Contrato.findAll({
-        where: { personaId:personaId ,empresaId:empresaId },
-        include: Persona
-    });
-    res.json(listaContratos)
+    try {
+        const {empresaId,personaId} = req.params;
+
+        // Validaciones básicas
+        if (isNaN(empresaId) || isNaN(personaId)) {
+            return res.status(400).json({ mensaje: 'IDs inválidos' });
+        }
+
+        const listaContratos = await Contrato.findAll({
+            where: { personaId:personaId ,empresaId:empresaId },
+            include: Persona
+        });
+
+        if (!listaContratos || listaContratos.length === 0) {
+            return res.status(404).json({ mensaje: 'No existen contratos entre esta empresa y persona' });
+        }
+
+        res.status(200).json(listaContratos)
+    } catch (error) {
+        console.error('Error al obtener contratos:', error);
+        res.status(500).json({ mensaje: 'Error al obtener contratos', error: error.message });
+    }
+    
+    
 });
 export default router;

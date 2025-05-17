@@ -11,7 +11,7 @@ import { User } from '../../models/login/users.models.js';
 const router = express.Router();
 
 // --- Rutas Públicas ---
-// POST /auth/register
+// POST /auth/register registro de usuario
 router.post('/register', async (req, res) =>{
     const { username, password, rolId, estado, empresaId, personaId } = req.body;
 
@@ -80,7 +80,8 @@ router.post('/login' ,async (req, res) => {
     };
 
     try {
-        const user = await User.findOne({ where: { username } });
+        const user = await User.findOne({ where: { username }, include:{model:Empresa} });
+        console.log('Usuario:', user.toJSON());
 
         // Verificar usuario y contraseña
         if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -91,7 +92,8 @@ router.post('/login' ,async (req, res) => {
         const payload = {
             id: user.idUser,
             username: user.username,
-            rol: user.rolId
+            rol: user.rolId,
+            empresaId: user.empresaId || null // Incluye empresaId si existe
         };
         const token = jwt.sign(
             payload,
