@@ -15,7 +15,7 @@ router.get('/contratos/findAllActive',async(req,res)=>{
             include: Persona
         });
 
-        if (!contratosActivos || contratosActivos.length === 0) {
+        if (!listaContratos || listaContratos.length === 0) {
             return res.status(404).json({ mensaje: 'No hay contratos activos' });
         }
         res.status(200).json(listaContratos)

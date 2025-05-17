@@ -1,11 +1,26 @@
 import express from 'express';
 import { Persona } from '../../models/personas/persona.model.js';
+import { Contrato } from '../../models/contratos/contrato.model.js';
 
 const router = express.Router();
 
 // ✅ Obtener todas las personas
-router.get('/personas',async(req,res)=>{
+/* router.get('/personas',async(req,res)=>{
     const listaPersonas = await Persona.findAll()
+    res.json(listaPersonas)
+}); */
+
+router.get('/personas',async(req,res)=>{
+    const listaPersonas = await Persona.findAll({
+        include:[
+            {
+                model:Contrato,
+                where: {estado: 1},
+                required: false, // ← esto permite incluir personas sin contrato también
+                attributes: ['empresaId']
+            }
+        ]
+    })
     res.json(listaPersonas)
 });
 
