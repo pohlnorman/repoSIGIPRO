@@ -15,14 +15,17 @@
             <tr *ngFor="let persona of listaPersonas">
                 <td><a routerLink="/persona/{{persona.id}}">{{ persona.nombre +" "+ persona.apellido }}</a></td>
                 <td>{{ persona.rut }}</td>
-                @if (persona.estado) {
-                    @if (hasAnyRole([1])) {<td><span class="text-success">Contratado</span></td>}@else {<td>No disponible</td>}
-                
-                } @else {
                 <td>
-                    Sin contrato
+                    @if (!persona.contratos || persona.contratos.length === 0) {
+                        Sin contrato
+                    } @else {
+                        @if (persona.contratos[0].empresaId === empresaId) {
+                            <span class="text-success">Contratado</span>
+                        } @else {
+                            <span class="text-danger">No disponible</span>
+                        }
+                    }
                 </td>
-                }
                 @if (persona.tieneUsuario) {
                 <td class="text-success fw-bold">Creadas</td>
                 } @else {

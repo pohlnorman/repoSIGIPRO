@@ -17,6 +17,7 @@ import { AuthService } from '../../../services/auth.service';
 export class ListaTodasLasPersonasComponent implements OnInit {
   listaPersonas: Persona[] = []
   rolId: number = -1;
+  empresaId: number = -1;
 
   constructor(private personaService: PersonaService,
     private authService: AuthService,
@@ -29,6 +30,7 @@ export class ListaTodasLasPersonasComponent implements OnInit {
     this.authService.checkSession().subscribe({
       next: (authResponse) => {
         this.rolId = Number(authResponse.user?.rolId);
+        this.empresaId = Number(authResponse.user?.empresaId);
       }
     });
     this.dtOptions = {

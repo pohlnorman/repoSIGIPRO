@@ -1,3 +1,5 @@
+import { Contrato } from "./contrato";
+
 export interface Persona {
     id: number;
     nombre: string;
@@ -26,4 +28,5 @@ export interface Persona {
     tallaPoleron: string;
     tallaParka: string;
     tallaOberol: string;
+    contratos?: Contrato[];
 }
