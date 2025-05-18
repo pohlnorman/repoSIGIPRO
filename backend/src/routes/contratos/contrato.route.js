@@ -5,6 +5,8 @@ import { Finiquito } from '../../models/contratos/finiquito.model.js';
 import { Anexo } from '../../models/contratos/anexo.model.js';
 import { Empresa } from '../../models/empresa/empresa.model.js';
 
+import { verifyToken } from '../../middleware/auth.middleware.js';
+
 const router = express.Router();
 
 // ✅ Obtener todos los contratos
@@ -45,7 +47,7 @@ router.get('/persona/findByRut/:rut',async(req,res)=>{
 });
 
 // ✅ Agregar contrato
-router.post('/persona/:rut/contrato',async(req,res)=>{
+router.post('/persona/:rut/contrato', verifyToken,async(req,res)=>{
     try {
         const { rut } = req.params;
         //const {fechaInicio} = req.body;
