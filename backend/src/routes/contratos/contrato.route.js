@@ -17,7 +17,7 @@ router.get('/contratos/findAllActive',async(req,res)=>{
             include: Persona
         });
 
-        if (!listaContratos || listaContratos.length === 0) {
+        if (!listaContratos) {
             return res.status(404).json({ mensaje: 'No hay contratos activos' });
         }
         res.status(200).json(listaContratos)
@@ -61,10 +61,10 @@ router.post('/persona/:rut/contrato', verifyToken,async(req,res)=>{
         }
 
         // Obtener empresaId desde el usuario logeado
-        const empresaId = req.user.empresaId;
+        const body ={...req.body}
 
-        if (!empresaId) {
-            return res.status(403).json({ mensaje: "El usuario no tiene una empresa asociada" });
+        if (!body.empresaId) {
+            return res.status(400).json({ mensaje: "El contrato no tiene una empresa asociada" });
         }
 
         // Crear nuevo contrato, agregando personaId y estado: 1
@@ -72,7 +72,6 @@ router.post('/persona/:rut/contrato', verifyToken,async(req,res)=>{
             ...req.body,
             estado:1,
             personaId: persona.id,
-            empresaId: empresaId
         });
         // Actualizar estado de la persona a 1
         await persona.update({ estado: 1 });
@@ -249,7 +248,7 @@ router.get('/contratos/findAllActive/:empresaId',async(req,res)=>{
         include: Persona
         });
 
-        if (!listaContratos || listaContratos.length === 0) {
+        if (!listaContratos) {
             return res.status(404).json({ mensaje: 'No hay contratos activos para esta empresa' });
         }
 
@@ -278,7 +277,7 @@ router.get('/contratos/empresa/:empresaId/persona/:personaId/allContract',async(
             include: Persona
         });
 
-        if (!listaContratos || listaContratos.length === 0) {
+        if (!listaContratos) {
             return res.status(404).json({ mensaje: 'No existen contratos entre esta empresa y persona' });
         }
 
