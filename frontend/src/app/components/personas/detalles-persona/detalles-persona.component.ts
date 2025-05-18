@@ -75,7 +75,7 @@ export class DetallesPersonaComponent implements OnInit {
       }
     });
     this.dtOptions = {
-      pagingType: 'full_numbers',
+      pagingType: 'simple_numbers',
       language: {
         url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-CL.json'
       },

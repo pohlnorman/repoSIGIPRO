@@ -1,0 +1,88 @@
+<img src="logoSIGIPRO.png" class="rounded mx-auto d-block" height="100px" alt="logoSIGIPRO" style="margin-top: 30px;">
+<div class="container-fluid mt-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-3">
+            <div class="card mb-3">
+                <div class="card-header text-center">Registro</div>
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                        <div class="mb-3">
+                            <label class="form-label">Rut<span class="text-danger">*</span><span class="form-text"> (Sin
+                                    puntos con guion)</span>
+                            </label>
+                            <input formControlName="rut" type="text" class="form-control">
+                            @if (form.get('rut')?.hasError('required') && form.get('rut')?.touched) {
+                            <span class="text-danger">requerido.</span>
+                            }
+                            @if(form.get('rut')?.hasError('rutInvalido') && form.get('rut')?.touched){
+                            <span class="text-danger"> Formato incorrecto.</span>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre<span class="text-danger">*</span></label>
+                            <input formControlName="nombre" type="text" class="form-control">
+                            @if (form.get('nombre')?.hasError('required') && form.get('nombre')?.touched) {
+                            <span class="text-danger">requerido.</span>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Apellido<span class="text-danger">*</span></label>
+                            <input formControlName="apellido" type="text" class="form-control">
+                            @if (form.get('apellido')?.hasError('required') && form.get('apellido')?.touched) {
+                            <span class="text-danger">requerido.</span>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Usuario<span class="text-danger">*</span><span class="form-text">
+                                    (Email)</span></label>
+                            <input formControlName="username" type="email" class="form-control">
+                            @if (form.get('username')?.hasError('required') && form.get('username')?.touched) {
+                            <p class="mb-0 text-danger">Email Requerido.</p>
+                            }
+                            @if (form.get('email')?.hasError('pattern') && form.get('email')?.touched) {
+                            <p class="mb-0 text-danger">Email invalido.</p>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password<span class="text-danger">*</span></label>
+                            <input formControlName="password" type="password" class="form-control">
+                            @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+                            <p class="mb-0 text-danger">Requerido.</p>
+                            }
+                            @if (form.get('password')?.hasError('passwordInvalido') && form.get('password')?.touched) {
+                            <p class="mb-0 text-danger">Password debe contener minimo 8 caracteres, mayusculas,
+                                minusculas,
+                                numeros y caracteres especiales.</p>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Confirmar password<span class="text-danger">*</span></label>
+                            <input formControlName="confirmPassword" type="password" class="form-control">
+                            @if (form.get('confirmPassword')?.hasError('required') &&
+                            form.get('confirmPassword')?.touched) {
+                            <p class="mb-0 text-danger">Requerido.</p>
+                            }
+                            @if (form.get('confirmPassword')?.hasError('passwordInvalido') &&
+                            form.get('confirmPassword')?.touched) {
+                            <p class="mb-0 text-danger">Password debe contener minimo 8 caracteres, mayusculas,
+                                minusculas,
+                                numeros y caracteres especiales.</p>
+                            }
+                        </div>
+
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Registrarse</button>
+                        @if (errorMessage) {
+                        <p class="fw-bold text-danger mt-1 mb-0">{{errorMessage}}</p>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

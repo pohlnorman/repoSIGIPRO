@@ -16,10 +16,12 @@ import { ListaTodasLasEmpresasComponent } from './components/empresas/lista-toda
 import { CrearEmpresaComponent } from './components/empresas/crear-empresa/crear-empresa.component';
 import { CrearAdminComponent } from './components/usuarios/crear-admin/crear-admin.component';
 import { ListaAdministradoresComponent } from './components/usuarios/lista-administradores/lista-administradores.component';
+import { RegisterComponent } from './components/usuarios/register/register.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
+    { path: 'registro', component: RegisterComponent },
     { path: 'home', component: HomeComponent, canActivate: [authGuard], data: { role: [1,2,3] } },
     { path: 'personas', component: ListaTodasLasPersonasComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'persona', component: AgregarPersonaComponent, canActivate: [authGuard], data: { role: [1,2] } },

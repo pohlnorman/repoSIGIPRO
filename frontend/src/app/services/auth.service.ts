@@ -4,7 +4,7 @@ import { AuthResponse } from '../interfaces/auth.response';
 import { AuthRequest } from '../interfaces/auth.request';
 import { api } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/user';
+import { Register } from '../interfaces/auth.register';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +38,8 @@ export class AuthService {
     return this.http.post<string>(url, { rut }, { withCredentials: true });
   }
 
+  registerWithRoleUser(register: Register): Observable<string> {
+    const url = api.host + api.auth + "/registerWithRoleUser";
+    return this.http.post<string>(url, register);
+  }
 }
