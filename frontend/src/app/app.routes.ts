@@ -17,6 +17,7 @@ import { CrearEmpresaComponent } from './components/empresas/crear-empresa/crear
 import { CrearAdminComponent } from './components/usuarios/crear-admin/crear-admin.component';
 import { ListaAdministradoresComponent } from './components/usuarios/lista-administradores/lista-administradores.component';
 import { RegisterComponent } from './components/usuarios/register/register.component';
+import { ListaTallasComponent } from './components/contratos/lista-tallas/lista-tallas.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
@@ -37,6 +38,7 @@ export const routes: Routes = [
     { path: 'empresa/:id/crear-admin', component: CrearAdminComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'empresa/:id/lista-administradores', component: ListaAdministradoresComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'empresa/:id/contratos', component: ListaContratosVigentesComponent, canActivate: [authGuard], data: { role: [1,2] } },
+    { path: 'empresa/:id/tallas', component: ListaTallasComponent, canActivate: [authGuard], data: { role: [1,2] } },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];

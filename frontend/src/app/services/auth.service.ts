@@ -38,8 +38,8 @@ export class AuthService {
     return this.http.post<string>(url, { rut }, { withCredentials: true });
   }
 
-  registerWithRoleUser(register: Register): Observable<string> {
+  registerWithRoleUser(register: Register): Observable<any> {
     const url = api.host + api.auth + "/registerWithRoleUser";
-    return this.http.post<string>(url, register);
+    return this.http.post<any>(url, register);
   }
 }

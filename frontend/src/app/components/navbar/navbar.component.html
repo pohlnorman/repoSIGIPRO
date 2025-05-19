@@ -22,8 +22,12 @@
 							persona</a>
 						<a ngbDropdownItem routerLink="/personas" (click)="isMenuCollapsed = true">Todas las
 							personas</a>
-							@if (hasAnyRole([2])) {
-						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/contratos" (click)="isMenuCollapsed = true">Personas
+						@if (hasAnyRole([2])) {
+						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/contratos"
+							(click)="isMenuCollapsed = true">Personas
+							contratadas</a>
+						<a ngbDropdownItem routerLink="/empresa/{{user?.empresaId}}/tallas"
+							(click)="isMenuCollapsed = true">Tallas personas
 							contratadas</a>
 						}
 					</div>

@@ -39,11 +39,11 @@ export class RegisterComponent {
     }
     const register: Register = this.form.value;
     this.authService.registerWithRoleUser(register).subscribe({
-      next: (message: string) => {
+      next: (r: any) => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: message,
+          title: r.message,
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
