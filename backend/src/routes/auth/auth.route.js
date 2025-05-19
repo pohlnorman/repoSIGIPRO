@@ -2,16 +2,17 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+import { sequelize } from '../../../database/connection.js';
 import { verifyToken, authorizeRoles } from '../../middleware/auth.middleware.js';
 
 import { Persona } from '../../models/personas/persona.model.js';
 import { Empresa } from '../../models/empresa/empresa.model.js';
-import { User } from '../../models/login/users.models.js'; 
+import { User } from '../../models/login/users.models.js';
 
 const router = express.Router();
 
 // --- Rutas Públicas ---
-// POST /auth/register registro de usuario
+// POST /auth/register registro de usuario desde un usuario ADMIN logeado
 router.post('/register', async (req, res) =>{
     const { username, password, rolId, estado, empresaId, personaId } = req.body;
 
@@ -66,6 +67,115 @@ router.post('/register', async (req, res) =>{
 
     } catch (error) {
         console.error('Error en registerUser:',error);
+        res.status(500).json({ message: 'Error interno del servidor al registrar el usuario' });
+    }
+});
+
+// POST /auth/register registro de usuario desde un usuario ADMIN logeado
+/* router.post('/registerWithRoleUser', async (req, res) =>{
+    const { rut, nombre, apellido, username, password } = req.body;
+
+    // Validación básica (MEJORA: Usar express-validator)
+    if (!username || !password) {
+        return res.status(400).json({ message: 'El nombre de usuario y la contraseña son requeridos' });
+    }
+
+    // Asignar rolId a 'USER' (ID 3)
+    const userRolId = 3; // id usuario persona
+
+        try {
+        // Verificar si la persona ya existe
+            const existePersona = await Persona.findOne({ where: { rut } });
+            if (existePersona) {
+                return res.status(400).json({ message: 'la persona ya esta registrada' });
+            }
+
+
+            // Crear el nuevo usuario para la persona (la contraseña se hashea automáticamente por el hook en users.model.js)
+            const newUser = await User.create({ username, password, rolId: userRolId, estado: 1, existePersona});
+            await Persona.update({ tieneUsuario: 1 },{where: {id: persona.id}});
+
+            // Excluir contraseña de la respuesta
+            const userResponse = newUser.toJSON();
+            delete userResponse.password;
+
+            res.status(201).json({ message: 'Usuario para persona registrado exitosamente', user: userResponse });
+        }else if(empresaId != null){
+            // Crear el nuevo usuario para la empresa (la contraseña se hashea automáticamente por el hook en users.model.js)
+            const newUser = await User.create({ username, password, rolId: userRolId, estado: 1,empresaId, personaId});
+
+            // Excluir contraseña de la respuesta
+            const userResponse = newUser.toJSON();
+            delete userResponse.password;
+
+            res.status(201).json({ message: 'Usuario para empresa registrado exitosamente', user: userResponse });
+        }
+
+    } catch (error) {
+        console.error('Error en registerUser:',error);
+        res.status(500).json({ message: 'Error interno del servidor al registrar el usuario' });
+    }
+}); */
+
+router.get('/registerWithRoleUser', async (req, res) =>{
+    const { rut, nombre, apellido, username, password } = req.body;
+
+    // Validación básica (MEJORA: Usar express-validator)
+    if (!username || !password) {
+        return res.status(400).json({ message: 'El nombre de usuario y la contraseña son requeridos' });
+    }
+
+    const transaction = await sequelize.transaction(); // Inicia la transacción
+    console.log('🟡 Transacción iniciada');
+
+        try {
+        // Verificar si la persona ya existe
+            let persona = await Persona.findOne({ where: { rut } });
+            if (!persona) {
+                // Crear nueva persona con estado en 0 (aunque no venga en req.body)
+                persona = await Persona.create({
+                    rut,
+                    nombre,
+                    apellido,
+                    estado: 0, // Sobrescribe o asegura que siempre se guarde como 0
+                    tieneUsuario: 0 // Sobrescribe o asegura que siempre se guarde como 0
+                },{transaction});
+                console.log('🟢 Persona creada:', persona.toJSON());
+            }   else {
+                console.log('ℹ️ Persona ya existe:', persona.toJSON());
+            }
+        
+            // Asignar rolId a 'USER' (ID 3)
+            const userRolId = 3; // id usuario persona
+
+            // Crear el nuevo usuario para la persona (la contraseña se hashea automáticamente por el hook en users.model.js)
+            const newUser = await User.create({ 
+                username,
+                password,
+                rolId: userRolId,
+                estado: 1,
+                personaId: persona.id
+            },{transaction});
+            console.log('🟢 Usuario creado:', newUser.toJSON());
+
+            //actualiza el usuario de persona
+            await persona.update({ tieneUsuario: 1 },{transaction});
+            console.log('🔄 Campo tieneUsuario actualizado en Persona');
+
+            // Si todo salió bien, confirmar la transacción
+            await transaction.commit();
+            console.log('✅ Transacción completada exitosamente');
+
+            res.status(201).json({
+                message:'usuario creado',
+                persona,
+                usuario:newUser});
+    } catch (error) {
+        // Si hay algún error, revertir los cambios
+        await transaction.rollback();
+        console.error('Error en registerUser:',error);
+        console.error('❌ Transacción revertida por error:', error);
+
         res.status(500).json({ message: 'Error interno del servidor al registrar el usuario' });
     }
 });
