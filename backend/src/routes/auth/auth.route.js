@@ -117,7 +117,7 @@ router.post('/register', async (req, res) =>{
     }
 }); */
 
-router.get('/registerWithRoleUser', async (req, res) =>{
+router.post('/registerWithRoleUser', async (req, res) =>{
     const { rut, nombre, apellido, username, password } = req.body;
 
     // Validación básica (MEJORA: Usar express-validator)
