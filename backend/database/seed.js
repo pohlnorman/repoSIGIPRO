@@ -8,7 +8,7 @@ import { Rol } from '../src/models/login/roles.models.js';
 export async function initializeDatabase() {
     try {
         // Sincroniza todos los modelos con la base de datos
-        await sequelize.sync({ force: true });
+        await sequelize.sync({ alter: true });
         console.log("---Tablas sincronizadas---");
 
          // Verificar si existen empresas antes de insertar
