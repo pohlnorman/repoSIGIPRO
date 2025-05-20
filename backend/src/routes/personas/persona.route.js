@@ -1,6 +1,7 @@
 import express from 'express';
 import { Persona } from '../../models/personas/persona.model.js';
 import { Contrato } from '../../models/contratos/contrato.model.js';
+import { where } from 'sequelize';
 
 const router = express.Router();
 
@@ -77,6 +78,29 @@ router.get('/persona/:id',async(req,res)=>{
 
         res.json(persona);
     } catch (error) {
+        res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+    }
+});
+
+// ✅ Obtener datos de una persona por ID
+router.get('/persona/:rut',async(req,res)=>{
+    try {
+        const {rut} = req.params;
+
+        // Buscar persona por rut
+        const persona = await Persona.findOne({where:{rut}});
+
+        if (!persona) {
+            return res.status(404).json({ mensaje: "Persona no encontrada" });
+        }
+
+        res.status(200).json({
+            message: 'Persona encontrada',
+            nombre: persona.nombre,
+            apellido: persona.apellido
+        });
+    } catch (error) {
+        console.error('Error al buscar persona por RUT:', error);
         res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
     }
 });

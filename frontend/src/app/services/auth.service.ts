@@ -42,4 +42,8 @@ export class AuthService {
     const url = api.host + api.auth + "/registerWithRoleUser";
     return this.http.post<any>(url, register);
   }
+
+  getPersonaPorRut(rut: string) {
+  return this.http.get<{ nombre: string, apellido: string }>(`http://localhost:4000/persona/findByRut/${rut}`);
+}
 }

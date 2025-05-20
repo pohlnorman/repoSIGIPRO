@@ -29,7 +29,29 @@ export class RegisterComponent {
       username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       password: ['', [Validators.required, passwordValidator()]],
       confirmPassword: ['', [Validators.required, passwordValidator()]],
-    })
+    });
+
+    this.form.get('rut')?.valueChanges.subscribe(rut => {
+      if (rut && this.form.get('rut')?.valid) {
+        this.authService.getPersonaPorRut(rut).subscribe({
+          next: (resp) => {
+            this.form.patchValue({
+              nombre: resp.nombre,
+              apellido: resp.apellido
+            });
+
+            this.form.get('nombre')?.disable();
+            this.form.get('apellido')?.disable();
+          },
+      error: () => {
+        this.form.patchValue({
+          nombre: '',
+          apellido: ''
+        });
+      }
+    });
+  }
+});
   }
 
   onSubmit() {
