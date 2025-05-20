@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Register } from '../../../interfaces/auth.register';
+import { PersonaService } from '../../../services/persona.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private personaService:PersonaService
   ) {
     this.form = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -33,7 +35,7 @@ export class RegisterComponent {
 
     this.form.get('rut')?.valueChanges.subscribe(rut => {
       if (rut && this.form.get('rut')?.valid) {
-        this.authService.getPersonaPorRut(rut).subscribe({
+        this.personaService.findByRut(rut).subscribe({
           next: (resp) => {
             this.form.patchValue({
               nombre: resp.nombre,
