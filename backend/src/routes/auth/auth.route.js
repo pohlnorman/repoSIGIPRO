@@ -159,7 +159,10 @@ router.post('/registerWithRoleUser', async (req, res) =>{
             console.log('🟢 Usuario creado:', newUser.toJSON());
 
             //actualiza el usuario de persona
-            await persona.update({ tieneUsuario: 1 },{transaction});
+            await persona.update({ 
+                tieneUsuario: 1,
+                email: newUser.username
+            },{transaction});
             console.log('🔄 Campo tieneUsuario actualizado en Persona');
 
             // Si todo salió bien, confirmar la transacción
@@ -191,12 +194,14 @@ router.post('/login' ,async (req, res) => {
 
     try {
         const user = await User.findOne({ where: { username }, include:{model:Empresa} });
-        console.log('Usuario:', user.toJSON());
+        
 
         // Verificar usuario y contraseña
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Credenciales incorrectas' });
+            return res.status(401).json({ message: 'Email o password incorrectos' });
         }
+
+        console.log('Usuario:', user.toJSON());
 
         // Generar Token JWT
         const payload = {
