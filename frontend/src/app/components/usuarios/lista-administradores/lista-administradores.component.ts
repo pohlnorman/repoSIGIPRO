@@ -17,7 +17,7 @@ export class ListaAdministradoresComponent implements OnInit {
   empresa: Empresa | undefined;
   users: User[] = [];
   dtOptions: any = {
-    pagingType: 'full_numbers',
+    pagingType: 'simple_numbers',
     language: {
       url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-CL.json'
     },
