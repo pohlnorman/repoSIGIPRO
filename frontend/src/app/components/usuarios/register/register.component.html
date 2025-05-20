@@ -11,7 +11,7 @@
                             <label class="form-label">Rut<span class="text-danger">*</span><span class="form-text"> (Sin
                                     puntos con guion)</span>
                             </label>
-                            <input formControlName="rut" type="text" class="form-control">
+                            <input formControlName="rut" type="text" class="form-control" autocomplete="off">
                             @if (form.get('rut')?.hasError('required') && form.get('rut')?.touched) {
                             <span class="text-danger">requerido.</span>
                             }
@@ -22,7 +22,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Nombre<span class="text-danger">*</span></label>
-                            <input formControlName="nombre" type="text" class="form-control">
+                            <input formControlName="nombre" type="text" class="form-control" autocomplete="off">
                             @if (form.get('nombre')?.hasError('required') && form.get('nombre')?.touched) {
                             <span class="text-danger">requerido.</span>
                             }
@@ -30,7 +30,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Apellido<span class="text-danger">*</span></label>
-                            <input formControlName="apellido" type="text" class="form-control">
+                            <input formControlName="apellido" type="text" class="form-control" autocomplete="off">
                             @if (form.get('apellido')?.hasError('required') && form.get('apellido')?.touched) {
                             <span class="text-danger">requerido.</span>
                             }
@@ -39,7 +39,7 @@
                         <div class="mb-3">
                             <label class="form-label">Usuario<span class="text-danger">*</span><span class="form-text">
                                     (Email)</span></label>
-                            <input formControlName="username" type="email" class="form-control">
+                            <input formControlName="username" type="email" class="form-control" autocomplete="off">
                             @if (form.get('username')?.hasError('required') && form.get('username')?.touched) {
                             <p class="mb-0 text-danger">Email Requerido.</p>
                             }
@@ -50,7 +50,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Password<span class="text-danger">*</span></label>
-                            <input formControlName="password" type="password" class="form-control">
+                            <input formControlName="password" type="password" class="form-control" autocomplete="off">
                             @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
                             <p class="mb-0 text-danger">Requerido.</p>
                             }
@@ -63,7 +63,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Confirmar password<span class="text-danger">*</span></label>
-                            <input formControlName="confirmPassword" type="password" class="form-control">
+                            <input formControlName="confirmPassword" type="password" class="form-control" autocomplete="off">
                             @if (form.get('confirmPassword')?.hasError('required') &&
                             form.get('confirmPassword')?.touched) {
                             <p class="mb-0 text-danger">Requerido.</p>

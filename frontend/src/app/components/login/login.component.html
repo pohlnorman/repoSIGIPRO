@@ -8,7 +8,7 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input formControlName="username" type="email" class="form-control">
+                            <input formControlName="username" type="email" class="form-control" autocomplete="off">
                             @if (form.get('username')?.hasError('required') && form.get('username')?.touched) {
                             <p class="mb-0 text-danger">Requerido.</p>
                             }
@@ -18,7 +18,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input formControlName="password" type="password" class="form-control">
+                            <input formControlName="password" type="password" class="form-control" autocomplete="off">
                             @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
                             <p class="mb-0 text-danger">Requerido.</p>
                             }
