@@ -4,13 +4,13 @@ import { rutValidator } from '../../../utils/rutValidator';
 import { passwordValidator } from '../../../utils/passwordValidator';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Register } from '../../../interfaces/auth.register';
 import { PersonaService } from '../../../services/persona.service';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

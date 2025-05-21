@@ -18,10 +18,16 @@ import { CrearAdminComponent } from './components/usuarios/crear-admin/crear-adm
 import { ListaAdministradoresComponent } from './components/usuarios/lista-administradores/lista-administradores.component';
 import { RegisterComponent } from './components/usuarios/register/register.component';
 import { ListaTallasComponent } from './components/contratos/lista-tallas/lista-tallas.component';
+import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
+import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
+import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
+    { path: 'quienes-somos', component: QuienesSomosComponent },
+    { path: 'politica-privacidad', component: PoliticaPrivacidadComponent },
+    { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     { path: 'registro', component: RegisterComponent },
     { path: 'home', component: HomeComponent, canActivate: [authGuard], data: { role: [1,2,3] } },
     { path: 'personas', component: ListaTodasLasPersonasComponent, canActivate: [authGuard], data: { role: [1,2] } },
