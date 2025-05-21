@@ -47,16 +47,30 @@ router.post('/register', async (req, res) =>{
 
             // Crear el nuevo usuario para la persona (la contraseña se hashea automáticamente por el hook en users.model.js)
             const newUser = await User.create({ username, password, rolId: userRolId, estado: 1,empresaId, personaId});
-            await Persona.update({ tieneUsuario: 1 },{where: {id: persona.id}});
+            await Persona.update({ 
+                tieneUsuario: 1,
+                email: newUser.username
+            },{where: {id: persona.id}});
 
             // Excluir contraseña de la respuesta
             const userResponse = newUser.toJSON();
             delete userResponse.password;
 
             res.status(201).json({ message: 'Usuario para persona registrado exitosamente', user: userResponse });
+
         }else if(empresaId != null){
+            const empresa = await Empresa.findByPk(empresaId);
+
+            if (!empresa) {
+                return res.status(404).json({ message: 'La empresa no existe' });
+            }
+
             // Crear el nuevo usuario para la empresa (la contraseña se hashea automáticamente por el hook en users.model.js)
             const newUser = await User.create({ username, password, rolId: userRolId, estado: 1,empresaId, personaId});
+
+            await Empresa.update({ 
+                email: newUser.username
+            },{where: {id: empresa.id}});
 
             // Excluir contraseña de la respuesta
             const userResponse = newUser.toJSON();
